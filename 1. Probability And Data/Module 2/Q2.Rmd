@@ -1,0 +1,125 @@
+---
+title: "Quiz 2"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+### 1.
+
+```{r q1}
+question("Which of the below data sets has the highest standard deviation? You do not need to 
+         calculate the exact standard deviations to answer this question.",
+         answer("0,1,1,1,1,1,2"),
+         answer("0,100,200,300,400,500,600",correct = TRUE),
+         answer("0, 25, 25, 25, 25, 25, 25"),
+         answer("0,1,2,3,4,5,6"))
+```
+
+### 2.
+
+```{r q2}
+question("The distribution of housing prices in a country where 25% of the houses cost below 
+         $350,000, 50% of the houses cost below $450,000, 75% of the houses cost below $1,000,000
+         and there are a meaningful number of houses that cost more than $6,000,000 is most likely
+         :",
+         answer("right skewed",correct = TRUE),
+         answer("symmetric"),
+         answer("uniform"),
+         answer("left skewed"))
+```
+
+### 3.
+
+<b>Based on the relative frequency histogram below,</b>
+
+```{r image, fig.align='center'}
+jpeg::readJPEG("figure.jpg") -> x
+grid::grid.raster(x)
+```
+
+```{r q3}
+question("which of the following statements is supported by the plot?",
+         answer("The mean of the distribution is smaller than its median."),
+         answer("There are no outliers in the distribution."),
+         answer("It is not possible to estimate the median without knowing the sample size."),
+         answer("The IQR of the distribution is roughly 10.",correct = TRUE),
+         answer("The distribution is multimodal."))
+```
+
+### 4.
+
+```{r q4}
+question("A recent housing survey was conducted to determine the price of a typical home in a
+         city that is mostly middle-class, with one very expensive suburb. The mean price of a 
+         house in this city is roughly $650,000. Which of the following statements is most likely
+         to be true?",
+         answer("There are about as many houses in this city that cost more than $650,000 than 
+         less than this amount."),
+         answer("We need to know the standard deviation to answer this question"),
+         answer("Majority of houses in this city cost more than $650,000."),
+         answer("Majority of houses in this city cost less than $650,000.",correct = TRUE))
+```
+
+### 5.
+
+<b>Phi Delta Kappa (PDK) is an international professional organization for educators that, in
+collaboration with Gallup, has been conducting polls on the public’s attitudes toward the public
+schools since 1969. The following was one of the questions on the 2011 poll:
+
+”Most teachers in the nation now belong to unions or associations that bargain over salaries,
+working conditions, and the like. Has unionization, in your opinion, helped, hurt, or made no
+difference in the quality of public school education in the United States?”. The respondents’
+answers broken down by party affiliation are shown below</b>
+
+```{r figure 2,fig.align = 'center',out.width = "50%"}
+jpeg::readJPEG("figure2.jpg") -> x
+grid::grid.raster(x)
+```
+
+```{r q5}
+question("Which of the following statements is most justified by these data?",
+         answer("14% of Republicans and 58% of Democrats think that teachers belonging to unions 
+         or bargaining associations helped the quality of public school education in the United 
+         States."),
+         answer("The results of the survey suggest a relationship between opinion on teachers 
+         belonging to unions or bargaining associations and political party affiliation.",
+         correct = TRUE),
+         answer("The results of the survey suggest that opinion on teachers belonging to unions 
+         or bargaining associations and political party affiliation appear to be independent."),
+         answer("A histogram or a box plot would be useful for investigating if distribution of 
+         opinion on teachers belonging to unions or bargaining associations varies by political 
+         party affiliation."))
+```
+
+### 6.
+
+<b>Professors regularly give two versions of an exam. The professor may also provide summary
+statistics for each version. Suppose the following summary is provided:</b>
+
+
+```{r figure 3,fig.align = 'center',out.width = "50%"}
+jpeg::readJPEG("figure3.jpg") -> x
+grid::grid.raster(x)
+```
+
+```{r q6}
+question("A student who took Version A says that he should get an extra point because his exam 
+         was harder as evidenced by the lower mean score for Version A, as shown by the mean 
+         score. Does the student have a good argument? Pick the best answer below.",
+         answer("No. The median of Version A is higher."),
+         answer("No. The average scores are relatively close when considering the spread of the 
+         distributions. The difference might just be due to just chance.",correct = TRUE),
+         answer("We need to know the shape of the distribution for each version to determine if 
+         this argument is valid."),
+         answer("Yes. Only 53 students took exam Version A while 65 students took exam Version 
+                B."),
+         answer("Yes. The difference in the exam scores means that there is a difference in 
+         difficulty between the versions."),
+         answer("We need to know the minimum and the maximum for each version to determine if 
+         this argument is valid."))
+```

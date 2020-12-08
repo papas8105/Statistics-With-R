@@ -1,0 +1,118 @@
+---
+title: "Quiz 1"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include = FALSE}
+library(learnr)
+library(gradethis)
+knitr::opts_chunk$set(echo = FALSE)
+gradethis_setup()
+```
+
+### 1.
+
+<b>Consider the table below describing a data set of individuals who have registered to volunteer
+at a public school.</b>
+
+|Name |Year born|Phone number|Number of siblings|Annual Income|
+|:----|:--------|:-----------|:----------------:|:-----------:|
+|Jenny|1975     |8929223     |0                 |60,000       |
+|Ted  |1984     |8675309     |3                 |22,500       |
+|...  |...      |...         |...               |...          |
+
+
+```{r q1}
+question("Which of the choices below lists categorical variables?",
+         answer("phone number and name",correct = TRUE),
+         answer("name and number of siblings"),
+         answer("annual income and phone number"),
+         answer("number of siblings and year born"))
+```
+
+### 2.
+
+```{r q2}
+question("A study is designed to test the effect of type of light on exam performance of
+         students. 180 students are randomly assigned to three classrooms: one that is dimly lit,
+         another with yellow lighting, and a third with white fluorescent lighting, and given the
+         same exam. Which of the following correctly identifies the variables used in the study
+         as explanatory and response?",
+         answer("explanatory: exam performance</br>
+         response: dimly lit, yellow, white fluorescent"),
+         answer("explanatory: exam performance</br>
+         response: type of light (categorical with 3 levels)"),
+         answer("explanatory: dimly lit, yellow, white fluorescent</br>
+         response: exam performance"),
+         answer("explanatory: type of light (categorical with 3 levels)</br>
+         response: exam performance",correct = TRUE))
+```
+
+### 3.
+
+```{r q3}
+question("Past research suggests that students who study with fewer distractions (internet, cell 
+         phone, etc.) tend to get higher grades. Which of the following is the best scenario for 
+         being able to generalize this finding to the population of all students?",
+         answer("The students participate in the study after seeing signs about the survey posted
+         around campus."),
+         answer("A survey is emailed to all registered students, and the results are based on the
+         sample of returned surveys."),
+         answer("Sample only includes students who are in classes that the researcher teaches."),
+         answer("A student list for the college is obtained and students are randomly selected 
+         from the list, and all selected students participate in the study.",correct = TRUE))
+```
+
+### 4.
+
+<b>An extraneous variable that is related to the explanatory and response variables and
+that prevents us from deducing causal relationships based on observational studies is
+called a _______ (use all lower cases in your answer please).</b>
+
+```{r q4,exercise = TRUE}
+## Enter word here as a string
+
+```
+
+```{r q4-check}
+grade_result(
+  pass_if(~identical(tolower(.result),'confounding'))
+)
+```
+
+### 5.
+
+```{r q5}
+question("For your political science class, you’d like to take a survey from a sample of all the
+         Catholic Church members in your town. Your town is divided into 17 neighborhoods, each
+         with similar socio-economic status distribution and ethnic diversity, and each contains
+         a Catholic Church. Rather than trying to obtain a list of all members of all these
+         churches, you decide to pick 3 churches at random. For these churches, you’ll ask to get
+         a list of all current members and contact 100 members at random. What kind of design
+         have you used?",
+         answer("simple random sampling"),
+         answer("multistage sampling",correct = TRUE),
+         answer("stratified sampling"),
+         answer("quota sampling"),
+         answer("systematic sampling"))
+```
+
+### 6.
+
+```{r q6}
+question("Which of the following is not one of the four principles of experimental design?",
+         answer("block"),
+         answer("control"),
+         answer("replicate"),
+         answer("cluster",correct = TRUE))
+```
+
+### 7.
+
+```{r q7}
+question("Which of the following is one of the four principles of experimental design?",
+         answer("randomize",correct = TRUE),
+         answer("stratify"),
+         answer("cluster"))
+```
