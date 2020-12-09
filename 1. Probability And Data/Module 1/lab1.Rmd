@@ -2,17 +2,18 @@
 title: "Introduction to R and RStudio"
 output: statsr:::statswithr_lab
 ---
-
-<div id="instructions">
-Complete all **Exercises**, and submit answers to **Questions** on the Coursera 
-platform.
+<style>body{text-align: justify}</style>
+<div class="instructions">
+Complete all **Exercises**, and submit answers to **Questions** on the Coursera platform.
 </div>
+
+## Introduction
 
 The goal of this lab is to introduce you to R and RStudio, which you'll be using
 throughout the course both to learn the statistical concepts discussed in the 
 course and to analyze real data and come to informed conclusions. To straighten 
 out which is which: R is the name of the programming language itself and RStudio 
-is a convenient interface.
+is a convenient interface.k
 
 As the labs progress, you are encouraged to explore beyond what the labs dictate;
 a willingness to experiment will make you a much better programmer. Before we 
@@ -144,19 +145,24 @@ variables) by typing:
 names(arbuthnot)
 ```
 
-1. How many variables are included in this data set? 
-<ol>
-<li> 2 </li>
-<li> 3 </li>
-<li> 4 </li>
-<li> 82 </li>
-<li> 1710 </li>
-</ol>
+<div class="question">
+How many variables are included in this data set? 
 
-<div id="exercise">
-**Exercise**: What years are included in this dataset? Hint: Take a look at the year 
+* 2
+* 3 Correct
+* 4
+* 82
+* 1710
+</div>
+
+<div class="exercise">
+What years are included in this dataset? Hint: Take a look at the year 
 variable in the Data Viewer to answer this question.
 </div>
+
+```{r years}
+arbuthnot$year
+```
 
 You should see that the data frame contains the columns `year`,  `boys`, and 
 `girls`. At this point, you might notice that many of the commands in R look a 
@@ -164,8 +170,8 @@ lot like functions from math class; that is, invoking R commands means supplying
 a function with some number of arguments. The `dim` and `names` commands, for 
 example, each took a single argument, the name of a data frame.
 
-<div id="boxedtext">
-**Tip: ** If you use the up and down arrow keys, you can scroll through your 
+<div class="boxedtext">
+**Tip:** If you use the up and down arrow keys, you can scroll through your 
 previous commands, your so-called command history. You can also access it 
 by clicking on the history tab in the upper right panel. This will save 
 you a lot of typing in the future.
@@ -196,18 +202,19 @@ This command will only show the number of boys baptized each year. The dollar
 sign basically says "go to the data frame that comes before me, and find the 
 variable that comes after me".
 
-2. What command would you use to extract just the counts of girls born? 
-<ol>
-<li> `arbuthnot$boys` </li>
-<li> `arbuthnot$girls` </li>
-<li> `girls` </li>
-<li> `arbuthnot[girls]` </li>
-<li> `$girls` </li>
-</ol>
+<div class="question">
+What command would you use to extract just the counts of girls born? 
+
+* `arbuthnot$boys`
+* `arbuthnot$girls` Correct
+* `girls`
+* `arbuthnot[girls]`
+* `$girls`
+</div>
 
 ```{r extract-counts-of-girls-born}
 # type your code for the Question 2 here, and Knit
-
+arbuthnot$girls
 ```
 
 Notice that the way R has printed these data is different. When we looked at the
@@ -215,35 +222,32 @@ complete data frame, we saw 82 rows, one on each line of the display. These data
 are no longer structured in a table with other variables, so they are displayed 
 one right after another. Objects that print out in this way are called vectors; 
 they represent a set of numbers. R has added numbers in [brackets] along the left
-side of the printout to indicate locations within the vector. For example, in the arbuthnot$boys
-vector, 5218  follows [1], indicating that 5218 is the first entry in the vector. And if [43]
-starts a line, then that would mean the first number on that line would represent the 43rd entry
-in the vector.
-
-R has some powerful functions for making graphics. We can create a simple plot 
-of the number of girls baptized per year with the command
-
-```{r plot-girls-vs-year}
-ggplot(data = arbuthnot, aes(x = year, y = girls)) +
-  geom_point()
-```
+side of the printout to indicate locations within the vector. For example, 5218 
+follows [1], indicating that 5218 is the first 
 
 Before we review the code for this plot, let's summarize the trends we see in the 
 data.
 
-1. Which of the following best describes the number of girls baptised over the years included in
+<div class="question">
+Which of the following best describes the number of girls baptized over the years included in
 this dataset? 
-<ol>
-<li> There appears to be no trend in the number of girls baptised from 1629 to 1710. </li>
-<li> There is initially an increase in the number of girls baptised, which peaks around 1640.
-After 1640 there is a decrease in the number of girls baptised, but the number begins to increase
-again in 1660. Overall the trend is an increase in the number of girls baptised. </li>
-<li> There is initially an increase in the number of girls baptised. This number peaks around
-1640 and then after 1640 the number of girls baptised decreases. </li>
-<li> The number of girls baptised has decreased over time. </li>
-<li> There is an initial increase in the number of girls baptised but this number appears to
-level around 1680 and not change after that time point. </li>
-</ol>
+
+* There appears to be no trend in the number of girls baptized from 1629 to 1710. 
+* There is initially an increase in the number of girls baptized, which peaks around 1640. After
+1640 there is a decrease in the number of girls baptized, but the number begins to increase again
+in 1660. Overall the trend is an increase in the number of girls baptized. Correct
+* There is initially an increase in the number of girls baptized. This number peaks around 1640
+and then after 1640 the number of girls baptized decreases. 
+* The number of girls baptized has decreased over time. 
+* There is an initial increase in the number of girls baptized but this number appears to level
+around 1680 and not change after that time point. 
+</div>
+
+```{r plot-q3}
+# type your code for the Exercise here, and Knit
+ggplot(data = arbuthnot,aes(x = year,y = girls)) + geom_line() + 
+  geom_point(color = 'red')
+```
 
 Back to the code... We use the `ggplot()` function to build plots. If you run the 
 plotting code in your console, you should see the plot appear under the *Plots* tab 
@@ -251,7 +255,7 @@ of the lower right panel of RStudio. Notice that the command above again looks l
 a function, this time with arguments separated by commas. 
 
 - The first argument is always the dataset. 
-- Next, we provide thevariables from the dataset to be assigned to `aes`thetic 
+- Next, we provide the variables from the dataset to be assigned to `aes`thetic 
 elements of the plot, e.g. the x and the y axes. 
 - Finally, we use another layer, separated by a `+` to specify the `geom`etric 
 object for the plot. Since we want to scatterplot, we use `geom_point`.
@@ -262,14 +266,14 @@ does and learn the arguments that are available to you, just type in a question 
 followed by the name of the function that you're interested in. Try the following in
 your console:
 
-```{r plot-help, tidy = FALSE}
+```{r plot-help, tidy = FALSE,eval = FALSE}
 ?ggplot
 ```
 
 Notice that the help file replaces the plot in the lower right panel. You can 
 toggle between plots and help files using the tabs at the top of that panel. 
 
-<div id="boxedtext">
+<div class="boxedtext">
 More extensive help for plotting with the `ggplot2` package can be found at 
 http://docs.ggplot2.org/current/. The best (and easiest) way to learn the syntax is 
 to take a look at the sample plots provided on that page, and modify the code 
@@ -312,7 +316,7 @@ What in the world is going on here? The `%>%` operator is called the **piping**
 operator. Basically, it takes the output of the current line and pipes it into 
 the following line of code.
 
-<div id="boxedtext">
+<div class="boxedtext">
 **A note on piping: ** Note that we can read these three lines of code as the following: 
 
 *"Take the `arbuthnot` dataset and **pipe** it into the `mutate` function. 
@@ -326,8 +330,8 @@ and girls counts for that year and recording that value in a new column called
 total.
 </div>
 
-<div id="boxedtext">
-**Where is the new variable? ** When you make changes to variables in your dataset, 
+<div class="boxedtext">
+**Where is the new variable?** When you make changes to variables in your dataset, 
 click on the name of the dataset again to update it in the data viewer.
 </div>
 
@@ -348,19 +352,18 @@ Note that using `geom_line()` instead of `geom_point()` results in a line plot i
 of a scatter plot. You want both? Just layer them on:
 
 ```{r plot-total-vs-year-line-and-point}
-ggplot(data = arbuthnot, aes(x = year, y = total)) +
-  geom_line() +
-  geom_point()
+ggplot(data = arbuthnot, aes(x = year, y = total)) + geom_line() + geom_point()
 ```
 
-<div id="exercise">
-**Exercise**: Now, generate a plot of the proportion of boys born over time. What 
+<div class="exercise">
+Now, generate a plot of the proportion of boys baptized over time. What 
 do you see? 
 </div>
 
 ```{r plot-proportion-of-boys-over-time}
 # type your code for the Exercise here, and Knit
-
+ggplot(data = arbuthnot,aes(x = year,y = boys/total)) + geom_line() + 
+  geom_point(color = 'red',cex = 2,pch = 19)
 ```
 
 Finally, in addition to simple mathematical operators like subtraction and 
@@ -398,101 +401,108 @@ data(present)
 The data are stored in a data frame called `present` which should now be loaded in 
 your workspace.
 
-4. How many variables are included in this data set?
-<ol>
-<li> 2 </li>
-<li> 3 </li>
-<li> 4 </li>
-<li> 74 </li>
-<li> 2013 </li>
-</ol>
+<div class="question">
+How many variables are included in this data set?
+
+* 2 
+* 3 Correct
+* 4 
+* 74 
+* 2013 
+</div>
 
 ```{r variables-in-present}
 # type your code for Question 4 here, and Knit
-
+dim(present)[2]
 ```
 
-<div id="exercise">
-**Exercise**: What years are included in this dataset? **Hint:** Use the `range` 
+<div class="exercise">
+What years are included in this dataset? **Hint:** Use the `range` 
 function and `present$year` as its argument.
 </div>
 
 ```{r years-in-present-data}
 # type your code for Exercise here, and Knit
-
+range(present$year)
 ```
 
-5. Calculate the total number of births for each year and store these values in a new 
+<div class="question">
+Calculate the total number of births for each year and store these values in a new 
 variable called `total` in the `present` dataset. Then, calculate the proportion of 
 boys born each year and store these values in a new variable called `prop_boys` in 
 the same dataset. Plot these values over time and based on the plot determine if the 
 following statement is true or false: The proportion of boys born in the US has 
 decreased over time. 
-<ol>
-<li> True </li>
-<li> False </li>
-</ol>
+
+* True Correct
+* False 
+</div>
 
 ```{r prop-boys-over-time}
 # type your code for Question 5 here, and Knit
-
+present <- present %>% mutate(total = boys + girls,prop_boys = boys/total)
+ggplot(present,aes(x = year,y = prop_boys)) + geom_line() + geom_point(cex = 2,
+                                                                       pch = 19,color = 'red')
 ```
 
 
-6. Create a new variable called `more_boys` which contains the value of either `TRUE` 
+<div class="question">
+Create a new variable called `more_boys` which contains the value of either `TRUE` 
 if that year had more boys than girls, or `FALSE` if that year did not. Based on this 
 variable which of the following statements is true? 
-<ol>
-<li> Every year there are more girls born than boys. </li>
-<li> Every year there are more boys born than girls. </li>
-<li> Half of the years there are more boys born, and the other half more girls born. </li>
-</ol>
+
+* Every year there are more girls born than boys. 
+* Every year there are more boys born than girls. Correct
+* Half of the years there are more boys born, and the other half more girls born. 
+</div>
 
 ```{r more-boys-per-year}
 # type your code for Question 6 here, and Knit
-
+present <- present %>% mutate(more_boys = boys >= girls)
+sum(present$more_boys) ## equal to the lines of dimensional
 ```
 
+<div class="question">
+ Calculate the boy-to-girl ratio each year, and store these values in a new variable called
+ `prop_boy_girl` in the `present` dataset. Plot these values over time. Which of the following
+ best describes the trend? 
 
-7. Calculate the boy-to-girl ratio each year, and store these values in a new variable called
-`prop_boy_girl` in the `present` dataset. Plot these values over time. Which of the following
-best describes the trend? 
-<ol>
-<li> There appears to be no trend in the boy-to-girl ratio from 1940 to 2013. </li>
-<li> There is initially an increase in boy-to-girl ratio, which peaks around 1960. After 1960
-there is a decrease in the boy-to-girl ratio, but the number begins to increase in the mid 1970s.
-</li>
-<li> There is initially a decrease in the boy-to-girl ratio, and then an increase between 1960
-and 1970, followed by a decrease. </li>
-<li> The boy-to-girl ratio has increased over time. </li>
-<li> There is an initial decrease in the boy-to-girl ratio born but this number appears to level
-around 1960 and remain constant since then. </li>
-</ol>
+* There appears to be no trend in the boy-to-girl ratio from 1940 to 2013. 
+* There is initially an increase in boy-to-girl ratio, which peaks around 1960. After 1960 there
+is a decrease in the boy-to-girl ratio, but the number begins to increase in the mid 1970s. 
+* There is initially a decrease in the boy-to-girl ratio, and then an increase between 1960 and
+1970, followed by a decrease. Correct
+* The boy-to-girl ratio has increased over time. 
+* There is an initial decrease in the boy-to-girl ratio born but this number appears to level
+around 1960 and remain constant since then.  
+</div>
 
 ```{r prop-boy-girl-over-time}
 # type your code for Question 7 here, and Knit
-
+present <- present %>% mutate(prop_boy_girl = boys / girls)
+ggplot(data = present,aes(x = year,prop_boy_girl)) + geom_line() + geom_point(
+  pch = 19,cex = 2,color = 'red'
+)
 ```
 
-8. In what year did we see the most total number of births in the U.S.? *Hint:* Sort 
+<div class="question">
+In what year did we see the most total number of births in the U.S.? *Hint:* Sort 
 your dataset in descending order based on the `total` column. You can do this 
 interactively in the data viewer by clicking on the arrows next to the variable 
-names. Or to arrange the data in a descenting order with new function: `descr` (for 
+names. Or to arrange the data in a descending order with new function: `desc` (for 
 descending order).
-<ol>
-<li> 1940 </li>
-<li> 1957 </li>
-<li> 1961 </li>
-<li> 1991 </li>
-<li> 2007 </li>
-</ol>
+
+* 1940 
+* 1957 
+* 1961 
+* 1991 
+* 2007 Correct
+</div>
 
 ```{r most-total-births}
 # type your code for Question 8 here
 # sample code is provided below, edit as necessary, uncomment, and then Knit
-#present %>%
-#  mutate(total = ?) %>%
-#  arrange(desc(total))
+present %>% mutate(total = boys + girls) %>% arrange(desc(total)) %>% select(year) %>% head(1)
 ```
 
 ## Resources for learning R and working in RStudio
@@ -504,10 +514,10 @@ might find the following tips and resources helpful.
 - In this course we will be using the `dplyr` (for data wrangling) and `ggplot2` (for 
 data visualization) extensively. If you are googling for R code, make sure
 to also include these package names in your search query. For example, instead
-of googling "scatterplot in R", google "scatterplot in R with `ggplot2`".
+of googling "scatterplot in R", google "scatterplot in R with ggplot2".
 
-- The following cheathseets may come in handy throughout the course. Note that some 
-of the code on these cheatsheets may be too advanced for this course, however 
+- The following cheet sheets may come in handy throughout the course. Note that some 
+of the code on these cheat sheets may be too advanced for this course, however 
 majority of it will become useful as you progress through the course material.
     - [Data wrangling cheatsheet](http://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
     - [Data visualization cheatsheet](http://www.rstudio.com/wp-content/uploads/2015/12/ggplot2-cheatsheet-2.0.pdf)
@@ -518,6 +528,5 @@ this course, if you would like further opportunities to practice we recommend
 checking out the relevant courses at [DataCamp](https://www.datacamp.com/courses).
 
 <div id="license">
-This is a derivative of an [OpenIntro](https://www.openintro.org/stat/labs.php) lab, and is
-released under a [Attribution-NonCommercial-ShareAlike 3.0 United States](https://creativecommons.org/licenses/by-nc-sa/3.0/us/) license.
+This is a derivative of an [OpenIntro](https://www.openintro.org/stat/labs.php) lab, and is released under a [Attribution-NonCommercial-ShareAlike 3.0 United States](https://creativecommons.org/licenses/by-nc-sa/3.0/us/) license.
 </div>

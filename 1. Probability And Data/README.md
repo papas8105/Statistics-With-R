@@ -7,6 +7,7 @@
 ## R LABORATORY
 
 The packages needed:</br>
+
 install.packages("knitr")</br>
 install.packages("rmarkdown")</br>
 install.packages("dplyr")</br>

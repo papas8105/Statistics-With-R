@@ -4,14 +4,15 @@
 
 Book can be downloaded [here](https://leanpub.com/openintro-statistics).
 
-For the labs you will need the packages: 
+For the labs you will need an account at [Rstudio-Cloud](https://rstudio.cloud/) 
+and then follow the links provided in the course.
 
-* dplyr
-* ggplot2
-* devtools
-* knitr
-* shiny
+If you plan to work the lab exercises offline the packages you'll need are:
 
-Supplementary package installed with the command: 
-
-> devtools::install_github("StatsWithR/statsr"))
+* install.packages("knitr")
+* install.packages("rmarkdown")
+* install.packages("dplyr")
+* install.packages("ggplot2")
+* install.packages("shiny")
+* install.packages("devtools")
+* devtools::install_github("StatsWithR/statsr")*
