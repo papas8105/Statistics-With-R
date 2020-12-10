@@ -2,7 +2,7 @@
 title: "Introduction to data"
 output: statsr:::statswithr_lab
 ---
-
+<style>body{text-align: justify}</style>
 <div class="instructions">
 Complete all **Exercises**, and submit answers to **Questions** on the Coursera 
 platform.
@@ -220,23 +220,11 @@ single numerical variable are as follows:
 - `max`
 </div>
 
-We can also filter based on multiple criteria. Suppose we are interested in
-flights headed to San Francisco (SFO) in February:
-
-```{r}
-sfo_feb_flights <- nycflights %>%
-  filter(dest == "SFO", month == 2)
-```
-
-Note that we can separate the conditions using commas if we want flights that
-are both headed to SFO **and** in February. If we are interested in either
-flights headed to SFO **or** in February we can use the `|` instead of the comma.
-
 <div class="question">
  Create a new data frame that includes flights headed to SFO in February, and save 
 this data frame as `sfo_feb_flights`. How many flights meet these criteria? 
 
-* 68  
+* 68 Correct
 * 1345  
 * 2286  
 * 3563 
@@ -245,7 +233,7 @@ this data frame as `sfo_feb_flights`. How many flights meet these criteria?
 
 ```{r sfo-feb-flights}
 # type your code for Question 1 here, and Knit
-
+sfo_feb_flights <- nycflights %>% filter(dest == 'SFO',month == 2)
 ```
 
 
@@ -255,14 +243,14 @@ delays of `sfo_feb_flights`. Which of the following is false?
 
 * The distribution is unimodal.  
 * The distribution is right skewed.  
-* No flight is delayed more than 2 hours.  
+* No flight is delayed more than 2 hours.  Correct
 * The distribution has several extreme values on the right side. 
 * More than 50% of flights arrive on time or earlier than scheduled. 
 </div>
 
 ```{r sfo-feb-flights-arrival-delays}
 # type your code for Question 2 here, and Knit
-
+hist(sfo_feb_flights$arr_delay,col = 'red',breaks = 24)
 ```
 
 Another useful functionality is being able to quickly calculate summary 
@@ -287,13 +275,16 @@ IQR of arrival delays?
 * American Airlines  
 * JetBlue Airways  
 * Virgin America  
-* Delta and United Airlines 
+* Delta and United Airlines Correct 
 * Frontier Airlines 
 </div>
 
 ```{r sfo-feb-flights-arrival-delays-carrier}
 # type your code for Question 3 here, and Knit
-
+sfo_feb_flights %>% group_by(carrier) %>% summarise(IQR = quantile(probs = .75,arr_delay) - 
+                                                          quantile(probs = .25,arr_delay),
+                                                    med = median(arr_delay)) %>% 
+  arrange(desc(IQR))
 ```
 
 ### Departure delays over months
@@ -307,28 +298,25 @@ Let's think about how we would answer this question:
 we are learning, we need to
     + `group_by` months, then
     + `summarise` mean departure delays.
-- Then, we need to `arrange` these average delays in `desc`ending order
+- Then, we need to `arrange` these average delays in `desc`ending order.
 
-```{r mean-dep-delay-months}
-nycflights %>%
-  group_by(month) %>%
-  summarise(mean_dd = mean(dep_delay)) %>%
-  arrange(desc(mean_dd))
-```
 
 <div class="question">
  Which month has the highest average departure delay from an NYC airport? 
 
 * January  
 * March  
-* July  
+* July Correct
 * October 
 * December 
 </div>
 
 ```{r highest-avg-dep-delay-month}
 # type your code for Question 4 here, and Knit
-
+nycflights %>%
+  group_by(month) %>%
+  summarise(mean_dd = mean(dep_delay)) %>%
+  arrange(desc(mean_dd)) %>% head(1)
 ```
 
 
@@ -339,12 +327,15 @@ nycflights %>%
 * March  
 * July  
 * October 
-* December 
+* December Correct
 </div>
 
 ```{r highest-median-dep-delay-month}
 # type your code for Question 5 here, and Knit
-
+nycflights %>%
+  group_by(month) %>%
+  summarise(median_dd = median(dep_delay)) %>%
+  arrange(desc(median_dd))
 ```
 
 
@@ -354,7 +345,7 @@ avoid flying if you really dislike delayed flights, and why?
 
 * Mean would be more reliable as it gives us the true average.  
 * Mean would be more reliable as the distribution of delays is symmetric.  
-* Median would be more reliable as the distribution of delays is skewed.  
+* Median would be more reliable as the distribution of delays is skewed.  Correct
 * Median would be more reliable as the distribution of delays is symmetric. 
 * Both give us useful information. 
 </div>
@@ -408,27 +399,21 @@ for 5 or more minutes.
 Note that we are also overwriting the `nycflights` data frame with the new 
 version of this data frame that includes the new `dep_type` variable.
 
-We can handle all the remaining steps in one code chunk:
-
-```{r}
-nycflights %>%
-  group_by(origin) %>%
-  summarise(ot_dep_rate = sum(dep_type == "on time") / n()) %>%
-  arrange(desc(ot_dep_rate))
-```
-
 <div class="question">
  If you were selecting an airport simply based on on time departure percentage, 
 which NYC airport would you choose to fly out of? 
 
 * EWR  
 * JFK  
-* LGA  
+* LGA Correct
 </div>
 
 ```{r on-time-dep-perc-airport}
 # type your code for Question 7 here, and Knit
-
+nycflights %>%
+  group_by(origin) %>%
+  summarise(ot_dep_rate = sum(dep_type == "on time") / n()) %>%
+  arrange(desc(ot_dep_rate))
 ```
 
 We can also visualize the distribution of on on time departure rate across 
@@ -449,7 +434,7 @@ can be calculated as distance divided by number of hours of travel, and note tha
 pipe to select just these two variables with `select(avg_speed, tailnum)`. You can 
 Google this tail number to find out more about the aircraft. 
 
-* N666DN  
+* N666DN Correct
 * N755US  
 * N779JB  
 * N947UW  
@@ -458,7 +443,9 @@ Google this tail number to find out more about the aircraft.
 
 ```{r fastest-avg-speed-tailnum}
 # type your code for Question 8 here, and Knit
-
+nycflights %>% select(tailnum,distance,air_time) %>% group_by(tailnum) %>%
+  mutate(avg_speed = distance / (air_time * 60)) %>% arrange(desc(avg_speed)) -> cache_data
+head(cache_data)
 ```
 
 
@@ -468,14 +455,14 @@ about the relationship between average speed and distance.
 
 * As distance increases the average speed of flights decreases.  
 * The relationship is linear.  
-* There is an overall postive association between distance and average speed. 
+* There is an overall postive association between distance and average speed. Correct
 * There are no outliers.  
 * The distribution of distances are uniform over 0 to 5000 miles.  
 </div>
 
 ```{r avg-speed-dist-scatter}
 # type your code for Question 9 here, and Knit
-
+plot(cache_data$distance,cache_data$avg_speed,col = rgb(1,0,0,.2),pch = 19,cex = 2)
 ```
 
 <div class="question">
@@ -483,10 +470,17 @@ Suppose you define a flight to be "on time" if it gets to the destination on
 time or earlier than expected, regardless of any departure delays. Mutate the data 
 frame to create a new variable called `arr_type` with levels `"on time"` and 
 `"delayed"` based on this definition. Also mutate to create a new variable called 
-`dep_type` with levels `"on time"` and `"delayed"` depending on the flight was delayed for fewer than 5 minutes or 5 minutes or more, respectively. In other words, if `arr_delay` is 0 minutes or fewer, `arr_type` is `"on time"`. If `dep_delay` is less than 5 minutes, `dep_type` is `"on time"`. Then, determine the on time arrival percentage based on whether the flight departed on time or not. What percent of flights that were `"delayed"` departing arrive `"on time"`?
+`dep_type` with levels `"on time"` and `"delayed"` depending on the flight was delayed for fewer
+than 5 minutes or 5 minutes or more, respectively. In other words, if `arr_delay` is 0 minutes or
+fewer, `arr_type` is `"on time"`. If `dep_delay` is less than 5 minutes, `dep_type` is `"on
+time"`. Then, determine the on time arrival percentage based on whether the flight departed on
+time or not. What percent of flights that were `"delayed"` departing arrive `"on time"`?
+
 <div/>
 
 ```{r on-time-arr-perc}
 # type your code for Question 10 here, and Knit
-
+nycflights <- nycflights %>% mutate(arr_type = ifelse(arr_delay <= 0,"on time","delayed"))
+## we defined dep_type in a previous question, answer in the first line
+nycflights %>% group_by(dep_type) %>% summarise(percentage = sum(arr_type == "on time") / n()) 
 ```
