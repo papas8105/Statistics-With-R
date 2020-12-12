@@ -1,5 +1,5 @@
 ---
-title: "Practice Quiz"
+title: "Practice Quiz 2"
 output: learnr::tutorial
 runtime: shiny_prerendered
 ---

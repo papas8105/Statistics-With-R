@@ -1,0 +1,120 @@
+---
+title: "Practice Quiz 4"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+### 1.
+
+```{r q1}
+question("Heights of 10 year-olds, regardless of gender, closely follow a normal distribution with
+         mean 55 inches and standard deviation 6 inches. Which of the following is true?",
+         answer("We would expect more 10 year-olds to be shorter than 55 inches than taller."),
+         answer("Roughly 95% of 10 year-olds are between 37 and 73 inches tall."),
+         answer("A normal probability plot of heights of a random sample of 500 10 year- olds
+         people should show a fairly straight line.",correct = TRUE),
+         answer("A 10 year-old who is 65 inches tall would be considered more unusual than a 10
+         year-old who is 45 inches tall."))
+```
+
+### 2.
+
+```{r q2}
+question("While it is often assumed that the probabilities of having a boy or a girl are the same,
+         the actual probability of having a boy is slightly higher at 0.51. Suppose a couple plans
+         to have 3 children. What is the probability that exactly 2 of them will be boys?",
+         answer("0.38",correct = TRUE),
+         answer("0.48"),
+         answer("0.58"),
+         answer("0.68"),
+         answer("0.78"))
+```
+
+> dbinom(2,3,0.51)
+
+### 3.
+
+```{r q3}
+question("You are about to take a multi-day tour through a national park which is famous for its
+         wildlife. The tour guide tells you that on any given day there’s a 61% chance that a
+         visitor will see at least one “big game” animal, and a 39% chance they’ll see no big game
+         animals; when the tour guide says “big game”, he refers to either a moose or a bear. The
+         guide assures you that big game sightings on a single day are independent of any other
+         day’s sightings. Given the information from the tour guide, which of the following
+         calculations cannot be performed using a binomial distribution?",
+         answer("Calculate the probability that you see big game exactly 0 days of an 8-day
+                trip."),
+         answer("Calculate the probability that you see big game on at least 8 days of a 10-day 
+         trip."),
+         answer("Calculate the probability that you see at least 4 big game animals on the first 
+         day of a 5-day trip."),
+         answer("Calculate the probability that over a 5-day trip, you see big game on the first 
+                day and on every day after.",correct = TRUE))
+```
+
+### 4.
+
+```{r q4}
+question("Your friend is about to begin an introductory chemistry course at his university. The
+         course has collected data from students on their study habits for many years, and the
+         professor reports that study times (in hours) for the final exam closely follow a normal
+         distribution with mean 24 and standard deviation 4. What percentage of students study 34
+         hours or more?",
+         answer("Between 5% and 10%"),
+         answer("Between 2.5% and 5%"),
+         answer("Less than 2.5%",correct = TRUE),
+         answer("Between 15% and 20%"),
+         answer("Between 30% and 35%"))
+```
+
+> 100 * pnorm(34,23,4,lower.tail = FALSE)
+
+### 5.
+
+```{r q5}
+question("Which of the following is false? Hint: It might be useful to sketch the distributions.",
+         answer("Z scores are defined for observations from distributions of any shape and
+                skew.",correct = TRUE),
+         answer("Calculating percentiles based on the Z table is only appropriate for observations
+         that come from (nearly) normal distributions."),
+         answer("The Z score for the median of a left skewed distribution is most likely
+                negative."),
+         answer("The Z score for the median of a symmetric distribution is approximately 0."))
+```
+
+### 6.
+
+```{r q6}
+question("About 30% of human twins are identical, and the rest are fraternal. Identical twins are
+         necessarily the same sex, half are males and the other half are females. One-quarter of
+         fraternal twins are both male, one-quarter both female, and one-half are mixes: one male,
+         one female. You have just become a parent of twins and are told they are both girls.
+         Given this information, what is the probability that they are identical?",
+         answer("72%"),answer("33%"),answer("50%"),answer("46%",correct = TRUE))
+```
+
+### 7.
+
+```{r q7}
+question("Which of the following probabilities can be calculated using the normal approximation to
+         the binomial distribution?",
+         answer("Roughly 20% of Americans smoke. What is the probability that in a random sample 
+         of 40 people at least 5 are smokers?"),
+         answer("A clothing store offers store credit cards and only about 17% of the credit card 
+         holders are males. If we were to randomly sample 100 store credit card holders to conduct
+         a survey, what is the probability that at most 20 of the sampled individuals would be 
+         males?"),
+         answer("A September 2011 Gallup poll suggests that 56% of Americans do not have a great
+         deal of confidence in the mass media to report the news fully, accurately, and fairly.
+         What is the probability that in a random sample of 20 people, 10 or more of them have
+         confidence in the mass media?"),
+         answer("A 2013 Gallup poll reports that 8% of Americans say the situation in Syria is the
+         most important issue affecting the U.S. In a randomly selected group of 75 Americans, 
+         what is the probability that more than 10 of them believe the situation in Syria is the 
+         most important issue facing the U.S.?"))
+```
