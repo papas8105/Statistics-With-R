@@ -1,0 +1,111 @@
+---
+title: "Quiz 4"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+### 1.
+
+```{r q1}
+question("Suppose that scores on a national entrance exam are normally distributed with mean 1000 
+         and standard deviation 100. Which of the following is false?",
+         answer("We would expect the number of people scoring above 1200 to be more than the 
+         number of people scoring below 900.",correct = TRUE),
+         answer("A normal probability plot of national entrance exam scores of a random sample of 
+         1,000 people should show a straight line."),
+         answer("Roughly 68% of people have scores between 900 and 1100."),
+         answer("A score greater than 1300 is more unusual than a score less than 800."))
+```
+
+### 2.
+
+```{r q2}
+question("A 2005 survey found that 7% of teenagers (ages 13 to 17) suffer from an extreme fear of
+         spiders (arachnophobia). At a summer camp there are 10 teenagers sleeping in each tent.
+         Assume that these 10 teenagers are independent of each other. What is the probability
+         that at least one of them suffers from arachnophobia?",
+         answer("62%"),answer("72%"),answer("52%",correct = TRUE),answer("42%"),answer("82%"))
+```
+
+### 3.
+
+```{r q3}
+question("About 24% of flights departing from New York’s John F. Kennedy International Airport
+         were delayed in 2009. Assuming that the chance of a flight being delayed has stayed
+         constant at 24%, we are interested in finding the probability of 10 out of the next 100
+         departing flights being delayed. Noting that if one flight is delayed, the next flight is
+         more likely to be delayed, which of the following statements is correct?",
+         answer("We cannot calculate this probability using the binomial distribution since
+         whether or not one flight is delayed is not independent of another.",correct = TRUE),
+         answer("We can use the binomial distribution with n = 10, k = 100, and p = 0.24 to 
+         calculate this probability."),
+         answer("We can use the geometric distribution with n = 100, k = 10, and p = 0.24 to 
+         calculate this probability."),
+         answer("We can use the binomial distribution with n = 100, k = 10, and p = 0.24 to
+         calculate this probability."))
+```
+
+
+### 4.
+
+```{r q4}
+question("Suppose you observe a data point x = 12 and it is known that this data point came from a
+         normal distribution with mean 5 and standard deviation 2. Which of the following
+         statements is true regarding the observation of x = 12?",
+         answer("The observation would be considered unusual because x = 12 is over twice as large
+         as the mean of the distribution."),
+         answer("The observation would be considered unusual because it is farther than three 
+         standard deviations from the mean.",correct = TRUE),
+         answer("The observation would not be considered unusual, because we know exactly which 
+         normal distribution it comes from."),
+         answer("The observation would not be considered unusual, because it comes from a normal 
+         distribution."),
+         answer("The observation would not be considered unusual because it is only about three 
+         standard deviations from the mean."))
+```
+
+### 5.
+
+```{r q5}
+question("Which of the following is false? Hint: It might be useful to sketch the distributions.",
+         answer("The Z score for the median of a symmetric distribution is approximately 0."),
+         answer("If you calculated the Z score for the median of a right skewed distribution,
+         you’d most likely get a positive number.",correct = TRUE),
+         answer("Regardless of the shape and skew of a distribution, Z scores are still defined 
+         and can be calculated for observations from that distribution."),
+         answer("If observations don’t come from a distribution that’s nearly normal, we can’t 
+         calculate percentiles based on the Z table."))
+```
+
+### 6.
+
+```{r q6}
+question("More than three-quarters of the nation’s colleges and universities now offer online
+         classes, and about 23% of college graduates have taken a course online. 39% of those who
+         have taken a course online believe that online courses provide the same educational value
+         as one taken in person, a view shared by only 27% of those who have not taken an online
+         course. At a coffee shop you overhear a recent college graduate discussing that she
+         doesn’t believe that online courses provide the same educational value as one taken in
+         person. What’s the probability that she has taken an online course before?",
+         answer("0.1403"),answer("0.3014"),answer("0.2079"),answer("0.1997",correct = TRUE))
+```
+
+### 7.
+
+```{r q7}
+question("One strange phenomenon that sometimes occurs at U.S. airport security gates is that an
+         otherwise law-abiding passenger is caught with a gun in his/her carry-on bag. Usually the
+         passenger claims he/she forgot to remove the handgun from a rarely-used bag before
+         packing it for airline travel. It’s estimated that every day 3,000,000 gun owners fly on
+         domestic U.S. flights. Suppose the probability a gun owner will mistakenly take a gun to
+         the airport is 0.00001. What is the probability that tomorrow more than 35 domestic
+         passengers will accidentally get caught with a gun at the airport? Choose the closest
+         answer.",
+         answer("0.18",correct = TRUE),answer("0.91"),
+         answer("0.28"),answer("0.82"),answer("0.02"))
+```

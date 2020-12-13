@@ -108,7 +108,7 @@ question("Which of the following probabilities can be calculated using the norma
          answer("A clothing store offers store credit cards and only about 17% of the credit card 
          holders are males. If we were to randomly sample 100 store credit card holders to conduct
          a survey, what is the probability that at most 20 of the sampled individuals would be 
-         males?"),
+         males?",correct = TRUE),
          answer("A September 2011 Gallup poll suggests that 56% of Americans do not have a great
          deal of confidence in the mass media to report the news fully, accurately, and fairly.
          What is the probability that in a random sample of 20 people, 10 or more of them have
