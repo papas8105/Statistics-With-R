@@ -4,16 +4,24 @@ output:
   html_document: 
     fig_height: 4
     highlight: pygments
-    theme: spacelab
+    theme: journal
+    toc: true
 ---
 <style>body{text-align: justify}</style>
 ## Setup
 
 ### Load packages
 
-```{r load-packages, message = FALSE}
+```{r load-packages, message = FALSE,comment = ''}
 library(ggplot2)
 library(dplyr)
+## R version
+library(grid)
+library(gridExtra)
+library(ggmosaic)
+library(scatterplot3d)
+library(RColorBrewer)
+getRversion()
 ```
 
 ### Load data
@@ -21,49 +29,246 @@ library(dplyr)
 ```{r load-data,cache = TRUE}
 load("brfss2013.RData")
 ```
-* * *
 
 ## Part 1: Data
 
+### Introduction
 
+The data we have loaded is stored in variable 'brfss2013', it contains 491775 
+observations and 330 variables. The Behavioral Risk Factor Surveillance System (BRFSS) is
+a collaborative project between all of the states in the United States (US) and
+participating US territories and the Centers for Disease Control and Prevention (CDC).
+The BRFSS was initiated in 1984, with 15 states collecting surveillance data on risk
+behaviors through monthly telephone interviews. Over time, the number of states
+participating in the survey increased; by 2001, 50 states, the District of Columbia,
+Puerto Rico, Guam, and the US Virgin Islands were participating in the BRFSS. Today, all
+50 states, the District of Columbia, Puerto Rico, and Guam collect data annually and
+American Samoa, Federated States of Micronesia, and Palau collect survey data over a
+limited point-in-time (usually one to three months). In this document, the term “state”
+is used to refer to all areas participating in BRFSS, including the District of Columbia,
+Guam, and the Commonwealth of Puerto Rico.
 
-* * *
+### Concerns On Data Collection
+
+In this report we will briefly explore three simple questions based on the data we 
+loaded. A big concern according to the introduction is the _no response_ bias, since 
+many interviewers might not respond to the call or refuse to answer, which might also
+imply a _volunteer response_ bias in the collection of data e.g. someone might want to
+keep the personal health record private and another healthier person might want to 
+demonstrate a healthy life style by being willing to answer the call. We also don't know 
+how diverse the socioeconomic status of the subjects is, except from some indicators like
+"rent" or "home status" or "health insurance coverage". Having the above remarks in mind 
+we will treat the states as homogeneous within and heterogeneous between all others, 
+justifying it by noting that each state follows different policies and has a diverse 
+economy from the others i.e. Alaska has big income from oil sources, California has the 
+hollywood show industry etc with different opportunities and job diversity within the 
+USA.
+
+### Stratified Sampling
+
+We will randomly sample 3 states and then sample from each strata 1000 observations, the 
+process will create three distinct datasets in order to conduct the exploratory analysis
+and make the findings of the analysis more robust and generalizable. 
+We will set the seed in order to make the report reproducible.
+
+```{r data creation}
+set.seed(88)
+```
 
 ## Part 2: Research questions
 
-**Research quesion 1:**
+<b><u>Research question 1:</b></u>
 
-**Research quesion 2:**
+Is there any connection between __time of sleep__ and the __reported weight__ in 
+pounds? Is weight and time of sleep connected to __sex__ or __depressive disorder__ in
+for them to be considered as blocking factors further analysis?
 
-**Research quesion 3:**
+<b><u>Research question 2:</b></u>
 
+How does smoking at least 100 cigarettes affect the probability of suffering a stroke? 
+Are there any other concerns for similar cardiovascular problems caused by the smoking 
+habit of even a small amount of cigarettes?
 
-* * *
+<b><u>Research quesτion 3:</b></u>
+
+Does a positive diabetes diagnosis of a subject, enforces a change in life style? How
+does the knowledge of having diabetes by a subject, affects the hours of exercising and
+further connected to that how does this affect the overall health and change in nutrition
+habits of a subject positively or negatively?
 
 ## Part 3: Exploratory data analysis
 
-NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk" 
-button (green button with orange arrow) above. Make sure that your code is visible
-in the project you submit. Delete this note when before you submit your work.
+### Research quesion 1:
 
-**Research quesion 1:**
+We will investigate the response variable <text style="red">reported weight</text> (in 
+pounds) against the __time of sleep__ (in hours) and the __confounding__ variables 
+__sex__ and __depression__ status.
 
-```{r}
-
+```{r dataset1}
+states <- unique(brfss2013$X_state)
+dataset1 <- brfss2013 %>% 
+  filter(X_state %in% sample(states,3,replace = FALSE)) 
+dataset1 <- dataset1[c('sleptim1','weight2','addepev2','sex')] %>% 
+  mutate(weight2 = as.numeric(weight2),sleptim1 = as.numeric(sleptim1))
+dataset1 <- dataset1[complete.cases(dataset1),] %>% filter(sleptim1 != '',
+    weight2 != '.b',weight2 != ',')
 ```
 
+We prepared the data set and now we will have to identify the variables we will use,
+these are `sleptim1`, `weight2` and `addepev2`. Since gender plays a role in 
+weight and body mass index we might consider using the `sex` variable too. 
 
-
-**Research quesion 2:**
-
-```{r}
-
+```{r graphs1,fig.align = 'center'}
+colors <- c(rgb(1,0,0,0.4),rgb(0,0,1,0.4))
+colScale1 <- scale_colour_manual(name = "sex",values = colors)
+names(colScale1) <- levels(as.vector(dataset1$sex))
+g1 <- ggplot(data = dataset1,aes(x = sleptim1,y = weight2,colour = sex)) + 
+  geom_point() + geom_smooth(method = 'lm',formula = y ~ x,
+                             color = 'black',lwd = 2) + colScale1 +
+  scale_y_continuous(name = "Weight In Pounds", limits = c(0, 600)) +
+  geom_smooth(formula = y ~ splines::bs(x,3),method = "gam") 
+colScale2 <- scale_colour_manual(name = "depression status",values = colors)
+names(colScale2) <- levels(as.vector(dataset1$addepev2))
+g2 <- ggplot(data = dataset1,aes(x = sleptim1,y = weight2,colour = addepev2)) + 
+  geom_point() + geom_smooth(method = 'lm',formula = y ~ x,
+                             color = 'black',lwd = 2) + colScale2 +
+  scale_y_continuous(name = "Weight In Pounds", limits = c(0, 600)) +
+  geom_smooth(formula = y ~ splines::bs(x,3),method = "gam")
+grid.arrange(g1,g2,ncol = 2,top = textGrob("Color By Factor - Sex/Depression"))
 ```
 
+As expected, the left plot shows that gender plays a role in weight, regardless of the 
+time a subject sleeps and that men as expected are heavier. The bulk of the observations 
+lies between 4 to 12 hours, in which we see the interesting pattern of women's weight 
+dominating the bottom and the outliers' area leaving the middle area dominated by men. In
+the right plot as expected the 'no depression' state is prominent and we don't see any 
+specific pattern of the red spots, which are scattered as if they were positioned
+randomly on top of the blue dots. So our investigation should consider __sex__ as a
+confounding variable, regardless of the ratio of males to females which is less than one
+and the fact that the depressed people are underrepresented, since in the left plot we 
+observe a pattern and in the second none. The ratios mentioned can be computed with 
 
-
-**Research quesion 3:**
-
-```{r}
-
+```{r ratios,comment = ""}
+table(dataset1$sex)
+table(dataset1$addepev2)
 ```
+
+and we conclude that in the next steps of inference and experimentation, __sex__ 
+should be considered as a blocking factor.
+
+### Research quesion 2:
+
+For this question we will create a simple model in which the explanatory variable is 
+whether the subject smoked at least 100 cigarettes or not and the response variable is 
+whether the subject suffered a stroke or not. We will prepare the dataset which will 
+be used in this section.
+
+```{r dataset2}
+dataset2 <- brfss2013 %>%
+  filter(X_state %in% sample(states,3,replace = FALSE)) 
+```
+
+The response variable in dataset2 is __smoke100__ and the explanatory variable is 
+__cvdstrk3__. For this question we cannot do nothing more than conducting an
+observational analysis, we have two categorical variables and hence a mosaic plot fits 
+the nature of the question. In order to make our exploratory analysis more robust, we
+might also be interested in another variable with the name
+__cvdinfr4__, which is a binary factor of whether a subject suffered a heart attack in 
+the past. So combining those two factors we might observe a connection between smoking 
+few cigarettes and cardiovascular problems represented by two variables combined in the 
+x axis.
+
+```{r graphs2,fig.align = "center"}
+ggplot(data = dataset2) + geom_mosaic(aes(x = product(smoke100),fill = smoke100,
+      conds = product(cvdinfr4,cvdstrk3)),divider = c("vspine","hspine","hspine")) + 
+  labs(y = 'smoked over 100 cigarettes',
+       x = 'diagnosed stroke:heart attack') + ggtitle("Conditional Mosaic Plot") + 
+  theme_bw()
+```
+
+We see that a non negligible amount of area is colored in red, which provides a good 
+observational evidence of whether even a small amount of cigarettes raises the risk of 
+health damage by stroke or heart attack.
+
+### Research quesion 3:
+
+We will prepare the dataset.
+
+```{r dataset3}
+dataset3 <- brfss2013 %>%
+  filter(X_state %in% sample(states,3,replace = FALSE))
+dataset3 <- dataset3 %>% select(diabete3,exerhmm1,fruitju1,fruit1,fvbeans,fvgreen,
+                                fvorang,vegetab1,avedrnk2)
+dataset3 <- dataset3[complete.cases(dataset3),]
+```
+
+We will use __diabete3__ variable which records the status of a subject regarding
+diabetes, as a <text style="red">blocking factor</text> to sequentially explore the
+connection of the disease with training, nutrition and alcohol consumption habits.
+
+####  Diabetes And Exercise
+
+__exerhmm__: Minutes Or Hours Walking, Running, Jogging, Or Swimming 
+
+```{r graphs3a,fig.align = "center"}
+ggplot(data = dataset3) + geom_boxplot(aes(y = diabete3,x = exerhmm1)) + theme_bw()
+```
+
+We know that some women during pregnancy can develop diabetes for a short time and we 
+will not be concerned with that box. For the other cases there doesn't seem to be any  
+median and quantile difference between the status Yes/No, except from the outliers which 
+might be attributed to noise and difference in class sizes.
+
+#### Diabetes / Fruit-Juice Consuption
+
+__fruitju1__: How Many Times Did You Drink 100 Percent Pure Fruit Juices?
+__fruit1__  : How Many Times Did You Eat Fruit?
+
+```{r graphs3b,fig.align = 'center'}
+colors <- brewer.pal(4,"RdYlBu")
+colScale1 <- scale_colour_manual(name = "diabetes status",values = colors)
+names(colScale1) <- levels(as.vector(dataset1$sex))
+ggplot(data = dataset3) + geom_point(aes(x = fruitju1,y = fruit1,color = diabete3)) + 
+  colScale1
+```
+
+We don't observe any specific trend of clustering between the Yes/No diabetes status.
+
+#### Diabetes/ Vegetable - Beans Consumption
+
+__fvbeans__: How Many Times Did You Eat Beans Or Lentils?
+
+__fvgreen__: How Many Times Did You Eat Dark Green Vegetables?
+
+__fvorang__: How Many Times Did You Eat Orange-Colored Vegetables?
+
+__vegetab1__: How Many Times Did You Eat Other Vegetables?
+
+```{r graphs3c,fig.align = 'center'}
+par(mfrow = c(1,2))
+scatterplot3d(x = dataset3$fvbeans, y = dataset3$fvgreen,
+                             z = dataset3$fvorang,
+                             color = colors[dataset3$diabete3],pch = 19)
+scatterplot3d(x = dataset3$fvbeans, y = dataset3$fvgreen,
+                             z = dataset3$vegetab1,
+                             color = colors[dataset3$diabete3],pch = 19)
+```
+
+We observe the red points (diabetes diagnosed subjects) shifting to the right top bottom 
+corner, which imply that a further investigation is needed to analyze the relationship   
+between developing low fat/sugar after being diagnosed with diabetes implying that people
+take their health seriously.
+
+#### Diabetes / Alcohol Consumption Reduction
+
+__avedrnk2__: Avg Alcoholic Drinks Per Day In Past 30
+
+```{r graphs 3d,fig.align =  'center'}
+ggplot(data = dataset3) + geom_boxplot(aes(x = avedrnk2,y = diabete3))
+```
+
+Although the interquantile ranges don't show differences, the median of alcohol
+consumption of subjects with diabetes is a little lower than the other boxes, which
+implies that those subjects lower the consumption of drinks adopting a healthier life 
+style and could be added as evidence of a need for further investigation for how
+seriously diabetics take their health condition.
