@@ -8,7 +8,7 @@ runtime: shiny_prerendered
 library(learnr)
 knitr::opts_chunk$set(echo = FALSE)
 ```
-
+<style>body{text-align: justify}</style>
 ### 1.
 
 ```{r q1}

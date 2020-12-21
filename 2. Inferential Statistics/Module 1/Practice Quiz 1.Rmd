@@ -1,0 +1,106 @@
+---
+title: "Practice Quiz 1"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+<style>body{text-align: justify}</style>
+### 1.
+
+```{r q1}
+question("Suppose we are interested in studying how much chocolate is consumed by 
+         Coursera students, measured in grams per week. After surveying 500 students, we 
+         calculate an average of 175 grams per week with a standard deviation of 195 
+         grams per week. Which of the following is not necessarily true?",
+         answer("$\\bar{x} = 175,s = 195$"),
+         answer("A point estimate for the population standard deviation is 195."),
+         answer("A histogram of the samples will be skewed to the right.",
+                correct = TRUE),
+         answer("Just because the sample statistics are these values doesn't mean the
+                population values will be exactly equal to them, therefore it's not
+                necessarily true that $\\mu = 175,\\sigma = 195$."))
+```
+
+### 2.
+
+```{r q2}
+question("Which of the following is false?",
+         answer("Standard error measures the variability in means of samples of the same 
+         size taken from different populations.",correct = TRUE),
+         answer("Standard error computed based on a sample standard deviation will always
+         be lower than the standard deviation of that sample."),
+         answer("As the sample size increases, the variability of the sampling 
+         distribution decreases."),
+         answer("In order to reduce the standard error by half, sample size should be 
+         increased by a factor of 4."))
+```
+
+### 3.
+
+```{r q3}
+question("The ages of pennies at a particular bank follow a nearly normal distribution 
+         with mean 10.44 years with standard deviation 9.2 years. Say you take random 
+         samples of 30 pennies, find the mean age in each sample, and plot the 
+         distribution of these means. Which of the following are the best estimates for 
+         the center and spread of this distribution?",
+         answer("mean = 10.44/30 = 0.348</br>
+         standard error = $(9.2/30)^2 = 0.094$"),
+         answer("mean = 10.44</br>
+         standard error = 9.2/30 = 0.31"),
+         answer("mean = 10.44,</br>
+         standard error = 9.2"),
+         answer("mean = 10.44</br>
+         standard error = $\\frac{9.2}{\\sqrt{30}} = 1.689$",correct = TRUE))
+```
+
+
+### 4.
+
+```{r q4}
+question("Which of the following is true about sampling distributions?",
+         answer("Shape of the sampling distribution is always the same shape as the 
+         population distribution, no matter what the sample size is."),
+         answer("Sampling distribution of the mean is always right skewed since means
+         cannot be smaller than 0."),
+         answer("Sampling distributions get closer to normality as the sample size 
+         increases.",correct = TRUE),
+         answer("Sampling distributions are always nearly normal."))
+```
+
+### 5.
+
+```{r q5}
+question("To get an estimate of consumer spending in the U.S. following the Thanksgiving 
+         holiday, 436 randomly sampled American adults were surveyed. Their daily 
+         spending for the six-day period following Thanksgiving averaged $84.71. A 95% 
+         confidence interval based on this sample is ($80.31, $89.11). Which of the 
+         following are true? </br>
+         I. We are 95% confident that the average spending of the 436 American adults in 
+         this sample is between $80.31 and $89.11.</br>
+         II. If we collected many random samples of the same size and calculated a 
+         confidence interval for daily spending for each sample, then we would expect 95%
+         of the intervals to contain the true population parameter.</br>
+         III. We are 95% confident that the average spending of all American adults is 
+         between $80.31 and $89.11.",
+         answer("I and II"),
+         answer("I and III"),
+         answer("II and III",correct = TRUE),
+         answer("I, II, and III"),
+         answer("None"))
+```
+
+### 6.
+
+```{r q6}
+question("Which of the following is false about confidence intervals?All else held 
+         constant.",
+         answer("as the standard deviation of the sample increases, the width
+                increases."),
+         answer("as the sample size increases, the margin of error decreases."),
+         answer("as the confidence level increases, the width decreases.",
+                correct = TRUE),
+         answer("as the sample mean increases, the margin of error stays constant."))

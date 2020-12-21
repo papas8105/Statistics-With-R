@@ -10,7 +10,7 @@ library(gradethis)
 knitr::opts_chunk$set(echo = FALSE)
 gradethis_setup()
 ```
-
+<style>body{text-align: justify}</style>
 ### 1.
 
 <b>Consider the table below describing a data set of individuals who have registered to volunteer

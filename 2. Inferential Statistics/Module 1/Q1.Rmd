@@ -1,0 +1,163 @@
+---
+title: "Quiz 1"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include = FALSE}
+library(learnr)
+library(gradethis)
+knitr::opts_chunk$set(echo = FALSE)
+gradethis_setup()
+```
+<style>body{text-align: justify}</style>
+### 1.
+
+<b>Researchers studying anthropometry collected body girth measurements and skeletal 
+diameter measurements, as well as age, weight, height and gender, for 507 
+physically active individuals. The histogram below shows the sample distribution of
+heights in centimeters, and the table shows sample statistics calculated based on 
+this sample. </b>
+
+```{r fig1}
+fig <- jpeg::readJPEG("fig1.jpg")
+grid::grid.raster(fig)
+```
+```{r q1}
+question("Which of the following is not necessarily true?",
+         answer("The sample median is 170.3 cm."),
+         answer("The population mean is 171.1 cm.",correct = TRUE),
+         answer("The point estimate for the population mean is 171.1 cm."),
+         answer("The sample mean is 171.1 cm."))
+```
+
+### 2.
+
+```{r q2}
+question("Which of the following is false?",
+         answer("In order to reduce the standard error by half, sample size should be
+                doubled.",correct = TRUE),
+         answer("As the sample size increases, the variability of the sampling 
+         distribution decreases."),
+         answer("Standard error computed based on a sample standard deviation will always 
+         be lower than the standard deviation of that sample."),
+         answer("Standard error measures the variability in means of samples of the same 
+         size taken from the same population."))
+```
+
+### 3.
+
+```{r q3}
+question("For the standard deviation $\\sigma$ or s and the standard error SE, which of
+         the following is the correct set of descriptions?",
+         answer("s: variability in sample data</br>
+         SE: variability in point estimates from different samples of the same size and 
+         from same population</br>
+         $\\sigma$: variability in population data",correct = TRUE),
+         answer("$\\sigma$: variability in sample data</br>
+         s: variability in point estimates from different samples of the same size and 
+         from same population</br>
+         SE: variability in population data"),
+         answer("$\\sigma$: variability in sample data</br>
+         SE: variability in point estimates from different samples of the same size and 
+         from same population</br>
+         s: variability in population data"),
+         answer("SE: variability in sample data</br>
+         $\\sigma$: variability in population data</br>
+         s: variability in point estimates from different samples of the same size and 
+         from same population"))
+```
+
+### 4.
+<b>Four plots are presented below. The plot at the top is a distribution for a
+population. The mean is 60 and the standard deviation is 18. Also shown below is a
+distribution of
+
+(1) a single random sample of 500 values from this population,
+
+(2) a distribution of 500 sample means from random samples of each size 18,
+
+(3) a distribution of 500 sample means from random samples of each size 81.</b>
+
+```{r fig2}
+fig <- jpeg::readJPEG("fig2.jpg")
+grid::grid.raster(fig)
+```
+```{r q4}
+question("Determine which plot (A, B, or C) is which.",
+         answer("(1) one sample, n = 500 - Plot C</br>
+         (2) 500 samples, n = 18 - Plot A</br>
+         (3) 500 samples, n = 81 - Plot B"),
+         answer("(1) one sample, n = 500 - Plot C</br>
+         (2) 500 samples, n = 18 - Plot B</br>
+         (3) 500 samples, n = 81 - Plot A"),
+         answer("(1) one sample, n = 500 - Plot A</br>
+         (2) 500 samples, n = 18 - Plot B</br>
+         (3) 500 samples, n = 81 - Plot C"),
+         answer("(1) one sample, n = 500 - Plot B</br>
+         (2) 500 samples, n = 18 - Plot C</br>
+         (3) 500 samples, n = 81 - Plot A",correct = TRUE),
+         answer("(1) one sample, n = 500 - Plot A</br>
+         (2) 500 samples, n = 18 - Plot C</br>
+         (3) 500 samples, n = 81 - Plot B"))
+```
+
+### 5.
+
+```{r q5}
+question("The General Social Survey (GSS) is a sociological survey used to collect data 
+         on demographic characteristics and attitudes of residents of the United States. 
+         In 2010, the survey collected responses from over a thousand US residents. The 
+         survey is conducted face-to-face with an in-person interview of a 
+         randomly-selected sample of adults. One of the questions on the survey is “For 
+         how many days during the past 30 days was your mental health, which includes 
+         stress, depression, and problems with emotions, not good? Based on responses 
+         from 1,151 US residents, the survey reported a 95% confidence interval of 3.40 
+         to 4.24 days in 2010. Given this information, which of the following statements 
+         would be most appropriate to make regarding the true average number of days of 
+         “not good” mental health in 2010 for US residents?",
+         answer("There is not sufficient information to calculate the margin of error of 
+         this confidence interval."),
+         answer("For all US residents in 2010, there is a 95% probability that the true 
+         average number of days of “not good” mental health is between 3.40 and 4.24 
+         days."),
+         answer("For all US residents in 2010, based on this 95% confidence interval, we 
+         would reject a null hypothesis stating that the true average number of days of 
+         “not good” mental health is 5 days.",correct = TRUE),
+         answer("For these 1,151 residents in 2010, we are 95% confident that the average
+         number of days of “not good” mental health is between 3.40 and 4.24 days."))
+```
+
+### 6.
+
+```{r q6}
+question("Suppose we collected a sample of size n = 100 from some population and used the
+         data to calculate a 95% confidence interval for the population mean. Now suppose
+         we are going to increase the sample size to n = 300. Keeping all else constant,
+         which of the following would we expect to occur as a result of increasing the
+         sample size? </br>
+         I.   The standard error would decrease.</br>
+         II.  Width of the 95% confidence interval would increase. </br>
+         III. The margin of error would decrease.",
+         answer("II and III"),
+         answer("I and III",correct = TRUE),
+         answer("I and II"),
+         answer("I, II, and III"),
+         answer("None"))
+```
+
+### 7.
+
+```{r q7}
+question("A company offering online speed reading courses claims that students who take 
+         their courses show a 5 times (500%) increase in the number of words they can 
+         read in a minute without losing comprehension. A random sample of 100 students 
+         yielded an average increase of 415% with a standard deviation of 220%.</br></br>
+         Calculate a 95% confidence interval for the average increase in number of words 
+         students can read in a minute without losing comprehension. Choose the closest 
+         answer.",
+         answer("(371.88, 458.12)",correct = TRUE),
+         answer("(412.09, 417.91)"),
+         answer("(378.7, 451.3)"),
+         answer("(411.37, 418.63)"))
+```
