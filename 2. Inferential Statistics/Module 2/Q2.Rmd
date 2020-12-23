@@ -1,0 +1,128 @@
+---
+title: "Quiz 2"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+<style>body{text-align: justify}</style>
+### 1.
+
+```{r q1}
+question("A study suggests that the average college student spends 2 hours per 
+         week communicating with others online. You believe that this is an 
+         underestimate and decide to collect your own sample for a hypothesis 
+         test. You randomly sample 60 students from your dorm and find that on 
+         average they spent 3.5 hours a week communicating with others online. 
+         Which of the following is the correct set of hypotheses for this 
+         scenario?",
+         answer("$\\mathcal{H}_{0}:\\bar{x}=2$</br>$\\mathcal{H}_{a}:\\bar{x}<2$"),
+         answer("$\\mathcal{H}_{0}:\\mu=2$</br>$\\mathcal{H}_{a}:\\mu<2$"),
+         answer("$\\mathcal{H}_{0}:\\mu=2$</br>$\\mathcal{H}_{a}:\\mu>2$",correct = TRUE),
+         answer("$\\mathcal{H}_{0}:\\bar{x}=2$</br>$\\mathcal{H}_{a}:\\bar{x}>2$"),
+         answer("$\\mathcal{H}_{0}:\\mu=3.5$</br>$\\mathcal{H}_{a}:\\mu<3.5$"))
+```
+
+### 2.
+
+```{r q2}
+question("Which of the following is the correct definition of the p-value?",
+         answer("$\\mathbb{P}(\\mathcal{H}_{0} true |\\text{observed sample statistic})$"),
+         answer("$\\mathbb{P}(\\mathcal{H}_{0} true | \\mathcal{H}_{a} false)$"),
+         answer("$\\mathbb{P}(\\text{observed or more extreme sample statistic}|\\mathcal{H}_{0} true)$",
+                correct = TRUE),
+         answer("$\\mathbb{P}(\\text{observed sample statistic}|\\mathcal{H}_{0} true)$"))
+```
+
+### 3.
+
+```{r q3}
+question("Two-sided alternative hypotheses are phrased in terms of:",
+         answer("< or >"),answer("$\\neq$",correct = TRUE),
+         answer("$\\leq$ or $\\geq$"),answer("$\\approx$ or ="))
+```
+
+### 4.
+
+```{r q4}
+question("You set up a two-sided hypothesis test for a population mean $\\mu$ 
+         with a null hypothesis of $\\mathcal{H}_{0}: \\mu=100$. You chose a significance 
+         level of $\\alpha=0.05$. The p-value calculated from the data is 
+         0.12, and hence you failed to reject the null hypothesis. Suppose that 
+         after your analysis was completed and published, an expert informed you 
+         that the true value of $\\mu$ is 104. How would you describe the result of your analysis?",
+         answer("A Type 2 error was made because you failed to reject the null hypothesis but $\\mu$ is
+         really not equal to 100.",correct = TRUE),
+         answer("You did not make a Type 1 or Type 2 error."),
+         answer("A Type 1 error was made because you failed to reject the null hypothesis but $\\mu$ is
+                really not equal to 100."))
+```
+
+### 5.
+
+```{r q5}
+question("A statistician is studying blood pressure levels of Italians in the 
+         age range 75-80. The following is some information about her study:
+         The data were collected by responses to a survey conducted by email, 
+         and no measures were taken to get information from those who did not 
+         respond to the initial survey email.</br>
+         The sample observations only make up about 4% of the population.
+         The sample size is 2,047.</br>
+         The distribution of sample observations is skewed - the skew is easy to see, although not very 
+         extreme.</br>
+         The researcher is ready to use the Central Limit Theorem (CLT) in the main part of her analysis.
+         Which aspect of the her study is most likely to prevent her from using the CLT?",
+         answer("(I), because the sample may not be random and hence observations may not be 
+                independent.",correct = TRUE),
+         answer("(II), because she only has data from a small proportion of the whole population."),
+         answer("(III), because the sample size is too small compared to all Italians in the age range 
+         75-80."),
+         answer("(IV), because there is some skew in the sample distribution."))
+```
+
+### 6.
+
+```{r q6}
+question("SAT scores are distributed with a mean of 1,500 and a standard deviation of 300. You are
+         interested in estimating the average SAT score of first year students at your college. If you 
+         would like to limit the margin of error of your 95% confidence interval to 25 points, at least 
+         how many students should you sample?",
+         answer("392"),answer("393"),answer("553"),answer("554",correct = TRUE),answer("13,830"))
+```
+
+### 7.
+
+```{r q7}
+question("The significance level in hypothesis testing is the probability of",
+         answer("rejecting a null hypothesis"),
+         answer("rejecting an alternative hypothesis"),
+         answer("rejecting a true null hypothesis",correct = TRUE),
+         answer("failing to reject a false null hypothesis"),
+         answer("failing to reject a true null hypothesis"))
+```
+
+### 8.
+
+<b>Researchers investigating characteristics of gifted children 
+collected data from schools in a large city on a random sample of 
+thirty-six children who were identified as gifted children soon after 
+they reached the age of four. The following histogram shows the 
+distribution of the ages (in months) at which these children first 
+counted to 10 successfully. Also provided are some sample statistics.
+
+Suppose you read online that children first count to 10 successfully when they 
+are 32 months old, on average. You perform a hypothesis test evaluating 
+whether the average age at which gifted children first count to 10 is 
+different than the general average of 32 months. What is the p-value of 
+the hypothesis test?</b>
+```{r fig,fig.align = 'center'}
+grid::grid.raster(jpeg::readJPEG('fig.jpg'))
+```
+```{r q8}
+question("Choose the closest answer.",
+         answer("0.9656"),answer("0.9312"),answer("0.7183"),answer("0.0344"),
+         answer("0.0688",correct = TRUE))
+```

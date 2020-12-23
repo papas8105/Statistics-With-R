@@ -1,0 +1,72 @@
+---
+title: "Practice Quiz 2"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+<style>body{text-align: justify}</style>
+### 1.
+
+```{r q1}
+question("Read the following scenario and then, from the choices that follow, choose the correct set of
+         hypotheses for the scenario:</br>Since 
+         2008, chain restaurants in California have been required to display 
+         calorie counts of each menu item. Prior to menus displaying calorie 
+         counts, the average calorie intake of diners at a restaurant was 1100 
+         calories. After calorie counts started to be displayed on menus, a 
+         nutritionist collected data on the number of calories consumed at this 
+         restaurant from a random sample of diners. Do these data provide 
+         convincing evidence of a difference in the average calorie intake of a 
+         diners at this restaurant?",
+         answer("$\\mathcal{H}_0:\\mu=1100$</br>
+                $\\mathcal{H}_{a}:\\mu > 1100$"),
+         answer("$\\mathcal{H}_{0}:\\mu=1100$</br>
+                $\\mathcal{H}_{a}:\\mu\\neq1100$",correct = TRUE),
+         answer("$\\mathcal{H}_{0}:\\bar{x}=1100$,</br>
+                $\\mathcal{H}_{a}:\\bar{x}<1100$)$"),
+         answer("$\\mathcal{H}_{0}:\\mu=1100$</br>
+                $\\mathcal{H}_{a}:\\mu<1100$"))
+```
+
+### 2.
+
+```{r q2}
+question("Which of the following is the correct definition of the p-value?",
+         answer("$\\mathbb{P}(\\mathcal{H}_{0} true | \\mathcal{H}_{A} false)$"),
+         answer("$\\mathbb{P}(\\mathcal{H}_{0} true)$"),
+         answer("$\\mathbb{P}(\\mathcal{H}_{0} true | \\text{observed data})$"), 
+         answer("$\\mathbb{P}(\\text{observed or more extreme sample statistic}|\\mathcal{H}_0)$",
+                correct = TRUE))
+```
+
+### 3.
+
+```{r q3}
+question("One-sided alternative hypotheses are phrased in terms of:",
+         answer("$\\approx$ or ="),
+         answer("< or >",correct = TRUE),
+         answer("$\\leq$ or $\\geq$"),
+         answer("$\\neq$"))
+```
+
+### 4.
+
+```{r q4}
+question("A Type 2 error occurs when the null hypothesis is",
+         answer("rejected when it is true"),
+         answer("not rejected when it is false",correct = TRUE),
+         answer("rejected when it is false"),
+         answer("not rejected when it is true"))
+```
+
+### 5.
+
+```{r q5}
+question("True / False: Decreasing the significance level ($\\alpha$) will increase the probability of
+        making a Type 1 error.",
+        answer("True"),answer("False",correct = TRUE))
+```

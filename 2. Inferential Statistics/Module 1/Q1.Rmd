@@ -4,11 +4,9 @@ output: learnr::tutorial
 runtime: shiny_prerendered
 ---
 
-```{r setup, include = FALSE}
+```{r setup, include=FALSE}
 library(learnr)
-library(gradethis)
 knitr::opts_chunk$set(echo = FALSE)
-gradethis_setup()
 ```
 <style>body{text-align: justify}</style>
 ### 1.
