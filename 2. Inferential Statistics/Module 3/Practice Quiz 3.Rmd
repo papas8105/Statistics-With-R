@@ -1,0 +1,126 @@
+---
+title: "Practice Quiz 3"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include = FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+gradethis::gradethis_setup()
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+
+```{r q1}
+question("Consider the width of two bootstrap confidence intervals constructed 
+         based on the same sample. One of the intervals is constructed at a 90% 
+         confidence level and the other is constructed at a 95% confidence level.
+         Which of the following is true?",
+         answer("The 95% interval is wider.",correct = TRUE),
+         answer("There is not enough information to determine which interval is wider."),
+         answer("The 90% interval is wider."),
+         answer("The intervals are the same size."))
+```
+
+### 2.
+
+```{r q2}
+question("Which of the following is not a situation where the paired test is preferred?",
+         answer("Assess effectiveness of a diet regimen by comparing the before and after weights of 
+                subjects."),
+         answer("Assess gender-related salary gap by comparing salaries of randomly sampled men and
+                women.",correct = TRUE),
+         answer("Compare pre- (beginning of semester) and post-test (end of semester) scores of
+                students."),
+         answer("Compare artery thicknesses at the beginning of a study and after 2 years of taking
+                Vitamin E."))
+```
+
+### 3.
+
+```{r q3}
+question("You've just read a study that investigated the difference in brain 
+         sizes between EU and US citizens, based on data from random samples from
+         both populations. At the 5% significance level the study failed to 
+         reject the null hypothesis that EU and US citizens have (on average) 
+         brains of equal size. Which of the following is true regarding a 99% confidence interval for 
+         the difference in brain sizes?",
+         answer("Since the data come from samples and not populations, no conclusions can be made."),
+         answer("The interval contains 0.",correct = TRUE),
+         answer("The interval does not contain 0."),
+         answer("Without more information, it is impossible to know whether the interval contains 0."))
+```
+
+### 4.
+
+<b>The figure below shows three unimodal and symmetric curves, which assignment is most plausible? </b>
+
+```{r q4}
+grid::grid.raster(jpeg::readJPEG("fig1.jpg"))
+question("",
+         answer("$\\text{solid:} t_{df = 5}$</br>
+         $\\text{dashed:} t_{df=1}$</br>
+         $\\text{dotted: normal}$"),
+         answer("$\\text{solid:} t_{df=1}$</br>
+         $\\text{dashed:} t_{df = 5}$</br>
+         $\\text{dotted: normal}$"),
+         answer("$\\text{solid: normal}$</br>
+         $\\text{dashed:} t_{df = 5}$</br>
+         $\\text{dotted:} t_{df = 1}$",correct = TRUE),
+         answer("$\\text{solid: normal}$,</br>
+         $\\text{dashed:} t_{df = 1}$,</br>
+         $\\text{dotted:} t_{df = 5}$"))
+```
+
+### 5.
+We are testing the following hypotheses: </br>
+
+<center>$\mathcal{H}_{0}:\mu=3\\\mathcal{H}_{a}:\mu>3$</center>
+
+The sample size is 18. The test statistic is calculated as T = 0.5. What is the p-value?
+
+```{r q5,exercise = TRUE}
+## Do not round
+
+```
+
+```{r q5-check}
+grade_result(
+  pass_if(~identical(.result,pt(0.5,17,lower.tail = FALSE)))
+)
+```
+
+### 6.
+
+```{r q6}
+question("What does ANOVA mean?",
+         answer("Aardvarks not over vanilla ants"),
+         answer("Assessment of orthogonal variation"),
+         answer("Analysis of variance",correct = TRUE),
+         answer("Assessment of null observed variability"))
+```
+
+### 7.
+
+```{r q7}
+question("Which of the following is not a condition required for comparing means across multiple groups 
+         using ANOVA?",
+         answer("The variability across the groups should be about equal."),
+         answer("The means of each group should be roughly equal.",correct = TRUE),
+         answer("The data within each group should be nearly normal."),
+         answer("The observations should be independent within and across groups."))
+```
+
+### 8
+
+<b>Which of the following looks most like an F distribution?</b>
+
+```{r fig2}
+grid::grid.raster(jpeg::readJPEG("fig2.jpg"))
+```
+
+```{r q8}
+question("",answer("A"),answer("B",correct = TRUE),answer("C"),answer("D"))
+```

@@ -1,0 +1,219 @@
+---
+title: "Quiz 3"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+<style>body{text-align: justify}</style>
+
+### 1.
+
+```{r q1}
+question("Which of the following is false about bootstrapping?",
+         answer("A bootstrap confidence interval constructed based on a biased sample will still yield 
+                an unbiased estimate for the population parameter of interest.",correct = TRUE),
+         answer("Bootstrap distributions that are extremely skewed or have isolated clumps of values may
+         yield unreliable confidence intervals."),
+         answer("Bootstrap distributions are constructed by sampling with replacement from the original 
+         sample, while sampling distributions are constructed by sampling with replacement from the 
+         population."),
+         answer("The endpoints of a 95% bootstrap confidence interval are the cutoff values for the top 
+         and bottom 2.5% of the bootstrap distribution."))
+```
+
+### 2.
+
+```{r q2}
+question("Suppose we wanted to compare the rates of return for two stocks: the technology company Intel 
+         and the U.S. airline Southwest Airlines. To compare the rates of return, we take a random 
+         sample of 50 days of Intel's stock returns and another random sample of 50 days for Southwest's
+         stock returns (not necessarily the same days). These data should not be treated as paired. Why 
+         would these data not be considered paired data?",
+         answer("50 observations is not enough to be able to consider the data as paired."),
+         answer("When random sampling is involved, data can't be treated as paired."),
+         answer("The data can't be considered paired data because the two companies are in different
+                industries.",),
+         answer("The data can't be considered paired data because the days for which we have Intel data 
+                may be different from the days for which we have Southwest Airlines data.",
+                correct = TRUE))
+```
+
+### 3.
+
+```{r q3}
+question("Which of the following is false about bootstrap and sampling distributions?",
+         answer("Both distributions are comprised of sample statistics."),
+         answer("Both distributions get narrower as the standard deviation decreases."),
+         answer("Bootstrap distributions are centered at the sample statistic, sampling distributions are centered
+         at the population parameter."),
+         answer("Both distributions are created by sampling with replacement from the population.",correct = TRUE))
+```
+
+### 4.
+
+<b>Researchers studying IQ scores of mothers and fathers of "gifted" children collected data from 36 gifted
+children and their parents. First, differences in IQ scores of the father and the mother were calculated for each
+child (calculated as father's IQ score - mother's IQ score). The dot plot below shows the bootstrap distribution of
+means of 200 bootstrap samples taken from this original sample of differences in IQ scores. The mean of the
+bootstrap distribution is approximately -3.48 points and the bootstrap standard error is 1.3 points. Assume the
+usual conditions for constructing a bootstrap confidence interval are satisfied. </b>
+
+```{r q4}
+grid::grid.raster(jpeg::readJPEG('fig3.jpg'))
+question("Which of the following statements is false?",
+         answer("A 95% bootstrap confidence interval for the difference in IQ scores is approximately 
+                (-6, -0.9)."),
+         answer("Since 0 is apparently an unusual value for the statistic, then at the 5% significance
+         level we would fail to reject a null hypothesis of that claims that the fathers' and mothers' 
+         average IQs are equal.",correct = TRUE),
+         answer("It's likely that in the original sample, most mothers had higher IQ scores than the 
+                fathers."),
+         answer("A 90% bootstrap confidence interval for the difference in IQ scores would is 
+         approximately (-5.6, -1.3).)"))
+```
+
+### 5.
+
+```{r q5}
+question("An insurance company wants to estimate (using a confidence interval) its average claim amount using data 
+         from 20 randomly selected claims. Which of the following is false?",
+         answer("A confidence interval based on this sample is not accurate since the sample size is 
+                small.",correct = TRUE),
+         answer("The confidence interval can also be calculated using bootstrapping."),
+         answer("The critical t-score, $t^{*}$ has 19 degrees of freedom."),
+         answer("If the distribution of the sampled claim amounts is not extremely skewed, a T interval is
+         appropriate."))
+```
+
+### 6.
+
+<b>The figure below shows three t-distribution curves.</b>
+
+```{r q6}
+grid::grid.raster(jpeg::readJPEG("fig4.jpg"))
+question(" Which curve has the highest degree of freedom?",
+         answer("dashed"),answer("solid",correct = TRUE),answer("dotted"))
+```
+
+### 7.
+
+```{r q7}
+question("My friend, Tom, believes that his supermarket's prices are lower than mine, and sets an 
+         alternative hypothesis test reflecting this. We construct a list of 10 identical items and 
+         purchase them at our respective stores. Tom wants to know if these data support his hypothesis.
+         Which of the following is the correct description of Tom's situation?",
+         answer("Tom has a two-sided alternative hypothesis and should do a paired t-test."),
+         answer("Tom has a one-sided alternative hypothesis and should do an independent samples 
+                t-test."),
+         answer("Tom has a two-sided alternative hypothesis and should do an independent samples 
+                t-test."),
+         answer("Tom has a one-sided alternative hypothesis and should do a paired t-test.",
+                correct = TRUE))
+```
+
+### 8.
+
+```{r q8}
+question("Suppose that a one-tail t test is being applied to find out if the population mean is less 
+         than 100. The level of significance is 0.05 and 25 observations were sampled. The null 
+         hypothesis would be rejected for t scores in which of the following regions? Choose the best 
+         answer.",
+         answer("T > 1.71"),
+         answer("T < 1.96"),
+         answer("T < −1.71",correct = TRUE),
+         answer("T < −1.32"),
+         answer("T > 1.32"))
+```
+
+> qt(.05,24)
+
+### 9.
+
+```{r q9}
+question("We would like to test if students who are in the social sciences, natural sciences, arts & 
+         humanities, and other fields spend the same amount of time studying for this course. What type
+         of test should we use?",
+         answer("F-test (ANOVA)",correct = TRUE),
+         answer("z-test"),
+         answer("t-test for two independent groups"),
+         answer("t-test for two dependent groups"))
+```
+
+### 10.
+
+```{r q10}
+question("Which of the following is most useful for checking the equal variance across groups
+         condition for ANOVA?",
+         answer("Summary statistics suggesting roughly equal ranges for each group."),
+         answer("Summary statistics suggesting that the means of each group are roughly equal."),
+         answer("Histograms suggesting nearly normal distributions of data in each group."),
+         answer("Side-by-side box plots showing roughly equally sized boxes for each group.",
+                correct = TRUE))
+```
+
+### 11.
+
+<b>Based on the ANOVA output below, what is the value of the F-statistic?</b>
+
+```{r q11}
+grid::grid.raster(jpeg::readJPEG("fig5.jpg"))
+question("Choose the best answer.",answer("0.54"),answer("10.71"),answer("27.00"),
+         answer("1.87",correct = TRUE),
+         answer("14.45"))
+```
+
+> 75.00/40.13
+
+### 12.
+
+```{r q12}
+question("A study compared five different methods for teaching descriptive statistics. The five methods 
+         were traditional lecture and discussion, programmed textbook instruction, programmed text with 
+         lectures computer instruction, and computer instruction with lectures. 45 students were 
+         randomly assigned, 9 to each method. After completing the course, students took a 1-hour exam.
+         We are interested in finding out if the average test scores are different for the different 
+         teaching methods. The p-value of the test is 0.0168. What is the conclusion of the test?",
+         answer("At most two group means are significantly different from each other."),
+         answer("All five group means are significantly different from each other."),
+         answer("All five group means are equal to each other."),
+         answer("Only two group means are significantly different from each other."),
+         answer("At least two group means are significantly different from each other.",correct = TRUE))
+```
+
+### 13.
+
+```{r q13}
+question("Researchers studying people’s sense of smell devised a measure of smelling ability. A higher 
+         score on this scale means the subject can smell better. A random sample of 36 people (18 male 
+         and 18 female) were involved in the study. The average score for the males was 10 with a 
+         standard deviation of 3.4 and the average score for the females was 11 with a standard 
+         deviation of 2.7. Which of the following is the
+         correct standard error for the test evaluating whether the males and females have differing 
+         smelling abilities, on average? Choose the closest answer.",
+         answer("1.023",correct = TRUE),
+         answer("3.504"),
+         answer("1.047"),
+         answer("0.801"),
+         answer("0.724"))
+```
+
+> sqrt(3.4^ 2/ 18+2.7^2/ 18)
+
+### 14.
+
+```{r q14}
+question("A study compared five different methods for teaching descriptive statistics. The five methods were
+         traditional lecture and discussion, programmed textbook instruction, programmed text with lectures
+         computer instruction, and computer instruction with lectures. 45 students were randomly assigned, 9 to
+         each method. After completing the course, students took a 1-hour exam. We are interested in finding out if
+         the average test scores are different for the different teaching methods.</br></br>
+         How many pairwise tests would we need to do in order to compare all pairs of means to each other?",
+         answer("3"),answer("5"),answer("10",correct = TRUE),answer("4"),answer("20"))
+```
+
+> k(k-1)/2
