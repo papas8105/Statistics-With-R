@@ -1,0 +1,235 @@
+---
+title: "Quiz 4"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+library(kableExtra)
+```
+<style>body{text-align: justify}</style>
+### 1.
+
+```{r q1}
+question("Suppose you want to construct a confidence interval for a population proportion. Which of the following,
+         if it were true, would prevent you from being able to assume that the distribution of the sample
+         proportion is nearly normal?",
+         answer("n = 104. Out of these 104 there are only a few successes (15), 
+                but relatively many failures (89)."),
+         answer("n = 104. Out of these 104 there are an equal number of successes and failures (52 each)."),
+         answer("None of these options.",correct = TRUE),
+         answer("n = 104. These observations are a simple random sample and make up less than 10% of the
+                population."))
+```
+
+### 2.
+
+```{r q2}
+question("When performing a hypothesis test on proportions (either where $\\mathcal{H}_0:p = p_0$ or where 
+         $\\mathcal{H}_0:p_1=p_2$) you should use the observed number of successes and failures when 
+         checking conditions.",
+         answer("TRUE"),
+         answer("FALSE",correct = TRUE),
+         answer("Depend on the context"),
+         answer("Observed proportion for one sample, expected proportion for two samples."))
+```
+
+### 3.
+
+```{r q3}
+question("You are tasked with conducting a hypothesis test evaluating whether a majority or minority of Americans 
+         think it was a bad decision to hold the 2014 winter games in Russia. You’re going to use data from a 2014 
+         Pew Research poll asked 1,003 Americans this question, and 44% responded yes. Which of the following is 
+         the correct set of hypotheses?",
+         answer("$\\mathcal{H}_0 :p = 0.5,\\mathcal{H}_A :p < 0.5$"),
+         answer("$\\mathcal{H}_0 :p = 0.33,\\mathcal{H}_A :p \\neq 0.44$"),
+         answer("$\\mathcal{H}_0 :p = 0.5,\\mathcal{H}_A :p \\neq 0.5$",correct = TRUE),
+         answer("$\\mathcal{H}_0 :p = 0.5,\\mathcal{H}_A :p \\neq 0.44$"))
+```
+
+### 4.
+
+```{r q4}
+question("The campaign manager for a congressional candidate claims that the candidate has more than 50% support
+         from the district’s electorate. A newspaper collects a simple random sample of 500 likely voters in this
+         district and estimates the support for this candidate to be 52%. The p-value for the hypothesis test
+         evaluating the campaign manager’s claim is 0.19. Which of the below is correct?",
+         answer("If in fact 50% of likely voters support this candidate, the probability of obtaining a random 
+         sample of 500 likely voters where 52% or more support the candidate is 0.19.",correct = TRUE),
+         answer("95% of random samples of size 500 will estimate the support for this candidate to be 52%."),
+         answer("The success-failure condition is not met, so this p-value is not reliable."),
+         answer("The data provide convincing evidence for the campaign manager’s claim."))
+```
+
+### 5.
+
+<b>Voters in the U.S. state of New Jersey voted on a measure that would legalize sports betting. Before the vote,
+SurveyUSA asked a random sample of registered voters the following question: “’If betting on sports were to become
+legal in New Jersey, would you yourself place bets?” The distribution of responses by age group is shown in the
+table below. Consider a hypothesis test evaluating whether there is a difference between proportions of 18 to 34
+year olds and 35+ year olds who would never place bets. Using the information from the table, calculate the
+standard error for this hypothesis test. 
+
+```{r q5table}
+d <- data.frame(x1 = c(3,69,71,1,144),x2 = c(30,128,224,7,389),x3 = c(33,197,295,8,533),
+                row.names = c("regularly","occasionaly","never","not sure","total"))
+names(d) <- c("18 to 34","35+","total")
+kable(d,longtable = T,booktabs = T) %>% add_header_above(c("","age group" = 2,"")) %>%
+  column_spec(1:4, width = "8em") %>% pack_rows("response",1,4,
+                                                label_row_css = "background-color:#216;color: #fff;")
+```
+
+```{r q5ex,exercise = TRUE}
+## make calculations here
+
+```
+
+```{r q5}
+question("Choose the closest answer",
+         answer("0.4931"),
+         answer("0.0024"),
+         answer("0.5535"),
+         answer("0.0486",correct = TRUE),
+         answer("0.5758"))
+```
+
+### 6.
+
+<b>To evaluate the following hypotheses</b>
+<center>
+$\mathcal{H}_0:p = 0.3\\\mathcal{H}_{A} :p \neq 0.3$
+</center>
+we use a random sample of 50 observations where $\hat{p}=0.36$. Which of the following is the correct standard 
+error? 
+
+```{r q6ex,exercise = TRUE}
+## make calculations here
+
+```
+
+```{r q6}
+question("Choose the closest answer.",
+         answer("0.0297"),answer("0.0042"),answer("0.0648",correct = TRUE),
+         answer("0.0679"),answer("0.0092"),answer("0.0096"))
+```
+
+### 7.
+
+<b>At the beginning of a semester an anonymous survey was conducted on students in a statistics class. Two of the 
+questions on the survey were about gender and whether or not students have equal, more, or less energy in the 
+afternoon compared to the morning. Below are the results.</b>
+
+|      |Equal|Less |More  |
+|:-----|----:|----:|-----:|
+|Female|18   |37   |24    |
+|Male  |9    |15   |24    |
+
+
+```{r q7}
+question("What test should we perform to see if gender and energy level are associated?",
+         answer("Comparing two proportions"),
+         answer("hypothesis test for a single mean"),
+         answer("Chi-square test of goodness of fit"),
+         answer("F test"),
+         answer("Comparing two means"),
+         answer("Z test"),
+         answer("Chi-square test of independence",correct = TRUE),
+         answer("ANOVA"))
+```
+
+### 8.
+
+```{r q8}
+question("A report on your local TV news station claims that 60% of the city’s residents support using limited city
+         funds to hire and train more police officers. A second local news station has picked up this story, and
+         they claim that certainly less than 60% of residents support the additional hiring. In order to test this
+         claim the second news station takes a random sample of 100 residents and finds that 56 of them (56%)
+         support the use of limited funds to hire additional police officers. Which of the following is the correct
+         set-up for calculating the p-value for this test?",
+         answer("Randomly sample 100 residents of a nearby city, and record the number of residents in the sample 
+         who support the hiring of additional police officers. Repeat this many times and calculate the proportion 
+         of samples where at least 56% of the residents support the hiring."),
+         answer("Roll a 10-sided die 100 times and record the proportion of times you get a 6 or lower. Repeat this
+         many times, and calculate the number of simulations where the sample proportion is 60% or less."),
+         answer("In a bag place 100 chips, 56 red and 44 blue. Randomly sample 100 chips, with replacement, and 
+         record the proportion of red chips in the sample. Repeat this many times, and calculate the proportion of 
+         samples where at least 60% of the chips are red."),
+         answer("Roll a 10-sided die 100 times and record the proportion of times you get a 6 or lower. Repeat this
+         many times, and calculate the number of simulations where the sample proportion is 56% or less.",
+         correct = TRUE))
+```
+
+### 9.
+
+<b>One of the early studies linking smoking and lung cancer compared patients hospitalized with lung cancer to
+similar patients without lung cancer (hospitalized for other reasons), and recorded whether each patient smoked. For
+a hypothesis test testing whether the proportion of smokers is higher for the patients with lung cancer than for
+patients without lung cancer, the p-value is less than 0.000001.</b>
+
+
+```{r q9table}
+d <- data.frame(smoker = c(647,622,1269),nonsmoker = c(2,27,29),total = c(649,649,1298),
+                row.names = c("lung cancer","not sure","total"))
+kable(d,longtable = T,booktabs = T) %>% add_header_above(c("","smoking status" = 2,"")) %>% 
+  column_spec(1:4, width = "8em") 
+```
+
+```{r q9a,exercise = TRUE}
+## Make computations here if needed
+```
+```{r q9}
+question("Does this provide significant evidence that smoking causes lung cancer?",
+        answer("Whether or not we can conclude that smoking causes lung cancer depends on the statistical method 
+        the researchers used to obtain the p-value."),
+        answer("Based on this study we cannot conclude that smoking causes lung cancer, regardless of the 
+               p-value.",correct = TRUE),
+        answer("Yes, with the given p-value we would reject $\\mathcal{H}_0$ in favor of 
+        $\\mathcal{H}_A$, and conclude that smoking causes lung cancer."),
+        answer("No, with the given p-value we would fail to reject $\\mathcal{H}_0$ in favor of 
+               $\\mathcal{H}_A$."))
+```
+
+### 10.
+
+```{r q10}
+question("80% of Americans start the day with a cereal breakfast. Based on this information, determine if the      
+         following statement is true or false.
+         “The sampling distribution of the proportions of Americans who start the day with a cereal breakfast in 
+         random samples of size 40 is right skewed.”",answer("TRUE"),answer("FALSE",correct = TRUE))
+```
+
+
+### 11.
+
+<b>At a stop sign, some drivers come to a full stop, some come to a ‘rolling stop’ (not a full stop, but slow down),
+and some do not stop at all. We would like to test if there is an association between gender and type of stop (full,
+rolling, or no stop). We collect data by standing a few feet from a stop sign and taking note of type of stop and 
+the gender of the driver. Below is a contingency table summarizing the data we collected. If gender is not 
+associated with type of stop, how many males would we expect to not stop at all? </b>
+
+<center>
+```{r table11}
+d <- data.frame(female = c(6,16,4),male = c(6,15,3),row.names = c("full stop","rolling stop","no stop"))
+kable(d,longtable = T,booktabs = T) %>% add_header_above(c("","gender" = 2)) %>% 
+  column_spec(2:3, width = "5em") %>% pack_rows("stop",1,3,label_row_css = "background-color:#216;
+                                                color: #fff;")
+```
+</center>
+
+```{r q11a,exercise = TRUE}
+# make computations here
+
+```
+
+```{r q11}
+question("Choose the closest answer.",answer("3.64"),answer("6.24"),answer("5.76"),answer("3.36",correct = TRUE))
+```
+
+### 12.
+
+```{r q12}
+question("True / False: A randomization test for $H0:p_1=p_2$ uses a randomization distribution centered at     
+         0.",answer("TRUE",correct = TRUE),answer("FALSE"))
+```

@@ -1,0 +1,129 @@
+---
+title: "Practice Quiz 4"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include = FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+gradethis::gradethis_setup()
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+
+```{r q1}
+question("Suppose you want to construct a confidence interval for a population proportion. Which of the following, 
+         if it were true, would prevent you from being able to assume that the distribution of the sample 
+         proportion is nearly normal?",
+         answer("n = 104. Out of these 104 there are only a few successes (15), but relatively many failures 
+                (89)."),
+         answer("n = 104. These observations are a simple random sample and make up less than 10% of the 
+                population."),
+         answer("n = 104. Out of these 104 there are only a few failures (7), but relatively many successes (97).",
+                correct = TRUE),
+         answer("None of these options."))
+```
+
+### 2.
+
+```{r q2}
+question("In 2013, Edward Snowden leaked details of top-secret NSA spying activities to the media. A poll conducted 
+        by USA TODAY / Pew Research Center asked 1,504 people in U.S. whether Snowden’s leaks have helped or
+        harmed the public interest. 53% of respondents answered “helped the public interest”. You want to test
+        whether a majority of people in the U.S. believe he helped the public interest. Which of the following is 
+        the correct set of hypotheses?",
+        answer("$\\mathcal{H}_{0}:\\rho < 0.5\\\\\\mathcal{H}_{A}:\\rho > 0.5$"),
+        answer("$\\mathcal{H}_{0}:\\rho = 0.53\\\\\\mathcal{H}_{A}:\\rho > 0.53$"),
+        answer("$\\mathcal{H}_{0}:\\rho = 0.53\\\\\\mathcal{H}_{A}:\\rho < 0.53$"),
+        answer("$\\mathcal{H}_{0}:\\rho = 0.5\\\\\\mathcal{H}_{A}:\\rho > 0.5$",correct = TRUE))
+```
+
+### 3.
+
+```{r q3}
+question("In response to complaints from residents about too many (about 15%) of the cars passing by the local 
+         school speeding, the police started closely monitoring traffic. You want to check if the police’s efforts 
+         had an effect on the prevalence of speeding in this area. One day you observe 560 different cars pass by 
+         the school, and find that 70 of them were speeding. You calculate a p-value of 0.0976. Assuming the cars 
+         are representative of all cars that drive by the school, which of the following is true?",
+         answer("If in fact the police’s efforts didn’t have an effect, the probability of getting a random sample
+         of 560 cars where 70 or less cars are speeding is 0.0976."),
+         answer("If in fact the police’s efforts didn’t have an effect, the probability of getting a random sample
+         of 560 cars where 70 cars are speeding is 0.0976."),
+         answer("If in fact the police’s efforts didn’t have an effect, the probability of getting a random sample 
+         of 560 cars where 70 or less or 98 or more cars are speeding is 0.0976.",correct = TRUE),
+         answer("If in fact the police’s efforts had an effect, the probability of getting a random sample of 560 
+         cars where 70 or less cars are speeding is 0.0976."))
+```
+
+### 4.
+
+```{r q4}
+question("When do we use the pooled proportion in calculation of the standard error of the difference of two 
+         proportions $SE_{\\hat{p}_{1} - \\hat{p}_{2}}$",
+         answer("when constructing a confidence interval for $p_1-p_2$"),
+         answer("when comparing $p_1$ and $p_2$ using a theoretical approach, and the null hypothesis is 
+         $\\mathcal{H}_0 : p_1 − p_2 = 0$",correct = TRUE),
+         answer("when using a randomization test to compare $p_1 − p_2$"),
+         answer("when comparing $p_1$ and $p_2$ using a theoretical approach, and the null hypothesis is </br>
+         $\\mathcal{H}_0 : p_1 − p_2 = \\text{some value other than 0}$"))
+```
+
+### 5.
+
+```{r q5}
+question("Rock-paper-scissors is a hand game played by two or more people where players choose to sign either 
+        ‘rock’, ‘paper’, or ‘scissors’ with their hands. We would like to test if players choose between these 
+        three options randomly, or if certain options are favored above others. What hypothesis test should we 
+        conduct to answer this research question?",
+        answer("Chi square test of goodness of fit",correct = TRUE),
+        answer("Compare two proportions"),
+        answer("Chi square test of independence"),
+        answer("Compare two means"))
+```
+
+### 6.
+
+```{r q6}
+question("When doing a hypothesis test on a single proportion (i.e. for one categorical variable), we have studied 
+         how to calculate the p-value for the hypothesis test, beginning with generating simulated samples. Which 
+         of the following is the best description for how you should generate the simulated samples, and why?",
+         answer("Generate simulated samples based on the null hypothesis because we need to see how extreme our
+         observed data looks if the null hypothesis were really true.",correct = TRUE),
+         answer("Generate simulated samples based on the alternative hypothesis because that is the hypothesis 
+         we’re trying to prove when doing the hypothesis test."),
+         answer("Generate simulated samples based on the alternative hypothesis because we need to see how extreme 
+         our observed data looks if the alternative hypothesis were really true."),
+         answer("Generate simulated samples based on the null hypothesis because that 
+         is the hypothesis we’re trying to prove when doing the hypothesis test."))
+```
+
+### 7.
+
+```{r q7}
+question("True or false: In calculation of the required sample size for a given margin of error of the confidence 
+         interval for a population proportion, we should use $\\hat{p}=0.5$, if we don’t have any knowledge about 
+         the characteristics of the population.",
+         answer("TRUE",correct = TRUE),answer("FALSE"))
+```
+
+### 8.
+
+```{r q8}
+question("Suppose in a population 20% of people wear contact lenses. What is 
+         the expected shape of the sampling distribution of proportion of contact lens wearers in random samples of
+         1000 people from this population?",
+         answer("uniform"),
+         answer("left-skewed"),
+         answer("nearly normal",correct = TRUE),
+         answer("right-skewed"))
+```
+
+### 9.
+
+```{r q9}
+question("True/False: When the success-failure condition is not met, we should use a T test to compare two  
+         proportions.",answer("TRUE"),answer("FALSE",correct = TRUE))
+```
