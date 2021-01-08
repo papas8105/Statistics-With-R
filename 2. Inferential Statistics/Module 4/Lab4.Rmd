@@ -36,7 +36,8 @@ library(ggplot2)
 
 ### The survey
 
-The press release for the poll, conducted by WIN-Gallup International, can be accessed [here](https://www.scribd.com/document/136318147/Win-gallup-International-Global-Index-of-Religiosity-and-Atheism-2012).
+The press release for the poll, conducted by WIN-Gallup International, can be accessed 
+[here](https://www.scribd.com/document/136318147/Win-gallup-International-Global-Index-of-Religiosity-and-Atheism-2012).
 
 Take a moment to review the report then address the following questions.
 

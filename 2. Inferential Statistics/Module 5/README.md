@@ -1,0 +1,1 @@
+[Data download](https://d3c33hcgiwev3.cloudfront.net/_5db435f06000e694f6050a2d43fc7be3_gss.Rdata?Expires=1610064000&Signature=T-Th~324s7M7apAA2g6n3h8i5Vw-mB1vNcvcjIAX1-~HNdfhajMgSW2HqJzBUPL~qwwb51onbWc946cVJxk-hFMTvyTRyCIQiXXxZ7sX1m0-k1IAdElH6pIf0MZ~BJKSTpymfsaHxvVvrKQp8wJuJ4s-bzt7V1StOPtSIZcxS5I_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A)
