@@ -1,0 +1,173 @@
+---
+title: "Quiz 1"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup,include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+<b>Of the four plots shown below,</b>
+
+```{r fig2}
+grid::grid.raster(jpeg::readJPEG('fig2.jpg'))
+```
+```{r q1}
+question("which one appears to show the weakest relationship between two 
+        variables?",answer("I"),answer("II"),answer("III"),answer("IV",correct = TRUE))
+```
+
+### 2.
+
+<b>The first plot below was created by plotting data collected on two variables. Then, the second plot was
+created using the same data but with different units for the dependent variable. 
+
+```{r fig3}
+grid::grid.raster(jpeg::readJPEG('fig3.jpg'))
+```
+
+```{r q2}
+question("In the context of linear regression, which of the following best describes the differences 
+         between the two plots?",
+         answer("The correlation coefficient for the second plot has a larger absolute value, but the
+                slopes of the linear relationships in the two plots are the same."),
+         answer("The slope of the linear relationship in the first plot has a smaller absolute value, but 
+         the correlation coefficients for the two plots are the same."),
+         answer("The slope of the linear relationship in the first plot has a larger absolute value, but 
+         the correlation coefficients for the two plots are the same.",correct = TRUE),
+         answer("Both the slopes and the regression coefficients are the same for the two plots."),
+         answer("The correlation coefficient for the second plot has a smaller absolute value, but the slopes
+         of the linear relationships in the two plots are the same."))
+```
+
+### 3.
+
+```{r q3}
+question("Fill in the blank: Residuals of linear models should be distributed nearly normally around __________.",
+         answer("the mean of x"),
+         answer("the mean of y"),
+         answer("the mean of $\\hat{y}$ (the predicted values)"),
+         answer("0",correct = TRUE))
+```
+
+### 4.
+
+<b>Sixteen student volunteers at Ohio State University drank a randomly assigned number beers. Thirty minutes later, 
+a police officer measured their blood alcohol content (BAC) in grams of alcohol per deciliter of blood. The 
+scatterplot displays the relationship between BAC and number of beers consumed. Suppose a mistake was found in the 
+data: the student who supposedly drank the highest number of beers (9 beers) actually only drank 6. His BAC was 
+recorded correctly.</b>
+
+```{r fig4}
+grid::grid.raster(jpeg::readJPEG('fig4.jpg'))
+```
+
+```{r q4}
+question("In a new scatterplot, how would the strength of the association appear - compared to the strength of the 
+         association shown here?",
+         answer("Roughly the same as the strength of the association shown in the above scatterplot."),
+         answer("Weaker than the strength of the association shown in the above scatterplot.",correct = TRUE),
+         answer("Stronger than the strength of the association shown in the above scatterplot."),
+         answer("It’s impossible to tell."))
+```
+
+### 5.
+
+```{r q5}
+question("The correlation between height and weight for a certain breed of plant is found to be 0.75. What percentage
+         of the variability in plant weight is <b>not</b> explained by height?",
+         answer("$(0.75)^2 = 0.5625$ or 56.25%"),
+         answer("1−0.75 = 0.25 or 25%"),
+         answer("$(1 − 0.75)^2 = 0.0625$ or 6.25%$"),
+         answer("$1 − (0.75)^2 = 0.4375$ or 43.75%$",correct = TRUE))
+```
+
+### 6.
+
+A colleague needs some help with a statistics problem: He brings you the plot shown below, along with a correlation
+coefficient of 0.03 which he calculated himself. The plot shows two numerical variables which are obviously strongly
+related, and as a result your colleague is afraid he made a mistake calculating the correlation coefficient: that is,
+he was surprised to get an answer so close to 0.
+
+```{r fig5}
+grid::grid.raster(jpeg::readJPEG('fig5.jpg'))
+```
+
+```{r q6}
+question("Given only this information, which of the following responses is the best to give your colleague?",
+         answer("Your colleague must have made a mistake in his calculations. A much higher correlation coefficient
+         is expected for variables that show a clear association."),
+         answer("The correlation coefficient measures the strength of the linear relationship, therefore two 
+         variables that have a strong non-linear association might still have a low correlation coefficient.",
+         correct = TRUE))
+```
+
+### 7.
+
+<b>The  linear model below is used for predicting poverty rate from high school graduation rate in the 51 states in 
+the US (including DC).</b>
+
+<center>
+$\displaystyle\widehat{\text{poverty}} = 64.68 - 0.62\cdot\text{HS grad rate}$
+</center>
+
+<b>A snippet of the data matrix is provided below, pay attention to the scale of the data in solving this question.
+</b>
+
+```{r fig6}
+grid::grid.raster(jpeg::readJPEG('fig6.jpg'))
+```
+```{r q7}
+question("High school graduation rate for North Carolina is 81.4% and the poverty rate is 13.1%. What is the residual
+         for this observation? Choose the closest answer.",
+         answer("-1.1",correct = TRUE),answer("24.8"),answer("-24.8"),answer("0"),answer("1.1"))
+```
+
+```{r q7b,exercise = TRUE}
+## Computations here
+
+```
+
+### 8.
+
+<b>The following ANOVA output is for the linear model predicting nicotine content (in mg) from tar content (in mg).
+</b>
+
+```{r fig7}
+grid::grid.raster(jpeg::readJPEG('fig7.jpg'))
+```
+
+```{r q8}
+question("Which of the following is $R^2$? Choose the closest answer.",
+         answer("20%"),answer("5%"),answer("0.2%"),answer("95%",correct = TRUE),answer("4%"))
+```
+
+```{r q8b,exercise = TRUE}
+## Computations here
+
+```
+
+### 9.
+
+<b>Based on an observational study, a clinical psychologist finds that 
+the relationship between the number of weeks spent in a therapy hospital
+and number of seizures per week is described by the following equation:</b>
+
+<center>
+$\displaystyle\widehat{\text{seizures}} = 14.09 - 0.91\cdot\text{weeks}$
+</center>
+
+```{r q9}
+question("Which of the following is the best interpretation of the slope estimate?",
+         answer("Each additional week spent in a therapy hospital decreases the number of seizures
+                per week by 0.91."),
+         answer("All patients start their treatment with at least 14.09 seizures per week."),
+         answer("For each additional seizure per week, we would expect the average number of additional weeks spent 
+         in the therapy hospital to be higher by 0.91 seizures."),
+         answer("For each additional week spent in the therapy hospital, we would expect the average number of 
+         seizures per week to lower by 0.91 seizures.",correct = TRUE))
+```

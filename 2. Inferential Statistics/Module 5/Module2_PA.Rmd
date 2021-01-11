@@ -24,14 +24,17 @@ getRversion()
 Sys.Date()
 ```
 
-## Part 1: Data
+## Data
 
 ### Intoduction
 
 As a beginning of a series of statistical investigations which are conducted to test various 
 socioeconomic changes and diversifications between different social stratums of income and educational 
-background, in this report we will investigate a hypothesis for a specific section of the data for a 
-specific year.
+background, in this report we will investigate a hypothesis of independence for a specific section of the 
+data for the year 2012. The section of the data we are interested in is the four variables with the _help_
+abbreviation which record the opinion on the public on whether funds should be tranfered from the 
+government to help minorities, sick people etc. In the exploratory analysis we will  present 
+historical time data of the change of records for each variable.
 
 The Behavioral Risk Factor Surveillance System (BRFSS) is the nation’s premier system of health-related
 telephone surveys that collect state data about U.S. residents regarding their health-related risk
@@ -57,6 +60,10 @@ conducted.
   doesn't like equal pay for the same job between different races and blame the people for not educating 
   themselves better.
 
+### Data Load & Summary
+
+Data Load.
+
 ```{r data load}
 load("gss.Rdata")
 ```
@@ -69,9 +76,9 @@ summary(gss)
 ```
 </input>
 
-Most of the variables are categorical with many of them having binary inputs _Yes or No_.
+Most of the variables are categorical with many of them having binary inputs _Yes or No_. 
 
-## Part 2: Research question
+## Research question
 
 We will focus our interest in the following variables.
 
@@ -92,20 +99,32 @@ levels(dataset$helpsick) <- c("Yes","Between Yes/No","No")
 levels(dataset$helpblk)  <- c("Yes","Between Yes/No","No")
 ```
 
-We will test $\frac{4\cdot 3}{2} = 6$ $\chi^2$ hypotheses.
-
-<u><b>Table 1</b></u>
+We will test $\frac{4\cdot 3}{2} = 6$ $\chi^2$ hypotheses, for four 3-level variables. The $\chi^2$ 
+tests all have $(R-1)\times(C-1)=1\times2=2$ degrees of freedom.
 
 |Hypothesis        |                                                       |
 |:-----------------|:------------------------------------------------------|
 |$\mathcal{H}_{0}$:|Is there denpendency between the X and Y variables?    |
 |$\mathcal{H}_{A}$:|There is no dependency between the X and Y variables.  |
 
+So with the general schema presented above we will conduct six indepency $\chi^2$ tests which are the 
+following
 
-X and Y are paired variables from the ones we mentioned in the beginning of this section, we will also 
-have to adjust the $\alpha$ level (5%) by applying the __Bonferroni__ correction 
-$\alpha=\frac{0.05}{6}\approx0.00833$, since using the same dataset to test hypotheses of the same 
-nature might inflate Type I error rate.
+<u><b>[Table 1]{#here}</b></u>
+
+|Six Null Hypothesis|                                                                                 |
+|:----------------------------|:----------------------------------------------------------------------|
+|<b>(1)</b> $\mathcal{H}_{0}$:|Is there denpendency between the _helppoor_ and  _helpbot_ variables?  |
+|<b>(2)</b> $\mathcal{H}_{0}$:|There is no dependency between the _helppoor_ and _helpsick_ variables?|
+|<b>(3)</b> $\mathcal{H}_{0}$:|There is no dependency between the _helppoor_ and _helpblk_ variables? |
+|<b>(4)</b> $\mathcal{H}_{0}$:|There is no dependency between the _helpnot_ and _helpsick_ variables? |
+|<b>(5)</b> $\mathcal{H}_{0}$:|There is no dependency between the _helpnot_ and _helpblk_ variables?  |
+|<b>(6)</b> $\mathcal{H}_{0}$:|There is no dependency between the _helpsick_ and _helpblk_ variables? |
+
+the alternative hypothesis is common for all $\mathcal{H}_{0}:$ " _there is no independency_ between the 
+variable stated". we will also have to adjust the $\alpha$ level (5%) by applying the __Bonferroni__ 
+correction $\alpha=\frac{0.05}{6}\approx0.00833$, since using the same dataset to test hypotheses of the 
+same nature might inflate Type I error rate.
 
 ## Part 3: Exploratory data analysis
 
@@ -125,19 +144,23 @@ g + geom_histogram(aes(x = helpsick),color = 'black',stat = 'count') + facet_wra
   theme(axis.text.x = element_text(angle = -90, hjust = 0)) -> g3
 g + geom_histogram(aes(x = helpblk),color = 'black',stat = 'count') + facet_wrap(. ~ year) + 
   theme(axis.text.x = element_text(angle = -90, hjust = 0)) -> g4
-gridExtra::grid.arrange(g1,g2,ncol = 2)
+grid.arrange(g1,g2,ncol = 2)
 ```
 
 ```{r plos2,warning = FALSE,fig.align = "center"}
-gridExtra::grid.arrange(g3,g4,ncol = 2)
+grid.arrange(g3,g4,ncol = 2)
 ```
 
-### Remarks
+
+### Remarks On Plots
 
 We notice that there is a same count trend between the levels of _helpoor_ and _helpnot_ with a slight 
-differentiation in the first years. For the other pair of plots, we observe a positive tendency towards
+differentiation in the first years, which end up in 2012 with the same count pattern more yes than no and 
+a middle ground above the other two. We also observe in the two bottom plots a positive tendency towards
 helping the sick with the tax payers' money and a general tendency to not helping black people as the 
-years pass by.
+years pass by. We want to test for independency between these variables in the year 2012 since we might 
+want to investigate further possible confounders like education that create bias towards a level of 
+the three answers.
 
 ## Part 4: Inference
 
@@ -168,14 +191,14 @@ __3rd__ row: "Yes, Between Yes/No, No" assigned to each figure in each cell resp
 
 ### Conditions For $\chi^2$
 
-We can hypothesize that the sample observations are independent and that the
+We can hypothesize that the samples' observations are independent and that the
 sample assignment is random. The sample size falls 
 way below the 10% of the overall population for the year 2012 and  from table 2 it is evident that each 
 cell (level of variable) has at least 5 observations.
 
 ### Testing
 
-Tests 1-2,1-3,1-4,2-3,2-4,3-4
+Tests 1-2,1-3,1-4,2-3,2-4,3-4 [enumeration meaning press here](#here)
 
 ```{r tests}
 chisq.test(rbind(helppoor,helpnot))$p.value  -> pvalue1

@@ -1,0 +1,67 @@
+---
+title: "Practice Quiz 1"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup,include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+<style>body{text-align: justify}</style>
+  
+
+### 1.
+
+```{r q1}
+question("A statistics instructor wants to use the number of hours studied to predict exam scores in her 
+         class. She wants to use a linear regression model. Data from previous years shows that the correlation 
+         between these two variables is 0.76. Which of the following is the best response for whether or not the 
+         instructor should use linear regression to predict exam scores for a student who studied 10 hours for the 
+         final?",
+         answer("Yes, because linear regression is the statistical method used to make predictions when you have 
+         bivariate quantitative data."),
+         answer("Linear regression could be appropriate if the scatterplot shows a clear linear relationship.",
+                correct = TRUE),
+         answer("No, because there is no way to prove that more hours of study causes higher exam scores."),
+         answer("Yes, there is a high correlation, so it is appropriate to use linear regression."))
+```
+
+### 2.
+
+```{r q2}
+question("Which of the following is false?",
+        answer("If the correlation coefficient is 1, then the slope must be 1 as well.",correct = TRUE),
+        answer("The magnitude of the correlation coefficient measures the strength of the linear association between 
+        two numerical variables."),
+        answer("Two numerical variables with a correlation of 0.01 have very weak linear association."),
+        answer("Correlation coefficient and the slope always have the same sign (positive or negative)."))
+```
+
+### 3.
+
+<b>Sixteen student volunteers at Ohio State University drank a randomly 
+assigned number of beers. Thirty minutes later, a police officer 
+measured their blood alcohol content (BAC) in grams of alcohol per 
+deciliter of blood. The scatterplot displays the relationship between 
+BAC and number of beers consumed. If the student who drank the highest 
+number of beers (9 beers) actually had a BAC of 0.15 grams/deciliter.
+
+```{r fig}
+grid::grid.raster(jpeg::readJPEG('fig1.jpg'))
+```
+
+```{r q3}
+question("how would the strength of the association change?",
+         answer("Stay the same"),answer("Cannot tell"),answer("Decrease"),
+         answer("Increase",correct = TRUE))
+```
+
+### 4.
+
+```{r q4}
+question("The $R^2$ for the linear regression of two variables x and y is 0.60. The variables are negatively 
+         associated. Which of the following is the correct correlation coefficient? Choose the closest answer.",
+         answer("-0.77",correct = TRUE),
+         answer("0.40"),answer("0.36"),answer("-0.36"),answer("0.77"))
+```
