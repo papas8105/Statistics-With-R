@@ -1,0 +1,62 @@
+---
+title: "Practice Quiz 2"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup,include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+
+```{r q1}
+question("Does meditation cure insomnia? Researchers randomly divided 400 people into two equal-sized 
+         groups. One group meditated daily for 30 minutes, the other group attended a 2-hour 
+         information session on insomnia.</br>
+         At the beginning of the study, the average difference between the number of minutes slept between 
+         the two groups was about 0. After the study, the average difference was about 32 minutes, and 
+         the meditation group had a higher average number of minutes slept.</br>
+         To test whether an average difference of 32 minutes could be attributed to chance, a statistics 
+         student decided to conduct a randomization test. She wrote the number of minutes slept by each 
+         subject in the study on an index card. She shuffled the cards together very well, and then dealt 
+         them into two equal-sized groups, representing those who meditated and those who attended the
+         information session.</br>
+         Which of the following best describes the outcome of the randomization test.",
+         answer("If meditation is effective, the average difference between the values on the two stacks of cards is 
+         expected to be more than 32 minutes."),
+         answer("The average difference between the two values on the two stacks of cards is expected to be about 
+         32 minutes."),
+         answer("The average difference between the two values on the two stacks of cards is expected to be about 0
+                minutes.",correct = TRUE))
+```
+
+### 2.
+
+<b>Tipping at a restaurant. The owner of a restaurant interested in studying the tipping patterns of his customers
+collected restaurant bills over a two week period that he believes provides a representative sample of his customers.
+The data recorded from 157157157 bills include the amount of the bill (in \$) and the size of the tip (in \$). The 
+correlation coefficient of the relationship between these two variables is 0.915.</b>
+
+```{r fig1}
+grid::grid.raster(jpeg::readJPEG("fig1.jpg"))
+```
+
+```{r q2}
+question("The regression model and a scatterplot of these data are shown below. Which of the following is false?",
+         answer("The regression model will yield a more reliable prediction for the size of the tip when the bill 
+         amount is $20 versus when the bill amount is $70."),
+         answer("The amount of the bills explains roughly 84% of the variability in the sizes of the tips."),
+         answer("The intercept serves only to adjust the height of the regression line."),
+         answer("A 95% confidence interval for the slope can be calculated as 0.18±(28.25×0.01)",correct = TRUE),
+         answer("For each additional dollar spent the tip is expected to be higher on average by $0.18 (18
+                cents)."))
+```
+
+### 3.
+
+```{r q3}
+question("True / False: Not all leverage points are influential.",answer("TRUE",correct = TRUE),answer("FALSE"))
+```

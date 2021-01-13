@@ -1,0 +1,195 @@
+---
+title: "Quiz 2"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup,include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+
+<b>The scatterplot on the right shows the relationship between percentage of white residents and percentage 
+of households with a female head in all 50 US States and the District of Columbia (DC).</b>
+
+```{r fig2}
+grid::grid.raster(jpeg::readJPEG("fig2.jpg"))
+```
+```{r q1}
+question("Which of the below best describes the two points marked as DC and Hawaii?",
+         answer("DC and Hawaii should both be excluded from a simple linear regression analysis."),
+         answer("Hawaii is not an outlier, and DC is not a leverage point."),
+         answer("Neither DC nor Hawaii appear to be leverage points."),
+         answer("Hawaii has higher leverage and is more influential than DC.",correct = TRUE))
+```
+
+### 2.
+
+The scatterplot below shows the relationship between socioeconomic status measured as the percentage of 
+children in a neighborhood receiving reduced-fee lunches at school (lunch) and bike helmet use 
+measured as the percentage of bike riders in the neighborhood wearing helmets (helmet). The equation of the 
+regression line is
+<center>
+helmet = 47.49 - 0.54 * lunch
+</center>
+and the $R^2$ is 72%.
+
+```{r fig3}
+grid::grid.raster(jpeg::readJPEG("fig3.jpg"))
+```
+
+```{r q2}
+question("Which of the following is true?",
+         answer('Neighborhoods where no students receive reduced-fee lunches are expected on average to 
+         have 47.49% of bike riders wearing helmets.',correct = TRUE),
+         answer("Decreasing the percentage of children receiving reduced-fee lunches 
+         at school by 5% will increase the percentage of bike riders wearing helmets in that neighborhood 
+         by 2.7%."),
+         answer("The correlation coefficient is 0.85."),
+         answer("72% of the percentage of children receiving reduced-fee lunches at school can be 
+         accurately predicted by the model."))
+```
+
+### 3.
+
+<b>The model below is for predicting the heart weight (in g) of cats 
+from their gender (female and male). The coefficients are estimated 
+using a dataset of 144 domestic cats.</b>
+
+```{r fig4}
+grid::grid.raster(jpeg::readJPEG("fig4.jpg"))
+```
+
+```{r q3}
+question("Which of the following is false?",
+         answer("The expected heart weight for female cats is 9.2 grams, on average."),
+         answer("On average, male cats are expected to have hearts that weigh 2.12 grams more than the
+                hearts of female cats."),
+         answer("Because $\\mathbb{P}(>|t|)=0$ for the gender variable, we can say 
+                that gender is not a significant predictor of heart weight in cats.",correct = TRUE),
+         answer("Gender is a significant predictor of heart weight in cats."))
+```
+
+### 4.
+
+<b>We fit a linear regression model for predicting the best used price 
+of 23 GMC pickup trucks from their list price, both measured in 
+thousands.</b>
+
+```{r fig5}
+grid::grid.raster(jpeg::readJPEG("fig5.jpg"))
+```
+
+```{r q4}
+question("Which of the following is false based on this model output?",
+         answer("For each additional $1,000 in the list price of a GMC pickup truck we would expect the 
+         best used price to be higher on average by $850."),
+         answer("The linear model is 
+         $\\widehat{best\\_used\\_price} = 0.43 + 0.85\\cdot list\\_price$"),
+         answer("The intercept is meaningless in this context."),
+         answer("The 95% confidence interval for the slope can be calculated as 0.85±84.7×0.01",
+                correct = TRUE),
+         answer("List price is a significant predictor of the best used price."))
+```
+
+<b>Answer Question 5, 6 and 7 based on the information below:
+
+Body fat percentage can be complicated to estimate, while variables such age, height, weight, and
+measurements of various body parts are easy to measure. Based on data on body fat percentage and other
+various easy to obtain measurements, we develop a model to predict body fat percentage based on the 
+following variables:
+
+-age (years)  - abdomen circumference (cm)   - forearm circumference (cm)
+
+-wight (pounds)  - hip circumference (cm)     - wrist circumference (cm)
+
+-neck circumference (cm)    - thigh circumference (cm)
+
+The plot below shows the relationship between each of these variables and body fat percentage (the
+response variable) as well as the correlation coefficients between these variables:</b>
+
+```{r fig6}
+grid::grid.raster(png::readPNG("fig6.png"))
+```
+
+<b>And the following are the model outputs associated with this analysis:</b>
+
+```{r fig7}
+grid::grid.raster(png::readPNG("fig7.png"))
+```
+
+<i>Source: Penrose, K., Nelson, A., and Fisher, A. (1985), Generalized Body Composition Prediction 
+Equation for Men Using Simple Measurement Techniques, Medicine and Science in Sports and Exercise, 7(2), 
+189.</i>
+
+### 5.
+
+```{r q5}
+question("Which of the following is not supported by information provided in the model outputs above?",
+         answer("All else held constant, people with wider hips tend to have lower body fat
+                percentages."),
+         answer("Wrist circumference is the most significant predictor of body fat percentage since the 
+                slope associated with this variable has the highest magnitude.",correct = TRUE),
+         answer("The sample size is 252."),
+         answer("All else held constant, for each additional cm the forearm circumference is higher, body 
+                fat percentage is expected to be higher by 0.483 percentage points."),
+         answer("The F-test for the significance of the model overall suggests that at least one of the 
+                slope coefficients is significantly different than 0."))
+```
+
+### 6.
+
+```{r q6}
+question("Do these data provide convincing evidence that age and body fat percentage are significantly 
+         positively associated?  Why or why not? Use quantitative information based on the model output to
+         support your answer, and make sure to note the p-value you use to make this decision.",
+         answer("Yes, the p-value for testing for a positive correlation between age and body fat 
+         percentage is 0.039. Since the p-value is small we reject the null hypothesis of no 
+         relationship."),
+         answer("Yes, the p-value for testing for a positive correlation between age and body fat 
+         percentage is 0.039 / 2 = 0.0195. Since the p-value is small we reject the null hypothesis of no 
+         relationship.",correct = TRUE),
+         answer("Yes, the p-value for testing for a positive correlation between age and body fat 
+         percentage is 2e$^{-16}$. Since the p-value is small we reject the null hypothesis of no 
+         relationship."),
+         answer("Yes, the p-value for testing for a positive correlation between age and body fat 
+         percentage is 0.000. Since the p-value is small we reject the null hypothesis of no 
+         relationship."))
+```
+
+### 7.
+
+```{r q7}
+question("Construct a 95% confidence interval for the slope of abdomen circumference and interpret it in 
+         context of the data.",
+         answer("(0.745, 1.009); All else held constant, for each additional percentage point increase in 
+         body fat, abdomen circumference is expected to be higher by 0.745 to 1.009 cm."),
+         answer("(-0.00539, 1.75); All else held constant, for each additional cm in abdomen 
+         circumference, body fat percentage is expected to change by -0.00539 to 1.75 percentage
+         points."),
+         answer("(0.745, 1.009); All else held constant, for each additional cm in abdomen circumference, 
+         body fat percentage is expected to be higher by 0.745 to 1.009 percentage points.",
+         correct = TRUE),
+         answer("(0.00539, 0.88239); All else held constant, for each additional cm in abdomen
+         circumference, body fat percentage is expected to be higher by 0.00539 to 0.88239 percentage
+         points."))
+```
+
+```{r q7a,exerice = TRUE}
+## make computations 
+
+```
+
+### 8.
+
+```{r q8}
+question("True/False: Outliers should always be removed from the data set prior to final analysis.",
+         answer("False; we only remove outliers after checking to make sure doing so drastically improves 
+         model fit."),
+         answer("True; outliers distort model fit and must be removed to assure reliable results."),
+         answer("False; we only remove outliers if we have very good justification that suggests that 
+         removing the outlier is appropriate.",correct = TRUE))
+```
