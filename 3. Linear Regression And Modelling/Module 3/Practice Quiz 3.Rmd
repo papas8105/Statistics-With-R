@@ -1,0 +1,148 @@
+---
+title: "Practice Quiz 3"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup,include = FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+
+<b>Data were collected on 200 high schools students’ scores on various tests, 
+including science, math, reading and social studies as well as the gender of the 
+students. The model output for predicting science scores from the rest of the 
+variables is shown below.</b>
+
+```{r fig1}
+grid::grid.raster(jpeg::readJPEG("fig1.jpg"))
+```
+
+```{r q1}
+question("Which of the following is the linear model for female students?",
+         answer("$\\widehat{science} = 12.325 + 0.389 math + 0.050 social studies - 1.675 reading$"),
+         answer("$\\widehat{science} = 14.335 + 0.389 math + 0.050 social studies + 0.335 reading$"),
+         answer("$\\widehat{science} = 12.325 + 0.389 math + 0.050 social studies + 0.335 reading$"),
+         answer("$\\widehat{science} = 10.315 + 0.389 math + 0.050 social studies + 0.335 reading$",
+                correct = TRUE))
+```
+
+### 2.
+
+<b>We modeled the gas mileage of 398 cars built in the 1970’s and early 1980’s using engine displacement
+(in cubic inches), year of manufacture in relation to 1970 (e.g. 4 means the car was built in 1974; 12
+means built in 1982, etc.), and manufacturing site (domestic to the USA = 0; foreign to the USA = 1). The
+regression output is provided below. Note that domestic is the reference level for manufacturing site.</b>
+
+```{r fig2}
+grid::grid.raster(jpeg::readJPEG("fig2.jpg"))
+```
+
+```{r q2}
+question("Which of the following is the best interpretation of the slope of year?",
+         answer("All else held constant, the model predicts that later model cars will get an average of 
+         0.72 additional miles per gallon for each year difference in the date of manufacture.",
+         correct = TRUE),
+         answer("All else held constant, the model predicts that as the date of manufacture increases by 1 
+         year, gas mileage changes 2.21 times as fast for foreign cars as it does for domestic cars."),
+         answer("When a particular car is manufactured again in the following year, its gas mileage will 
+         improve by 0.72 miles per gallon."),
+         answer("All else held constant, the model predicts that later model cars will get an average of 
+         12.48 additional miles per gallon for each year difference in the date of manufacture."))
+```
+
+### 3.
+
+<b>We modeled the gas mileage of 398 cars built in the 1970’s and early 1980’s using engine displacement 
+(in cubic inches), year of manufacture in relation to 1970 (e.g. 4 means the car was built in 1974; 12 
+means built in 1982, etc.), and manufacturing site (domestic to the USA = 0; foreign to the USA = 1). The 
+regression output is provided below. Note that domestic is the reference level for manufacturing site.</b>
+
+```{r fig3}
+grid::grid.raster(jpeg::readJPEG("fig3.jpg"))
+```
+
+```{r q3}
+question("Which of the following is false?",
+         answer("Given information on the manufacturing site of the car and the year of manufacture, engine
+         displacement is a significant predictor of gas mileage."),
+         answer("The 95% confidence interval for the slope of the displacement coefficient can be 
+         calculated as −0.04±[1.96∗(−16.42)].",
+         correct = TRUE),
+         answer("Given the engine displacement and manufacturing site, year of manufacture is a significant
+         predictor of gas mileage."),
+         answer("If we add another variable to the model, for example the price of the car, the p-values 
+         associated with year of manufacture, site of manufacture, and engine displacement may change."))
+```
+
+### 4.
+
+```{r q4}
+question("You are considering adding an explanatory variable to an existing multiple linear regression 
+         model. Which of the following statements is generally true regarding $R^2$ and adjusted $R^2$
+         as a result of adding the variable?",
+         answer("If the variable is a meaningful predictor, $R^2$ will increase while adjusted $R^2$
+         will stay about the same."),
+         answer("If the variable is not a meaningful predictor, $R^2$ and adjusted $R^2$ will both 
+         decrease."),
+         answer("If the variable is not a meaningful predictor, $R^2$ will be very close to 1 and 
+         adjusted $R^2$ will decrease."),
+         answer("If the variable is a meaningful predictor, $R^2$ and adjusted $R^2$ will both 
+         increase.",correct = TRUE),
+         answer("If the variable is a meaningful predictor, adjusted $R^2$ will increase and be higher 
+         than $R^2$."),
+         answer("If the variable is a meaningful predictor, $R^2$ will increase while adjusted $R^2$
+         will decrease and become closer to the value of $R^2$."),
+         answer("If the variable is not a meaningful predictor, $R^2$ will decrease and adjusted $R^2$
+         will stay about the same."))
+```
+
+### 5.
+
+```{r q5}
+question("Which of the following is true?",
+         answer("A model selected using the adjusted $R^2$ backwards selection approach will only 
+         contain explanatory variables that are significant at the 5% level."),
+         answer("Adjusted $R^2$ may or may not be smaller than $R^2$, depending on the sample size and 
+         the number of predictors in the model."),
+         answer("A parsimonious model is the model containing the highest possible number of
+                predictors."),
+         answer("Adjusted $R^2$ applies a penalty for the number of predictors included in the regression
+         model.",correct = TRUE))
+```
+
+### 6.
+
+```{r q6}
+question("Which of the following is false about conditions for multiple linear regression?",
+         answer("The residuals plot should show constant variability of residuals around 0."),
+         answer("It is ideal for there to be no strong relationships between any of the explanatory 
+         variables."),
+         answer("When the residuals are plotted in a histogram, they should appear normally distributed 
+         around 0."),
+         answer("With multiple predictors in the model, it’s not necessary for each of the numerical 
+         explanatory variables to have a linear relationship with the response variable.",correct = TRUE))
+```
+
+### 7.
+
+```{r q7}
+question("Which of the following is false?",
+         answer("In backwards model selection using adjusted $R^2$ as the criterion, we drop variables 
+         from the model, one at a time, until adjusted $R^2$ is maximized."),
+         answer("When dealing with collinearity, a useful strategy is to add more predictors to the model,
+         one at a time, until the bad effects of collinearity disappear from the analysis.",
+         correct = TRUE),
+         answer("$R^2$ is always greater than or equal to adjusted $R^2$."))
+```
+
+### 8.
+
+```{r q8}
+question("True / False. If the F-test assessing the overall significance of a multiple linear regression 
+         yields a significant p-value, all variables included in the model must be significant 
+         predictors.",answer("TRUE"),answer("FALSE",correct = TRUE))
+```

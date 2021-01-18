@@ -1,0 +1,187 @@
+---
+title: "Quiz 3"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup,include = FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+
+
+<b>We modeled the gas mileage of 398 cars built in the 1970’s and early 1980’s using engine displacement (in
+cubic inches), year of manufacture in relation to 1970 (e.g. 4 means the car was built in 1974; 12 means
+built in 1982, etc.), and manufacturing site (domestic to the USA = 0; foreign to the USA = 1). The
+regression output is provided below. Note that domestic is the reference level for manufacturing site.</b>
+
+```{r fig4}
+grid::grid.raster(jpeg::readJPEG("fig4.jpg"))
+```
+
+```{r q1}
+question("Which of the following is the degrees of freedom associated with the p-value for site? ",
+         answer("398"),answer("394",correct = TRUE),answer("395"),answer("3"),answer("2"))
+```
+
+### 2.
+
+<b>We modeled the gas mileage of 398 cars built in the 1970’s and early 1980’s using engine displacement 
+(in cubic inches), year of manufacture in relation to 1970 (e.g. 4 means the car was built in 1974; 12 
+means built in 1982, etc.), and manufacturing site (domestic to the USA = 0; foreign to the USA = 1). The
+regression output is provided below. Note that domestic is the reference level for manufacturing site.</b>
+
+```{r fig5}
+grid::grid.raster(jpeg::readJPEG("fig5.jpg"))
+```
+
+
+```{r q2}
+question("Which of the following is the correct predicted gas mileage (in miles per gallon) for a domestic 
+         car with an engine displacement of 350 cubic inches built in 1975?",
+         answer("−0.04×350+0.72×1975"),
+         answer("26.86−0.04×350+0.72×1975+2.21"),
+         answer("26.86−0.04×350+0.72×5",correct = TRUE),
+         answer("−0.04×350+0.72×5+2.21"))
+```
+
+### 3.
+
+<b>Body fat percentage can be complicated to estimate, while variables such as Age, Height, Weight, and
+measurements of various body parts are easy to measure. Based on data1 on body fat percentage and other
+various measurements, a linear regression model was developed to predict body fat percentage, based on easy
+to obtain measurements. The model output is shown below.</b>
+
+```{r fig6}
+grid::grid.raster(jpeg::readJPEG("fig6.jpg"))
+```
+
+```{r q3}
+question("Based on this output, what is the correct interpretation of the coefficient for wrist?",
+         answer("For every 1 inch decrease in wrist circumference, we’d expect a decrease in body fat 
+         percentage of about (13.57+1.14)%, on average."),
+         answer("For every 1 inch decrease in wrist circumference, we’d expect a decrease in body fat 
+         percentage of 1.14%, on average."),
+         answer("For every 1 inch increase in wrist circumference, we would expect body fat percentage to
+         be lower by 1.14%, on average.",correct = TRUE),
+         answer("For every 1 inch increase in wrist circumference, we’d expect a decrease in body fat 
+         percentage of about 1.14% plus or minus 1.96∗0.47%, on average."))
+```
+
+### 4.
+
+<b>A random sample of 200 women who were at least 21 years old, of Pima Indian heritage and living near
+Phoenix, Arizona, were tested for diabetes according to World Health Organi- zation criteria. The model
+below is used for predicting their plasma glucose concentration based on their diastolic blood pressure
+(bp, in mmHg), age (age, in years), and whether or not they are diabetic (type, Yes and No). </b>
+
+```{r fig7}
+grid::grid.raster(jpeg::readJPEG("fig7.jpg"))
+```
+
+```{r q4}
+question("Which of the following is false?",
+         answer("The model as a whole is significant, even though one of the variables (blood pressure) 
+         may not be."),
+         answer("The predicted difference in blood glucose levels of two 25 year old females who don’t 
+         have diabetes one of whom has a blood pressure of 70mmHg and the other 75 mmHG is 0.35∗5=1.75"),
+         answer("The model predicts that women without diabetes have blood glucose levels that are on 
+         average 26.57 higher than those who have diabetes, given that they are similar in terms 
+         of their blood pressure and age.",correct = TRUE),
+         answer("The model explains 28% of variability in blood glucose levels of these women."))
+```
+
+### 5.
+
+<b>Researchers investigating academic performance of high school students examined data from 2011 from all
+50 states and DC (n=51). The data included information on
+
+* SAT math (response variable) - average SAT math score of all students in the state who took the exam
+
+* per_ppl_sp - average number of dollars per pupil spent on education by the state
+
+* perc_take - percentage of high school seniors in the state that took the exam
+
+The output of the model fit by one of the researchers is shown below: </b>
+
+```{r fig8}
+grid::grid.raster(jpeg::readJPEG("fig8.jpg"))
+```
+
+```{r q5}
+question("What proportion of the variability in the response variable is explained by the model? Choose 
+         the closest answer.",
+         answer("8%"),answer("6%"),answer("31%"),answer("74%",correct = TRUE))
+```
+
+### 6.
+
+<b>Consider the following output from a multiple linear regression model with 10 predictors.</b>
+
+```{r fig9}
+grid::grid.raster(jpeg::readJPEG("fig9.jpg"))
+```
+
+```{r q6}
+question("If you were doing backwards selection on this model using p-value as the criterion, which of the
+         following would be an acceptable next step?",
+         answer("Remove the variable “dollar” because it has the highest p-value.",
+                correct = TRUE),
+         answer("Remove any one of the variables with a high p-value which as long as removing the 
+         variable does not cause the adjusted $R^2$ to decrease in the re-fitted model."),
+         answer("Remove the variables “password” and “dollar” because their high p-values indicate 
+         collinearity with other variables."),
+         answer("Remove one of the variables “ re subj” or “ attach” because they both have the lowest 
+         p-values."))
+```
+
+### 7.
+
+```{r q7}
+question("Which of the following is false about conditions for multiple linear regression?",
+         answer("Explanatory variables should have strong relationships with each other.",correct = TRUE),
+         answer("Explanatory variables should have linear relationship with the response variable."),
+         answer("Residuals should have constant variance."),
+         answer("Residuals should be normally distributed around 0."))
+```
+
+### 8.
+
+```{r q8}
+question("Which of the following is the best definition of a parsimonious model?",
+         answer("The model with the highest $R^2$"),
+         answer("The model with the most number of predictors."),
+         answer("The model that includes all the predictors that your audience is interested in."),
+         answer("The simplest model with the highest predictive power.",correct = TRUE))
+```
+
+### 9.
+
+```{r q9}
+question("A high correlation between two explanatory variables such that the two variables contribute 
+         redundant information to the model is known as",
+         answer("homogeneity"),
+         answer("adjusted R^2"),
+         answer("multiple correlation"),
+         answer("heteroscedasticity"),
+         answer("multiple interaction"),
+         answer("homoscedasticity"),answer("heterogeneity"),
+         answer("collinearity",correct = TRUE))
+```
+
+### 10.
+
+```{r q10}
+question("Suppose you have performed forward selection using adjusted $R^2$ as the criterion and have
+         chosen a model with 6 predictors. Based on your studies of model selection, which of the
+         following is most likely to be true?",
+         answer("The model you’ve arrived at is the most parsimonious model."),
+         answer("All 6 predictors will be significant in the model."),
+         answer("If any of your 6 predictors is not significant in the model, given the other 
+         predictors, then your slope coefficients will be biased."),
+         answer("Your final model has a higher adjusted $R^2$ than any of the smaller models
+         you tried.",correct = TRUE))
+```
