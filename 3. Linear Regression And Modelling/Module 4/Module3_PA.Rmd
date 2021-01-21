@@ -1,5 +1,10 @@
 ---
 title: "Modeling and prediction for movies"
+author:
+  - George Papadopoulos
+  - pgeorgios8@gmail.com
+date:
+  - "`r lubridate::today()`"
 output: 
   html_document: 
     css: style.css
@@ -9,64 +14,291 @@ output:
     toc: true
 ---
 <style>body{text-align: justify}</style>
+# Section A: Aim & Data
+
 ## Setup
+
+Big corporations were always very interested in investing in new technologies combined with 
+statistical methods in order to be able to make predictions and recognize customer preferences
+along with new trends! In this report we are placed head of a group of a data scientist team hired by 
+_Paramount_, with the task of creating a simple and robust prediction model for 
+__audience  score__ for later movies (after 2016).
+
+Our  supervisor in this project is interested in learning what attributes make a movie popular, 
+learning something new about movies and wants from our team to figure it all out. As part of this
+project we will complete exploratory data analysis (EDA), modeling and prediction. We will try to 
+find the simplest and more robust model to make predictions and test a prediction by extrapolating to new data.
 
 ### Load packages
 
-```{r load-packages, message = FALSE}
+The version of R used and the packages we will use in this report are the following.
+
+```{r load-packages,message = FALSE,comment = '',warning = FALSE}
 library(ggplot2)
 library(dplyr)
 library(statsr)
+library(olsrr)
+library(GGally)
+library(gridExtra)
+library(grid)
+getRversion()
 ```
 
-### Load data
+### Preparation
 
-Make sure your data and R Markdown files are in the same directory. When loaded
-your data file will be called `movies`. Delete this note when before you submit 
-your work. 
+We will load the data.
 
 ```{r load-data}
-#load("movies.Rdata")
+load("movies.Rdata")
 ```
-
-
-
-* * *
 
 ## Part 1: Data
 
+### Overview Of Data: <u>__Data Summary And Variables__</u> {.tabset}
 
-* * *
+#### Names {.tabset}
+
+```{r names,comment = ''}
+names(movies)
+```
+
+#### Dimension {.tabset}
+
+```{r dimension,comment = ''}
+dim(movies)
+```
+
+#### Summary {.tabset}
+
+```{r summary,comment = ''}
+summary(movies)
+```
+
+#### Class Of Each Variable
+
+```{r class-column,comment = ''}
+sapply(movies,class)
+```
+
+### Information Contained In Data
+
+The dataset contains information about movies in [Rotten Tomatoes](www.rottentomatoes.com/) 
+and [IMDB](www.imdb.com). There are 651 _randomly_ sampled movies produced and released before 2016. 
+There are 32 available variables, which are described in more detail in the following list.
+
+<input type=button class=hideshow>
+```{r codebook,eval = F}
+Codebook
+
+1.  title: Title of movie
+2.  title_type: Type of movie (Documentary, Feature Film, TV Movie)
+3.  genre: Genre of movie (Action & Adventure, Comedy, Documentary, Drama, Horror, Mystery & Suspense, Other)
+4.  runtime: Runtime of movie (in minutes)
+5.  mpaa_rating: MPAA rating of the movie (G, PG, PG-13, R, Unrated)
+6.  studio: Studio that produced the movie
+7.  thtr_rel_year: Year the movie is released in theaters
+8.  thtr_rel_month: Month the movie is released in theaters
+9.  thtr_rel_day: Day of the month the movie is released in theaters
+10. dvd_rel_year: Year the movie is released on DVD
+11. dvd_rel_month: Month the movie is released on DVD
+12. dvd_rel_day: Day of the month the movie is released on DVD
+13. imdb_rating: Rating on IMDB
+14. imdb_num_votes: Number of votes on IMDB
+15. critics_rating: Categorical variable for critics rating on Rotten Tomatoes (Certified Fresh, Fresh, Rotten)
+16. critics_score: Critics score on Rotten Tomatoes
+17. audience_rating: Categorical variable for audience rating on Rotten Tomatoes (Spilled, Upright)
+18. audience_score: Audience score on Rotten Tomatoes
+19. best_pic_nom: Whether or not the movie was nominated for a best picture Oscar (no, yes)
+20. best_pic_win: Whether or not the movie won a best picture Oscar (no, yes)
+21. best_actor_win: Whether or not one of the main actors in the movie ever won an Oscar (no, yes) – note that 
+this is not necessarily whether the actor won an Oscar for their role in the given movie
+22. best_actress win: Whether or not one of the main actresses in the movie ever won an Oscar (no, yes) – not 
+that this is not necessarily whether the actresses won an Oscar for their role in the given movie
+23. best_dir_win: Whether or not the director of the movie ever won an Oscar (no, yes) – not that this is not 
+necessarily whether the director won an Oscar for the given movie
+24. top200_box: Whether or not the movie is in the Top 200 Box Office list on BoxOfficeMojo (no, yes)
+25. director: Director of the movie
+26. actor1: First main actor/actress in the abridged cast of the movie
+27. actor2: Second main actor/actress in the abridged cast of the movie
+28. actor3: Third main actor/actress in the abridged cast of the movie
+29. actor4: Fourth main actor/actress in the abridged cast of the movie
+30. actor5: Fifth main actor/actress in the abridged cast of the movie
+31. imdb_url: Link to IMDB page for the movie
+32. rt_url: Link to Rotten Tomatoes page for the movie
+```
+</input>
+
+We will also have to keep only the complete cases in order to be more precise in the next parts.
+
+```{r data clean,warning = FALSE,comment = ''}
+data <- movies %>% na.omit()
+sum(is.na(data)) # check
+```
 
 ## Part 2: Research question
 
+The research question we will investigate is the following:
 
+<b>which is the best set of predictors that can predict the audience score in the rotten tomatoes 
+website based in the data set we loaded and how accurate is the extrapolation of this model to 
+movies not belonging to data set, meaning movies released after 2016.</b>
 
-* * *
+In the next chunk we will present the variables we will use for building our model in the next parts.
 
-## Part 3: Exploratory data analysis
+```{r variables,comment = ''}
+cols <- c(3,4,5,13,14,15,16,17,18,19,20,21,22,23,24)
+data <- movies[cols] %>% na.omit() 
+names(data)
+```
 
-NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk" 
-button above. Make sure that your code is visible in the project you submit. 
-Delete this note when before you submit your work.
+We excluded variables which had to do with the title of the movies, studios in which the movies were directed, 
+the release time (dvd/cinema), names of actors and directors and finally the urls, since these cannot be used 
+for prediction.
 
-* * *
+# Section B: Building the model
 
-## Part 4: Modeling
+## Part 3: Exploratory data analysis Part I
 
-NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk" 
-button above. Make sure that your code is visible in the project you submit. 
-Delete this note when before you submit your work.
+The response variable is "audience_score" (the score provided by the audience in rotten tomatoes), 
+we will explore firstly the correlation plot between the numeric variables.
 
-* * *
+```{r corplot,fig.align = 'center'}
+ggcorr(data)
+```
+
+We actually observe that there is high positive correlation between the audience score and the critics score and 
+even higher positive correlation between audience score and imdb ratings, this is good since logically we 
+see that the scores from different sources seem to follow the same trend.  We will continue with the other 
+factor variables.
+
+```{r boxplots,fig.align = 'center'}
+g  <- ggplot(data) + theme(axis.text.x = element_text(angle = -90, hjust = 0)) 
+g1 <- g + geom_boxplot(aes(x = genre,y = audience_score)) 
+g2 <- g + geom_boxplot(aes(x = mpaa_rating,y = audience_score))
+g3 <- g + geom_boxplot(aes(x = critics_rating,y = audience_score))
+grid.arrange(g1,g2,g3,ncol = 3,top = textGrob("Audience Score Vs Factor Variables"))
+```
+
+We observe high fluctuation of the medians of audience scores between genre and critics rating which is a sign of
+potential informative predictors, since the diversification can lead to more accurate predictions, In the middle 
+plot though we see medians fluctuating in a specific range which might imply a bad predictor. The other variables
+are __binary__ and of no interest in this section. 
+
+## Part 4: Modeling 
+
+Our interest is creating a robust simple model which can extrapolate beyond the data provided to our team. We 
+will fit a model with all the variables and with _backwards_ propagation using the $R^2$.adjusted metric we will 
+choose the best model which fits our purpose of predictions. Using the p-values might overfit the model which is 
+not good for our case, since we adjust the model too much in the original data. The following commands first fit
+a one-against-all linear regression model and by subtracting one variable at a time it provides the best model 
+with the highest $R^2$.adjust value.
+
+```{r model lm}
+model <- lm(audience_score ~ .,data = data)
+ols_step_backward_p(model) -> best_model
+```
+
+The information printed after the operation provides the list of the variables excluded by the algorithm.
+
+```{r model lm2,comment = ''}
+summary(best_model$model)
+```
+
+From the F-statistic we deduce that the model is _statistically significant_ and that not all p-values of the 
+predictors fall under the 0.05 threshold, nonetheless as noted from the beginning our main goal is _prediction_
+, so this is the best model that the backwards propagation algorithm yielded using the $R^2$.adjusted metric. 
+Hopefully we observe that the model justifies our exploratory findings.
+
+### Exploratory Model Analysis Part II
+
+We will test for _independency_ between the explanatory variables and the response variable.
+
+```{r residuals/resp,fig.align = 'center'}
+par(mfrow = c(1,2),oma = c(0, 0, 2, 0))
+plot(x = data$imdb_rating,y = best_model$model$residuals,col = data$audience_rating,pch = 19,
+     ylab = 'residual',xlab = 'imdb rating')
+abline(v = 6.5)
+abline(h = 0)
+plot(y = best_model$model$residuals,x = data$runtime,col = data$audience_rating,pch = 19,
+     ylab = 'residual',xlab = 'runtime')
+abline(h = 0)
+mtext(text = "Model Residuals vs Numeric Parameters",outer = TRUE)
+```
+
+In the first plot a confounding factor is the audience rating (binary) which differentiates the two clusters, 
+nontheless the scatter around the horizontal line h = 0 seems random despite some outliers.
+
+The next step is to check for __residual normality__ and __constant variability__ of the residuals,
+
+```{r residual/norm,fig.align = 'center'}
+par(mfrow = c(1,2),oma = c(0, 0, 2, 0))
+qqnorm(best_model$model$residuals,col = rgb(0,.2,.4,.4))
+qqline(best_model$model$residuals,lty = 2,col = 'red')
+plot(density(best_model$model$residuals),lwd = 2,col = 'green',main = 'residual density')
+mtext(text = "Residuals Normality Check",outer = TRUE)
+```
+
+from the plots above the normality check is passed. Now for the __homoscedacity__ check,
+
+```{r res vs fitted,fig.align = 'center'}
+plot(best_model$model$fitted.values,best_model$model$residuals,pch = 19,
+     xlab = 'fitted values',ylab = 'residuals',col = movies$audience_rating)
+abline(h = 0)
+```
+
+We observe again the confounding factor which we noted before and that the spread around the line 
+h = 0 shows a constant variability despite the "gap" between the two clusters. Finally we will plot the residuals
+by index to explore if they are __independent__,
+
+```{r res independency,fig.align = 'center'}
+plot(best_model$model$residuals,col = 'red',pch = 19,ylab = 'residuals')
+```
+
+since we don't notice any pattern we move to the next part to use our model for _extrapolation_.
 
 ## Part 5: Prediction
 
-NOTE: Insert code chunks as needed by clicking on the "Insert a new code chunk" 
-button above. Make sure that your code is visible in the project you submit. 
-Delete this note when before you submit your work.
+<b><u>Apply For Extrapolation:</u></b>
 
-* * *
+The movie released after 2016 for which we will make a prediction with our liner model is 
+[Alien Covenant (2017)](https://www.rottentomatoes.com/m/alien_covenant). The information
+in the next chunk is taken by the movie link provided in the previous sentence.
+
+```{r prediction/extrapolation,comment = ''}
+data.frame(genre = "Science Fiction & Fantasy",
+           runtime = 124,imdb_rating = 6.4,critics_score = 6.3,audience_rating = "Spilled"
+           ,best_pic_nom = "yes",best_actress_win = "no") -> pred
+predict(best_model$model,pred)
+```
+
+We observe a slightly lower value of our prediction than the real audience score 55% as of 
+1/20/2021! The rounded under evaluation error is `r round(predict(best_model$model,pred) - 55,2)`.
 
 ## Part 6: Conclusion
 
+Our model was created using back propagation by choosing the parameters that maximize $R^2$.adjust, we used this 
+metric because we aimed at extrapolation beyond the data's time scope and tried to capture the parameters
+that __mostly__ affect film preferences by the audiences. Ending our report, we would like to point out that 
+further study on data collection variables should be conducted, for example we might need information on how 
+the audience scoring is affected by a successful prequel of the movie rated or even add a variable which 
+_scales_ how famous the cast is in order to free our model from actor names, finally we might want to ensure that
+there is no bias in the scoring process by making the ip filtering more strict.
+
+<script>
+$( "input.hideshow" ).each( function ( index, button ) {
+  button.value = 'Show Output';
+  $( button ).click( function () {
+    var target = this.nextSibling ? this : this.parentNode;
+    target = target.nextSibling.nextSibling;
+    if ( target.style.display == 'none') {
+      target.style.display = '';
+      this.value = 'Hide Output';
+    } else {
+      target.style.display = 'none';
+      this.value = 'Show Output';
+    }
+  } );
+} );
+
+$("input.hideshow").click()
+</script>
