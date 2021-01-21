@@ -162,7 +162,7 @@ for prediction.
 The response variable is "audience_score" (the score provided by the audience in rotten tomatoes), 
 we will explore firstly the correlation plot between the numeric variables.
 
-```{r corplot,fig.align = 'center'}
+```{r corplot,fig.align = 'center',warning = F}
 ggcorr(data)
 ```
 
@@ -273,7 +273,7 @@ predict(best_model$model,pred, interval = "prediction", level = 0.95)
 
 We observe a slightly lower value of our prediction than the real audience score 55% as of 
 1/20/2021! The rounded under evaluation error is `r round(predict(best_model$model,pred) - 55,2)` and we are 
-95% confident that the interval (37.72772,6686361) contains the true parameter of interest, which is already 
+95% confident that the interval (37.72772,66.86361) contains the true parameter of interest, which is already 
 known in our case with the value 55% and that makes our model's prediction robust per se.
 
 ## Part 6: Conclusion
