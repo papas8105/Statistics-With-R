@@ -268,21 +268,25 @@ in the next chunk is taken by the movie link provided in the previous sentence.
 data.frame(genre = "Science Fiction & Fantasy",
            runtime = 124,imdb_rating = 6.4,critics_score = 6.3,audience_rating = "Spilled"
            ,best_pic_nom = "yes",best_actress_win = "no") -> pred
-predict(best_model$model,pred)
+predict(best_model$model,pred, interval = "prediction", level = 0.95)
 ```
 
 We observe a slightly lower value of our prediction than the real audience score 55% as of 
-1/20/2021! The rounded under evaluation error is `r round(predict(best_model$model,pred) - 55,2)`.
+1/20/2021! The rounded under evaluation error is `r round(predict(best_model$model,pred) - 55,2)` and we are 
+95% confident that the interval (37.72772,6686361) contains the true parameter of interest, which is already 
+known in our case with the value 55% and that makes our model's prediction robust per se.
 
 ## Part 6: Conclusion
 
 Our model was created using back propagation by choosing the parameters that maximize $R^2$.adjust, we used this 
-metric because we aimed at extrapolation beyond the data's time scope and tried to capture the parameters
-that __mostly__ affect film preferences by the audiences. Ending our report, we would like to point out that 
-further study on data collection variables should be conducted, for example we might need information on how 
-the audience scoring is affected by a successful prequel of the movie rated or even add a variable which 
-_scales_ how famous the cast is in order to free our model from actor names, finally we might want to ensure that
-there is no bias in the scoring process by making the ip filtering more strict.
+metric because we aimed at extrapolation beyond the data time scope and tried to capture the parameters
+that __mostly__ affect film preferences by the audiences in the rotten tomatoes web site. We didn't conduct a 
+causal analysis since we didn't randomize or blocked for a confounding factor we spotted in the plots presented,
+our only goal was to create a prediction model based on _observational_ study. Ending our report, we would like 
+to point out that further study on data collection variables should be conducted, for example we might need 
+information on how the audience scoring is affected by a successful prequel of the movie rated or even add a 
+variable which _scales_ how famous the cast is in order to free our model from actor names, finally we might want
+to ensure that there is no bias in the scoring process by making the ip filtering more strict.
 
 <script>
 $( "input.hideshow" ).each( function ( index, button ) {
