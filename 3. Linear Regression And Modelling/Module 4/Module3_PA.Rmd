@@ -262,7 +262,8 @@ since we don't notice any pattern we move to the next part to use our model for 
 
 The movie released after 2016 for which we will make a prediction with our liner model is 
 [Alien Covenant (2017)](https://www.rottentomatoes.com/m/alien_covenant). The information
-in the next chunk is taken by the movie link provided in the previous sentence.
+in the next chunk is taken by the movie link provided in the previous sentence and 
+[here](https://www.imdb.com/title/tt2316204/).
 
 ```{r prediction/extrapolation,comment = ''}
 data.frame(genre = "Science Fiction & Fantasy",
