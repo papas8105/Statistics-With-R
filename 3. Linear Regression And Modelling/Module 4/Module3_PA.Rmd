@@ -207,14 +207,15 @@ will fit a model with all the variables and with _backwards_ propagation by usin
 choose the best model which fits our purpose of predicting. Using the R squared metric with backaward propagation 
 instead of the one previously mentioned might overfit the model is computationally costly and 
 not good in our case, since we adjust the model too much in the original data. The following commands first fit
-a one-against-all linear regression model and by subtracting one coefficient at a time with the biggest p-value over 0.05, stop 
-at point in which no other regressor can be eliminated from the model. 
+a one-against-all linear regression model and by subtracting one coefficient at a time with the biggest p-value over 
+0.15^[we don't need to strictly adjust strong regressors to avoid overfit] and stop at a step in which no other
+variable can be eliminated from the model. 
 
 Command: ols_step_backward_p^[ordinary least squares step backward propagation using the p-value metric]
 
 ```{r model lm}
 model <- lm(audience_score ~ .,data = data)
-ols_step_backward_p(model) -> best_model
+ols_step_backward_p(model,prem = 0.15) -> best_model
 ```
 
 The information printed after the operation provides the list of the variables excluded by the algorithm. The model 
@@ -226,7 +227,19 @@ summary(best_model$model)
 
 from the F-statistic we deduce that the model is _statistically significant_ and observe that the model justifies our 
 exploratory analysis findings, also the R squared is very high nearly equal to 90% which is a good sign that most of the 
-information is explained by the variables the algorithm came up with.
+information is explained by the variables the algorithm came up with. The parameters of the model are 
+genre (imdb), runtime ,imdb_rating, critics_score (overall in rotten tomatoes),audience_rating (rotten tomatoes),
+best_pic_nom and best_actress_win. We observe the following:
+
+* Significant Predictors Less Than 0.05
+
+Genre (p.value = 0.012 "Mystery & Suspense"), imdb_rating (p.value = 0), critics_score (p.value = 0),
+audience_rating ("Upright" value adds 20.05 - "Spilled" adds nothing: p.value = 0),
+best_pic_nom (yes adds 3.52: p.value = 0.0271)
+
+* Less Significant Predictors (added for extrapolation)
+
+runtime, critics_score and best_actress_win (yes subtracts -1.3)
 
 ### Exploratory Model Analysis Part II
 
@@ -305,7 +318,7 @@ predict(best_model$model,pred, interval = "prediction", level = 0.95)
 ```
 
 We observe a slightly higher value  of our prediction than the real audience score 48% as of 
-1/20/2021! The rounded over evaluation error is `r round(predict(best_model$model,pred) - 48)` and we are 
+1/26/2021! The rounded over evaluation error is `r round(predict(best_model$model,pred) - 48)` and we are 
 95% confident that the interval (37.8,64.6) contains the true parameter of interest and that makes our model's
 prediction robust per se.
 
@@ -324,7 +337,7 @@ predict(best_model$model,pred, interval = "prediction", level = 0.95)
 ```
 
 We observe a slightly lower value of our prediction than the real audience score as of 
-1/20/2021! The rounded under evaluation error is `r round(predict(best_model$model,pred) - 55,2)` and we are 
+1/26/2021! The rounded under evaluation error is `r round(predict(best_model$model,pred) - 55,2)` and we are 
 95% confident that the interval (37.73,66.86) contains the true parameter of interest, which is already 
 known in our case with the value 55% and that makes our model's prediction robust per se.
 
