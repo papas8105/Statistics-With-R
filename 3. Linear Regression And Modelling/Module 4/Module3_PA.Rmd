@@ -234,12 +234,12 @@ best_pic_nom and best_actress_win. We observe the following:
 * Significant Predictors Less Than 0.05
 
 Genre (p.value = 0.012 "Mystery & Suspense"), imdb_rating (p.value = 0), critics_score (p.value = 0),
-audience_rating ("Upright" value adds 20.05 - "Spilled" adds nothing: p.value = 0),
-best_pic_nom (yes adds 3.52: p.value = 0.0271)
+audience_rating (all else held constant "Upright" value adds 20.05 - "Spilled" adds nothing: p.value = 0),
+best_pic_nom (all else held constant "yes" adds 3.52: p.value = 0.0271)
 
 * Less Significant Predictors (added for extrapolation)
 
-runtime, critics_score and best_actress_win (yes subtracts -1.3)
+runtime, critics_score and best_actress_win (all else held constant a "yes" subtracts -1.3)
 
 ### Exploratory Model Analysis Part II
 
