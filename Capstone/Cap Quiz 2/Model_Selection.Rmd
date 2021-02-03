@@ -1,0 +1,254 @@
+---
+title: "Capstone Quiz II"
+output: statsr:::statswithr_lab
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = '', fig.width = 6, fig.height = 6,fig.align = 'center'
+)
+```
+
+This second quiz will deal with model assumptions, selection, and interpretation.  The concepts
+tested here will prove useful for the final peer assessment, which is much more open-ended.
+
+First, let us load the data:
+
+```{r load}
+load("../ames_train.Rdata")
+```
+
+
+1. Suppose you are regressing $\log$(`price`) on $\log$(`area`), $\log$(`Lot.Area`), `Bedroom.AbvGr`,
+`Overall.Qual`, and `Land.Slope`.  Which of the following variables are included with stepwise variable
+selection using AIC but not BIC?  Select all that apply.
+
+<ol>
+<li> $\log$(`area`) </li>
+<li> $\log$(`Lot.Area`) </li> 
+<li> `Bedroom.AbvGr` </li> 
+<li> `Overall.Qual` </li>
+<li> <text style="color:red">`Land.Slope`</text></li>
+</ol>
+
+```{r Q1}
+# type your code for Question 1 here, and Knit
+ames_train$Overall.Qual <- factor(ames_train$Overall.Qual,ordered = TRUE)
+ames_train$Overall.Cond <- factor(ames_train$Overall.Cond,ordered = TRUE)
+library(dplyr,warn.conflicts = F)
+data <- ames_train %>% dplyr:: select(price, area, Lot.Area, Bedroom.AbvGr, Overall.Qual, Land.Slope)
+fit <- lm(log(price) ~ log(area) + log(Lot.Area) + Bedroom.AbvGr + Overall.Qual + Land.Slope, data)
+stepAIC <- step(fit)
+stepBIC <- step(fit,k = log(nrow(data)))
+```
+
+2. When regressing $\log$(`price`) on `Bedroom.AbvGr`, the coefficient for `Bedroom.AbvGr` is strongly positive.
+However, once $\log$(`area`) is added to the model, the coefficient for `Bedroom.AbvGr` becomes strongly negative.
+Which of the following best explains this phenomenon?
+
+<ol>
+<li> The original model was misspecified, biasing our coefficient estimate for `Bedroom.AbvGr`
+<li> Bedrooms take up proportionally less space in larger houses, which increases property valuation.
+<li> <text style="color:red">Larger houses on average have more bedrooms and sell for higher prices. 
+However, holding constant the size of a house, the number of bedrooms decreases property valuation.</text>
+<li> Since the number of bedrooms is a statistically insignificant predictor of housing price, it is 
+unsurprising that the coefficient changes depending on which variables are included.
+</ol>
+
+```{r Q2}
+# type your code for Question 2 here, and Knit
+fit  <- lm(log(price) ~ Bedroom.AbvGr,data)
+summary(fit)
+fit2 <- lm(log(price) ~ Bedroom.AbvGr + log(area),data)
+summary(fit2)
+```
+
+3.  Run a simple linear model for $\log$(`price`), with $\log$(`area`) as the independent
+variable.  Which of the following neighborhoods has the highest average residuals?  
+
+<ol>
+<li> `OldTown`</li>
+<li> `StoneBr`</li>
+<li> <text style = "color:red">`GrnHill`</li>
+<li> `IDOTRR`</li>
+</ol>
+
+```{r Q3}
+# type your code for Question 3 here, and Knit
+fit <- lm(log(price) ~ log(area),ames_train)
+data <- ames_train 
+data$residuals <- fit$residuals
+data %>% group_by(Neighborhood) %>% summarise(mu = mean(residuals)) %>% arrange(desc(mu)) %>%
+  head(1)
+```
+
+4. We are interested in determining how well the model fits the data for each neighborhood.  
+The model from Question 3 does the worst at predicting prices in which of the following neighborhoods?
+
+<ol>
+<li> <text style="color:red">`GrnHill`</text></li>
+<li> `BlueSte`</li>
+<li> `StoneBr`</li>
+<li> `MeadowV`</li>
+</ol>
+
+```{r Q4}
+# type your code for Question 4 here, and Knit
+data %>% group_by(Neighborhood) %>% summarise(mu_s = mean(residuals^2)) %>% arrange(desc(mu_s)) %>%
+  head(1)
+```
+
+5. Suppose you want to model  $\log$(`price`) using only the variables in the dataset that pertain to
+quality: `Overall.Qual`, `Basement.Qual`, and `Garage.Qual`.  How many observations must be discarded
+in order to estimate this model?
+
+<ol>
+<li> 0</li>
+<li> 46</li>
+<li> <text style="color:red">64</text></li>
+<li> 924</li>
+</ol>
+
+```{r Q5}
+# type your code for Question 5 here, and Knit
+data <- ames_train %>% select(price,Overall.Qual,Bsmt.Qual,Garage.Qual) %>% na.omit
+nrow(ames_train) - nrow(data)
+```
+
+6. `NA` values for `Basement.Qual` and `Garage.Qual` correspond to houses that do not have
+a basement or a garage respectively.  Which of the following is the best way to deal with these
+`NA` values when fitting the linear model with these variables?
+
+<ol>
+<li> Drop all observations with `NA` values for `Basement.Qual` or `Garage.Qual`
+since the model cannot be estimated otherwise.
+<li> Recode all `NA` values as the category `TA` since we must assume these 
+basements or garages are typical in the absence of all other information.
+<li><text style="color:red"> Recode all `NA` values as a separate category, since 
+houses without basements or garages
+are fundamentally different than houses with both basements and garages.</text>
+</ol>
+
+7. Run a simple linear model with  $\log$(`price`) regressed on `Overall.Cond` and `Overall.Qual`.
+Which of the following subclasses of dwellings (`MS.SubClass`) has the highest median predicted prices?
+
+<ol>
+<li> <text style="color:red">075: 2-1/2 story houses</text></li>
+<li> 060: 2 story, 1946 and Newer</li>
+<li> 120: 1 story planned unit development</li>
+<li> 090: Duplexes</li>
+</ol>
+
+```{r Q7}
+# type your code for Question 7 here, and Knit
+fit <- lm(log(price) ~ Overall.Cond + Overall.Qual,data = ames_train)
+exp(predict(fit,data = ames_train)) -> predicted
+data <- ames_train
+data$predicted <- predicted
+data %>% group_by(MS.SubClass) %>% summarize(median_predicted_price = median(predicted)) %>% 
+  arrange(desc(median_predicted_price)) %>% head(1)
+```
+
+8. Using the model from Question 7, which observation has the highest leverage or influence on the 
+regression model?  Hint: use `hatvalues`, `hat` or `lm.influence`.
+
+<ol>
+<li> 125</li>
+<li> <text style="color:red">268</text></li>
+<li> 640</li>
+<li> 832</li>
+</ol>
+
+```{r Q8}
+# type your code for Question 8 here, and Knit
+which(hatvalues(fit) == max(hatvalues(fit)))
+```
+
+9. Which of the following corresponds to a correct interpretation of the coefficient $k$ of
+`Bedroom.AbvGr`, where  $\log$(`price`) is the dependent variable?
+
+<ol>
+<li> Holding constant all other variables in the dataset, on average, an additional
+bedroom will increase housing price by $k$ percent.</li>
+<li> <text style="color:red">Holding constant all other variables in the model, on average, an additional bedroom
+will increase housing price by $k$ percent.</text></li>
+<li> Holding constant all other variables in the dataset, on average, an additional bedroom 
+will increase housing price by $k$ dollars.</li>
+<li> Holding constant all other variables in the model, on average, an additional bedroom
+will increase housing price by $k$ dollars.</li>
+</ol>
+
+```{r Q9}
+# type your code for Question 9 here, and Knit
+coef(lm(log(price) ~ Bedroom.AbvGr,data = ames_train))
+```
+
+In a linear model, we assume that all observations in the data are generated from the same process.  
+You are concerned that houses sold in abnormal sale conditions may not exhibit the same behavior as 
+houses sold in normal sale conditions.  To visualize this, you make the following plot of 1st and 
+2nd floor square footage versus log(price):
+
+```{r conditionPlot}
+n.Sale.Condition = length(levels(ames_train$Sale.Condition))
+par(mar=c(5,4,4,10))
+plot(log(price) ~ I(X1st.Flr.SF+X2nd.Flr.SF), 
+     data=ames_train, col=Sale.Condition,
+     pch=as.numeric(Sale.Condition)+15, main="Training Data")
+legend(x=,"right", legend=levels(ames_train$Sale.Condition),
+       col=1:n.Sale.Condition, pch=15+(1:n.Sale.Condition),
+       bty="n", xpd=TRUE, inset=c(-.5,0))
+```
+
+10. Which of the following sale condition categories shows significant differences from the normal selling condition?
+<ol>
+<li> `Family`</li>
+<li> `Abnorm`</li>
+<li> `Partial`</li>
+<li> <text style="color:red">`Abnorm` and `Partial`</text></li>
+</ol>
+
+```{r Q10}
+# type your code for Question 10 here, and Knit
+summary(lm(log(price) ~ Sale.Condition, data = ames_train))
+```
+
+Because houses with non-normal selling conditions exhibit atypical behavior and can disproportionately
+influence the model, you decide to only model housing prices under only **normal sale conditions**.  
+
+11. Subset `ames_train` to only include houses sold under normal sale conditions. 
+What percent of the original observations remain?
+
+<ol>
+<li> 81.2\%</li>
+<li> <text style="color:red">83.4\%</text></li>
+<li> 87.7\%</li>
+<li> 91.8\%</li>
+</ol>
+
+```{r Q11}
+# type your code for Question 11 here, and Knit
+(ames_train %>% filter(Sale.Condition == 'Normal') %>% nrow) / 1000
+```
+
+12. Now re-run the simple model from question 3 on the subsetted data.  
+True or False: Modeling only the normal sales results in a better model fit than
+modeling all sales (in terms of $R^2$).
+
+<ol>
+<li> <text style="color:red">True, restricting the model to only include observations with normal sale conditions
+increases the $R^2$ from 0.547 to 0.575.</text></li>
+<li> True, restricting the model to only include observations with normal sale conditions
+increases the $R^2$ from 0.575 to 0.603.</li>
+<li> False, restricting the model to only include observations with normal sale conditions
+decreases the $R^2$ from 0.575 to 0.547.</li>
+<li> False, restricting the model to only include observations with normal sale conditions
+decreases the $R^2$ from 0.603 to 0.575.</li>
+</ol>
+
+```{r Q12}
+# type your code for Question 12 here, and Knit
+fit  <- lm(log(price) ~ log(area),ames_train)
+fit1 <- lm(log(price) ~ log(area),ames_train %>% filter(Sale.Condition == "Normal"))
+round(summary(fit)$r.squared,3)
+round(summary(fit1)$r.squared,3)
+```

@@ -15,7 +15,7 @@ EDA is essential when working with any source of data and helps inform modeling.
 First, let us load the data:
 
 ```{r load}
-load("ames_train.Rdata")
+load("../ames_train.Rdata")
 ```
 
 
