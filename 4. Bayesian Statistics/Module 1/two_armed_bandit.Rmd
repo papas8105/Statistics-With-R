@@ -358,7 +358,8 @@ probabilities match with your intuition about which machine was good?
 
 ```{r E4}
 # Type your code for Exercise 4 here
-data1 <- data.class()
+data1 <- data.frame(machine = c(1L, 1L, 2L, 2L, 2L), outcome = c("W", "L", "L", "W", "W"))
+bandit_posterior(data1)
 ```
 
 <div class="exercise">
@@ -371,14 +372,20 @@ Observe how the posterior probability changes as more plays are made.
 </div>
 
 ```{r E5}
-# Type your code for Exercise 5 here 30 sims m1 and 10 sims m2
-data <- data.frame(machine = c(1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 
-                               1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L,
-                               2L, 2L, 2L, 2L, 2L, 2L, 2L),
-                   outcome = c("L", "L", "L", "W", "L", "L", "L", "L", "L", "W", "L", "L", "L", "L",
-                               "W", "L", "W", "L", "L", "L", "W", "L", "W", "W", "L", "L", "L", "L",
-                               "L", "L", "L", "W", "L", "W", "W", "W", "W", "L", "L", "W"))
-bandit_posterior(data)
+# Type your code for Exercise 5 here 5 of 10 sims each 5 times for each bandit
+data1 <- data.frame(machine = c(1L, 2L, 2L, 1L, 1L, 1L, 2L, 2L, 2L, 1L), 
+                    outcome = c("L", "L", "W", "L", "W", "L", "L", "L", "L", "L"))
+data2 <- data.frame(machine = c(1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 2L), 
+                    outcome = c("L", "L", "L", "L", "W", "L", "W", "L", "W", "W"))
+data3 <- data.frame(machine = c(1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 1L, 2L), 
+                    outcome = c("W", "W", "L", "L", "W", "L", "W", "W", "L", "W"))
+data4 <- data.frame(machine = c(1L, 1L, 1L, 1L, 1L, 2L, 2L, 2L, 2L, 2L), 
+                    outcome = c("W", "W", "L", "L", "L", "L", "L", "L", "L", "W"))
+data5 <- data.frame(machine = c(1L, 1L, 1L, 2L, 2L, 2L, 1L, 1L, 2L, 2L), 
+                    outcome = c("L", "W", "W", "L", "L", "L", "W", "W", "W", "L"))
+bandit_posterior(data1) %>% bandit_posterior(data2,prior = .) %>% 
+  bandit_posterior(data3,prior = .) %>% bandit_posterior(data4,prior = .) %>% 
+  bandit_posterior(data5,prior = .)
 ```
 
 We can visualize how these posterior probabilities update using the `plot_bandit_posterior` function. 
