@@ -117,6 +117,15 @@ question("What proportion of the variability in the response variable is explain
          answer("8%"),answer("6%"),answer("31%"),answer("74%",correct = TRUE))
 ```
 
+```{r q5a,exercise = TRUE}
+## make computations here
+
+```
+
+```{r q5a-solution}
+(57737 + 7003)/(7003 + 57737 + 22970) 
+```
+
 ### 6.
 
 <b>Consider the following output from a multiple linear regression model with 10 predictors.</b>

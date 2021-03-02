@@ -7,7 +7,9 @@ output: statsr:::statswithr_lab
 Complete all **Exercises**, and submit answers to **Questions** on the Coursera 
 platform.
 </div>
-
+```{r,echo = FALSE}
+knitr::opts_chunk$set(comment = '')
+```
 ## Hot Hands
 
 Basketball players who make several baskets in succession are described as 

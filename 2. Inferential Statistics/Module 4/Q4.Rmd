@@ -81,9 +81,16 @@ kable(d,longtable = T,booktabs = T) %>% add_header_above(c("","age group" = 2,""
                                                 label_row_css = "background-color:#216;color: #fff;")
 ```
 
-```{r q5ex,exercise = TRUE}
+```{r q5a,exercise = TRUE}
 ## make calculations here
 
+```
+
+```{r q5a-solution}
+## make calculations here
+p1 <- 71/144
+p2 <- 224/389
+sqrt(p1*(1-p1)/144 + p2*(1-p2)/389)
 ```
 
 ```{r q5}
@@ -104,7 +111,7 @@ $\mathcal{H}_0:p = 0.3\\\mathcal{H}_{A} :p \neq 0.3$
 we use a random sample of 50 observations where $\hat{p}=0.36$. Which of the following is the correct standard 
 error? 
 
-```{r q6ex,exercise = TRUE}
+```{r q6a,exercise = TRUE}
 ## make calculations here
 
 ```
@@ -113,6 +120,10 @@ error?
 question("Choose the closest answer.",
          answer("0.0297"),answer("0.0042"),answer("0.0648",correct = TRUE),
          answer("0.0679"),answer("0.0092"),answer("0.0096"))
+```
+
+```{r q6a-solution}
+sqrt(0.7*0.3/50)
 ```
 
 ### 7.
@@ -227,9 +238,13 @@ kable(d,longtable = T,booktabs = T) %>% add_header_above(c("","gender" = 2)) %>%
 question("Choose the closest answer.",answer("3.64"),answer("6.24"),answer("5.76"),answer("3.36",correct = TRUE))
 ```
 
+```{r q11a-solution}
+(6 + 15 + 3) * (4 + 3) / (6 + 6 + 16 + 15 + 4 + 3)
+```
+
 ### 12.
 
 ```{r q12}
-question("True / False: A randomization test for $H0:p_1=p_2$ uses a randomization distribution centered at     
+question("True / False: A randomization test for $H_0:p_1=p_2$ uses a randomization distribution centered at     
          0.",answer("TRUE",correct = TRUE),answer("FALSE"))
 ```

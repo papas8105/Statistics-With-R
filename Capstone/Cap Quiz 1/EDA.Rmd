@@ -1,0 +1,254 @@
+---
+title: "Capstone Quiz I"
+output: statsr:::statswithr_lab
+---
+
+```{r, setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = '', fig.width = 6, fig.height = 6,fig.align = 'center'
+)
+```
+
+This initial quiz will concern exploratory data analysis (EDA) of the Ames Housing dataset.  
+EDA is essential when working with any source of data and helps inform modeling.
+
+First, let us load the data:
+
+```{r load}
+load("../ames_train.Rdata")
+```
+
+
+1. Which of the following are the three variables with the highest number of missing observations?
+
+<ol>
+<li> `Misc.Feature`, `Fence`, `Pool.QC` </li>
+<li> <text style="color:red">`Misc.Feature`, `Alley`, `Pool.QC`</text> </li> 
+<li> `Pool.QC`, `Alley`, `Fence` </li> 
+<li> `Fireplace.Qu`, `Pool.QC`, `Lot.Frontage` </li>
+</ol>
+
+```{r Q1}
+# type your code for Question 1 here, and Knit
+names(sort(apply(apply(ames_train,2,is.na),2,sum),TRUE))[1:3]
+```
+
+2. How many categorical variables are coded in R as having type `int`?  Change them to factors 
+when conducting your analysis.
+
+<ol>
+<li> 0 </li>
+<li> 1 </li>
+<li> <text style="color:red">2</text></li>
+<li> 3 </li>
+</ol>
+
+```{r Q2}
+# type your code for Question 2 here, and Knit
+str(ames_train)
+ames_train$Overall.Qual <- factor(ames_train$Overall.Qual,ordered = TRUE)
+ames_train$Overall.Cond <- factor(ames_train$Overall.Cond,ordered = TRUE)
+```
+
+3. In terms of price, which neighborhood has the highest standard deviation?  
+
+<ol>
+<li> <text style="color:red">`StoneBr`</text></li>
+<li> `Timber` </li>
+<li> `Veenker`</li>
+<li> `NridgHt`</li>
+</ol>
+
+```{r Q3}
+# type your code for Question 3 here, and Knit
+library(dplyr,warn.conflicts = F)
+ames_train %>% group_by(Neighborhood) %>% summarize(sd = sd(price)) %>% arrange(desc(sd)) %>% head(1)
+```
+
+4. Using scatter plots or other graphical displays, which of the following variables appears to be the 
+best single predictor of `price`?
+
+<ol>
+<li> `Lot.Area`</li>
+<li> `Bedroom.AbvGr`</li>
+<li> <text style="color:red">`Overall.Qual`</text></li>
+<li> `Year.Built`</li>
+</ol>
+
+```{r Q4}
+# type your code for Question 4 here, and Knit
+par(mfrow = c(2,2))
+with(ames_train,plot(Lot.Area,price,pch = 19,col = rgb(.6,0,.4,.5)))
+with(ames_train,plot(Bedroom.AbvGr,price,pch = 19,col = rgb(.6,0,.4,.5)))
+with(ames_train,plot(as.numeric(Overall.Qual),price,pch = 19,col = rgb(.6,0,.4,.5)))
+with(ames_train,plot(Year.Built,price,pch = 19,col = rgb(.6,0,.4,.5)))
+```
+
+5. Suppose you are examining the relationship between `price` and `area`.  Which of the following
+variable transformations makes the relationship appear to be the most linear?
+
+<ol>
+<li> Do not transform either `price` or `area`</li>
+<li> Log-transform `price` but not `area`</li>
+<li> Log-transform `area` but not `price`</li>
+<li> <text style="color:red">Log-transform both `price` and `area`</text></li>
+</ol>
+
+```{r Q5}
+# type your code for Question 5 here, and Knit
+par(mfrow = c(2,2))
+with(ames_train,plot(area,price))
+with(ames_train,plot(area,log(price)))
+with(ames_train,plot(log(area),price))
+with(ames_train,plot(log(area),log(price)))
+```
+
+6. Suppose that your prior for the proportion of houses that have at least one garage is Beta(9, 1). 
+What is your posterior? Assume a beta-binomial model for this proportion.
+
+<ol>
+<li> Beta(954, 46)</li>
+<li> Beta(963, 46)</li>
+<li> Beta(954, 47)</li>
+<li> <text style = "color:red">Beta(963, 47)</text></li>
+</ol>
+
+```{r Q6}
+# type your code for Question 6 here, and Knit
+x <- ames_train %>% filter(Garage.Cars >= 1) %>% summarise(Garage.Cars.ge1=n())
+n <- ames_train %>% filter(!is.na(Garage.Cars)) %>% summarise(Garage.Cars.ge1=n())
+paste("Beta(",9 + x,",",1 + n - x,")",sep = '')
+```
+
+7. Which of the following statements is true about the dataset?
+
+<ol>
+<li> Over 30 percent of houses were built after the year 1999.</li>
+<li> The median housing price is greater than the mean housing price.</li>
+<li> <text style="color:red">21 houses do not have a basement.</text></li>
+<li> 4 houses are located on gravel streets.</li>
+</ol>
+
+```{r Q7}
+# type your code for Question 7 here, and Knit
+quantile(ames_train$Year.Built,seq(0,1,0.1))
+median(ames_train$price) > mean(ames_train$price)
+ames_train %>% select(Total.Bsmt.SF) %>% filter(Total.Bsmt.SF == 0)  %>% summarise(count = n())
+table(ames_train$Street)
+```
+
+8. Test, at the $\alpha = 0.05$ level, whether homes with a garage have larger square 
+footage than those without a garage.
+
+<ol>
+<li> <text style="color:red">With a p-value near 0.000, we reject the null hypothesis of no difference.</text></li>
+<li> With a p-value of approximately 0.032, we reject the null hypothesis of no difference.</li>
+<li> With a p-value of approximately 0.135, we fail to reject the null hypothesis of no difference.</li>
+<li> With a p-value of approximately 0.343, we fail to reject the null hypothesis of no difference.</li>
+</ol>
+
+```{r Q8}
+# type your code for Question 8 here, and Knit
+ames_train$has_garage <- ifelse(ames_train$Garage.Area > 0 ,"yes","no")
+round(t.test(area ~ has_garage,ames_train,paires = F,var.equal = F)$p.value,2)
+```
+
+9. For homes with square footage greater than 2000, assume that the number of bedrooms above ground follows 
+a Poisson distribution with rate $\lambda$.  Your prior on $\lambda$ follows a Gamma distribution with mean 
+3 and standard deviation 1.  What is your posterior mean and standard deviation for the average number of 
+bedrooms in houses with square footage greater than 2000 square feet?
+
+<ol> 
+<li> Mean: 3.61, SD: 0.11</li>
+<li> <text style="color:red">Mean: 3.62, SD: 0.16</text></li>
+<li> Mean: 3.63, SD: 0.09</li>
+<li> Mean: 3.63, SD: 0.91</li>
+</ol>
+
+```{r Q9}
+# type your code for Question 9 here, and Knit
+lambda       <- 3
+sigma_prior  <- 1
+b <- lambda / sigma_prior
+a <- lambda * b
+x <- ames_train %>% filter(area>2000) %>% summarise(x = sum(Bedroom.AbvGr))
+n <- ames_train %>% filter(area>2000) %>% summarise(n = n())
+a_post <- a + x
+b_post <- b + n
+lambda_post <- a_post / b_post
+sigma_post <- sqrt(a_post / b_post^2)
+paste("Mean: ",round(lambda_post,2),", SD: ",round(sigma_post,2),sep = '')
+```
+
+10. When regressing $\log$(`price`) on $\log$(`area`), there are some outliers.  Which of
+the following do the three most outlying points have in common?
+
+<ol> 
+<li> They had abnormal sale conditions.</li>
+<li> They have only two bedrooms.</li>
+<li> They have an overall quality of less than 3.</li>
+<li> <text style="color:red">They were built before 1930.</text></li>
+</ol>
+
+```{r Q10}
+# type your code for Question 10 here, and Knit
+fit <- lm(log(price) ~ log(area),data = ames_train)
+plot(fit,1)
+for (x in c(428,741,206)) print(ames_train$Year.Built[x])
+```
+
+11. Which of the following are reasons to log-transform `price` if used as a dependent variable in a linear regression?
+<ol> 
+<li> `price` is right-skewed.</li>
+<li> `price` cannot take on negative values.</li>
+<li> `price` can only take on integer values.</li>
+<li> <text style="color:red">Both a and b.</text></li>
+</ol>
+
+```{r Q11}
+# type your code for Question 11 here, and Knit
+hist(ames_train$price)
+```
+
+12. How many neighborhoods consist of only single-family homes? (e.g. `Bldg.Type` = `1Fam`)
+
+<ol> 
+<li> 0</li>
+<li> 1</li>
+<li> 2</li>
+<li> <text style="color:red">3</text></li>
+</ol>
+
+```{r Q12}
+# type your code for Question 12 here, and Knit
+ames_train %>% group_by(Neighborhood) %>% summarize(mu = mean(Bldg.Type == "1Fam")) %>% 
+  filter(mu == 1) %>% summarise(n())
+```
+
+13. Using color, different plotting symbols, conditioning plots, etc., does there appear to 
+be an association between $\log$(`area`) and the number of bedrooms above ground (`Bedroom.AbvGr`)? 
+
+<ol> 
+<li> <text style="color:red">Yes</text></li>
+<li> No </li>
+</ol>
+
+```{r Q13}
+# type your code for Question 13 here, and Knit
+with(ames_train,plot(Bedroom.AbvGr,log(area)))
+```
+
+14. Of the people who have unfinished basements, what is the average square footage of
+the unfinished basement?
+
+<ol> 
+<li> 590.36</li>
+<li> <text style="color:red">595.25</text></li>
+<li> 614.37</li>
+<li> 681.94</li>
+</ol>
+
+```{r Q14}
+# type your code for Question 14 here, and Knit
+ames_train %>% filter(!is.na(Bsmt.Unf.SF),Bsmt.Unf.SF > 0) %>% summarise(mu = round(mean(Bsmt.Unf.SF),2))
+```

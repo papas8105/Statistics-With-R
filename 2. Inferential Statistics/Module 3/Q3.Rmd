@@ -6,7 +6,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE,comment = '')
 ```
 
 <style>body{text-align: justify}</style>
@@ -130,7 +130,14 @@ question("Suppose that a one-tail t test is being applied to find out if the pop
          answer("T > 1.32"))
 ```
 
-> qt(.05,24)
+```{r q8a,exercise = TRUE}
+## make computations here
+
+```
+
+```{r q8a-solution}
+qt(0.05,24)
+```
 
 ### 9.
 
@@ -167,7 +174,10 @@ question("Choose the best answer.",answer("0.54"),answer("10.71"),answer("27.00"
          answer("14.45"))
 ```
 
-> 75.00/40.13
+```{r q11a,exercise = TRUE}
+## make computations here
+
+```
 
 ### 12.
 
@@ -202,7 +212,10 @@ question("Researchers studying people’s sense of smell devised a measure of sm
          answer("0.724"))
 ```
 
-> sqrt(3.4^ 2/ 18+2.7^2/ 18)
+```{r q13a,exercise = TRUE}
+## make computations here
+
+```
 
 ### 14.
 
@@ -216,4 +229,7 @@ question("A study compared five different methods for teaching descriptive stati
          answer("3"),answer("5"),answer("10",correct = TRUE),answer("4"),answer("20"))
 ```
 
-> k(k-1)/2
+```{r q14a,exescise = TRUE}
+## make computations here
+
+```

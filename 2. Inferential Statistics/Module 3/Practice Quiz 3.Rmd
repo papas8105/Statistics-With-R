@@ -88,7 +88,7 @@ The sample size is 18. The test statistic is calculated as T = 0.5. What is the 
 
 ```{r q5-check}
 grade_result(
-  pass_if(~identical(.result,pt(0.5,17,lower.tail = FALSE)))
+  pass_if(~identical(toString(.result),toString(pt(0.5,17,lower.tail = FALSE))))
 )
 ```
 

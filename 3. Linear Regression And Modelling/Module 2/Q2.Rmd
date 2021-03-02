@@ -178,9 +178,13 @@ question("Construct a 95% confidence interval for the slope of abdomen circumfer
          points."))
 ```
 
-```{r q7a,exerice = TRUE}
+```{r q7a,exercise = TRUE}
 ## make computations 
 
+```
+
+```{r q7a-solution}
+0.877 + c(-1,1) * 0.067 * qt(.975,251)
 ```
 
 ### 8.

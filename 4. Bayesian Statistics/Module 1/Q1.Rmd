@@ -1,0 +1,202 @@
+---
+title: "Quiz 1"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup,include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE,comment = '')
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+
+```{r q1}
+question("Which of the following corresponds to the formula for the discrete form of Bayes’ Rule?",
+         answer("$\\mathbb{P}\\left(A\\big|B\\right)=\\frac{\\mathbb{P}\\left(B\\big|A\\right)}{\\mathbb{P}(B)}$"),
+         answer("$\\mathbb{P}\\left(A\\big|B\\right)=\\frac{\\mathbb{P}\\left(B\\big|A\\right)\\mathbb{P}(B)}
+                {\\mathbb{P}(A)}$"),
+         answer("$\\mathbb{P}\\left(A\\big|B\\right)=\\mathbb{P}(A)\\mathbb{P}(B)$"),
+         answer("$\\mathbb{P}\\left(A\\big|B\\right)=\\frac{\\mathbb{P}\\left(B\\big|A\\right)\\mathbb{P}(A)}
+                {\\mathbb{P}(B)}$",correct = TRUE))
+```
+
+### 2.
+
+```{r q2}
+question("Of women ages 40 and over, 10 out of 1000 have breast cancer.  A mammography has 80% sensitivity (true positive 
+         rate) and a 90% specificity (true negative rate).  A woman walks into a clinic for a routine screening
+         (mammography).  What is the probability that she has breast cancer and tests positive?",
+         answer("0.001"),
+         answer("0.008",correct = TRUE),
+         answer("0.010"),
+         answer("0.800"))
+```
+
+```{r q2a,exercise = TRUE}
+## make computations here
+
+```
+
+```{r q2a-solution}
+prevalence <- 10/1000
+sensitivity <- 0.8
+specificity <- 0.9
+## P(D|+) = P(+|D)P(D)/P(+) ---- > P(+) = P(+|D)P(D) + (1-P(-|D~))(1-P(D))
+round(sensitivity * prevalence,3)
+```
+
+### 3.
+
+```{r q3}
+question("Of women ages 40 and over, 10 out of 1000 have breast cancer.  A mammography has 80% sensitivity 
+         (true positive rate) and a 90% specificity (true negative rate).  A woman walks into a clinic for a routine
+         screening (mammography) and tests positive for breast cancer.  Now, what is the probability that she has
+         breast cancer?",
+         answer("0.011"),
+         answer("0.075",correct = TRUE),
+         answer("0.081"),
+         answer("0.889"))
+```
+
+```{r q3a,exercise = TRUE}
+## make computations here
+
+```
+
+```{r q3a-solution}
+round(sensitivity * prevalence/(sensitivity * prevalence + (1 - specificity) * (1 - prevalence)),3)
+```
+
+### 4.
+
+```{r q4}
+question("True or False: As new information comes in, our posterior beliefs based on the previous 
+         information become our new prior beliefs.",
+         answer("True",correct = TRUE),answer("False"))
+```
+
+### 5.
+
+```{r q5}
+question("Which of the following is the best Bayesian interpretation of the following statement: the probability of Liverpool 
+         defeating Swansea City tomorrow is 0.9?",
+         answer("Teams as good as Liverpool have historically beaten teams as good as Swansea City 90 percent of the time"),
+         answer("Liverpool would beat Swansea City nine times out of ten."),
+         answer("We would be indifferent between winning $1 with probability 0.9 and winning $1 if Liverpool beats Swansea City",
+                correct = TRUE),
+         answer("Liverpool is a heavy favorite to beat Swansea City"))
+```
+
+### 6.
+
+```{r q6}
+question("Which of the following statements can be used to describe a 95 percent Bayesian credible interval for a parameter
+         $\\mu$, but not a 95 percent Frequentist confidence interval?",
+         answer("If we ran an infinite number of experiments, 95 percent of our intervals generated this way would contain 
+         the true value of $\\mu$."),
+         answer("$\\mu$ is either in the interval, or it is not.  More data can increase or decrease our uncertainty that 
+         $\\mu$ is in the interval."),
+         answer("The probability that $\\mu$ falls within the interval is .95.",correct = TRUE),
+         answer("$\\mu$ is in this interval 95 percent of the time."))
+```
+
+### 7.
+
+
+```{r q7}
+question("A clinical researcher wants to determine whether a new drug, RU-487, is more effective than RU-486.  Suppose that 100 women
+         are assigned the treatment group (given RU-487) and 100 women are assigned to the control group (RU-486).  In the treatment
+         group, three people became pregnant.  In the control group, nine people became pregnant.  Is there sufficient evidence at
+         $\\alpha = 0.05$ to conclude that RU-487 is more effective at preventing pregnancy than RU-486?",
+         answer("No, since the p-value under $\\mathcal{H}_{0}$ of no difference is approximately equal to 0.134, which 
+         is greater than $\\alpha = 0.05$."),
+         answer("No, since the p-value under $\\mathcal{H}_{0}$ is approximately equal to 0.073, which is greater than 
+         $\\alpha = 0.05$.",correct = TRUE),
+         answer("Yes, since the p-value under $\\mathcal{H}_{0}$ of no difference is approximately equal to 0.033, which is
+         less than $\\alpha = 0.05$"),
+         answer("Yes, since the p-value under $\\mathcal{H}_{0}$ of no difference is approximately equal to 0.048, which is less
+         than $\\alpha = 0.05$.")
+)
+```
+
+```{r q7a,exercise = TRUE}
+## make computations here
+
+```
+
+```{r q7a-solution}
+## we assume a unified sample n = 200 with 12 successes (in our case becoming pregnant)
+## what is the probability that the 3 pregnancies came from the treatment group? H_0: p = 100/200 = 0.5
+## H_A: p < 0.5
+round(pbinom(3,12,0.5),4)
+```
+
+### 8.
+
+```{r q8}
+question("You go to Las Vegas and sit down at a slot machine.  You are told by a highly reliable source that, for each spin,
+         the probability of winning the jackpot is either 1 in 1,000 or 1 in 1,000,000, but you have no prior information to
+         tell you which of the two it is.  You play ten times, but do not win the jackpot.  What is the posterior probability
+         that the true odds of hitting the jackpot are 1 in 1,000?",
+         answer("0.269"),
+         answer("0.475"),
+         answer("0.498",correct = TRUE),
+         answer("0.500"))
+```
+
+```{r q8a,exercise = TRUE}
+## make computations here
+
+```
+
+```{r q8a-solution}
+p <- c(1/1000,1/1000000)
+likelihood <- dbinom(0,10,p)
+round(likelihood * c(1/2,1/2)/sum(likelihood * c(1/2,1/2)),3)[1]
+```
+
+
+### 9.
+
+```{r q9}
+question("You are testing dice for a casino to make sure that sixes do not come up more frequently than expected. Because you do not 
+         want to manually roll dice all day, you design a machine to roll a die repeatedly and record the number of sixes that come
+         face up. In order to do a Bayesian analysis to test the hypothesis that p=1/6 versus p=.175, you set
+         the machine to roll the die 6000 times. When you come back at the end of the day, you discover to your horror that the machine
+         was unable to count higher than 999. The machine says that 999 sixes occurred. Given a prior probability of 0.8 placed on the
+         hypothesis p=1/6, what is the posterior probability that the die is fair, given the censored data? Hint - to find
+         the probability that at least x sixes occurred in $n$ trials with proportion p (which is the likelihood in this problem),
+         use the R command 1 - pbinom(x-1, n, p).",
+         answer("0.500"),answer("0.684",correct = TRUE),answer("0.800"),answer("0.881"))
+```
+
+```{r q9a,exercise = TRUE}
+## make computations here
+
+```
+
+```{r q9a-solution}
+prior      <- c(0.8,0.2) # 1/6 <-> 7/40
+p_D_fair   <- pbinom(998,6000,1/6,lower.tail = FALSE)   ## P(D|fair)
+p_D_unfair <- pbinom(998,6000,0.175,lower.tail = FALSE) ## P(D|unfair)
+p_D <- sum(mapply(eval(quote("*")),c(p_D_fair,p_D_unfair),prior))
+round(p_D_fair * 0.8 / p_D,3)
+```
+
+### 10.
+
+```{r q10}
+question("True or False: As long as the prior places non-zero probability on all possible values of a proportion, the posterior of the          proportion is guaranteed to converge to the true proportion as the sample size approaches infinity.",
+         answer("True",correct = TRUE),answer("False"))
+```
+
+### 11.
+
+```{r q11}
+question("Which of the following do not impact decisions based on frequentist inference?",
+         answer(" The alternative hypothesis."),
+         answer("The null hypothesis."),
+         answer("The prior distribution.",correct = TRUE),
+         answer("The choice of $\\alpha = 0.05$ or $\\alpha = 0.01$."))

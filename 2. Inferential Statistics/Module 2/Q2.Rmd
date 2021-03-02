@@ -6,7 +6,7 @@ runtime: shiny_prerendered
 
 ```{r setup, include=FALSE}
 library(learnr)
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE,comment = '')
 ```
 <style>body{text-align: justify}</style>
 ### 1.
@@ -93,6 +93,16 @@ question("SAT scores are distributed with a mean of 1,500 and a standard deviati
          answer("392"),answer("393"),answer("553"),answer("554",correct = TRUE),answer("13,830"))
 ```
 
+```{r q6a,exercise = TRUE}
+## make computations here
+
+```
+
+```{r q6a-solutions}
+## ME = qnorm(*) * SE
+ceiling((qnorm(.975) * (300/25))^2)
+```
+
 ### 7.
 
 ```{r q7}
@@ -118,6 +128,7 @@ are 32 months old, on average. You perform a hypothesis test evaluating
 whether the average age at which gifted children first count to 10 is 
 different than the general average of 32 months. What is the p-value of 
 the hypothesis test?</b>
+
 ```{r fig,fig.align = 'center'}
 grid::grid.raster(jpeg::readJPEG('fig.jpg'))
 ```
@@ -125,4 +136,13 @@ grid::grid.raster(jpeg::readJPEG('fig.jpg'))
 question("Choose the closest answer.",
          answer("0.9656"),answer("0.9312"),answer("0.7183"),answer("0.0344"),
          answer("0.0688",correct = TRUE))
+```
+
+```{r q8a,exercise = TRUE}
+## make computations here
+
+```
+
+```{r q8a-solution}
+pnorm(30.69,32,4.31/sqrt(36)) * 2
 ```

@@ -27,7 +27,8 @@ __audience  score__ for later movies (after 2016).
 Our  supervisor in this project is interested in learning what attributes make a movie popular, 
 learning something new about movies and wants from our team to figure it all out. As part of this
 project we will complete exploratory data analysis (EDA), modeling and prediction. We will try to 
-find the simplest and more robust model to make predictions and test a prediction by extrapolating to new data.
+find the simplest and more robust model to make predictions and even test a prediction by extrapolating to 
+new data.
 
 ### Load packages
 
@@ -55,6 +56,11 @@ load("movies.Rdata")
 ## Part 1: Data
 
 ### Overview Of Data: <u>__Data Summary And Variables__</u> {.tabset}
+#### Data Size {.tabset}
+
+```{r object.size,comment = ''}
+object.size(movies)
+```
 
 #### Names {.tabset}
 
@@ -79,6 +85,16 @@ summary(movies)
 ```{r class-column,comment = ''}
 sapply(movies,class)
 ```
+
+The table provides useful summaries of the data along with the dimension and information about what the  
+variables represent. For the next of the report we will assume randomness in how people 
+of different backgrounds and ethnicity provide willingly (not forced to ) input in both rotten tomatoes 
+and imdb and also raise concerns about how unbiased the scores of the critics are. 
+Our study is _observational_ and will be _generalizable_ to the public since the sample is random and we consider there 
+is no bias in how people score a specific movie, which will be 
+tested by applying prediction to a 2017 film. In some plots we will see that there are confounding 
+factors for which we will not use blocking, also since the purpose of our study is different we
+will not randomize in any step to search for _causal_ or _mechanistic_ relationships due to bias concerns.
 
 ### Information Contained In Data
 
@@ -139,7 +155,7 @@ sum(is.na(data)) # check
 
 The research question we will investigate is the following:
 
-<b>which is the best set of predictors that can predict the audience score in the rotten tomatoes 
+<b>which is the best set of predictors that can predict the audience's average score in the rotten tomatoes 
 website based in the data set we loaded and how accurate is the extrapolation of this model to 
 movies not belonging to data set, meaning movies released after 2016.</b>
 
@@ -186,28 +202,44 @@ are __binary__ and of no interest in this section.
 
 ## Part 4: Modeling 
 
-Our interest is creating a robust simple model which can extrapolate beyond the data provided to our team. We 
-will fit a model with all the variables and with _backwards_ propagation using the $R^2$.adjusted metric we will 
-choose the best model which fits our purpose of predictions. Using the p-values might overfit the model which is 
-not good for our case, since we adjust the model too much in the original data. The following commands first fit
-a one-against-all linear regression model and by subtracting one variable at a time it provides the best model 
-with the highest $R^2$.adjust value.
+Our interest lies on creating a robust simple model which can extrapolate beyond the data provided to our team. We 
+will fit a model with all the variables and with _backwards_ propagation by using the coefficients' p-values we will 
+choose the best model which fits our purpose of predicting. Using the R squared metric with backaward propagation 
+instead of the one previously mentioned might overfit the model is computationally costly and 
+not good in our case, since we adjust the model too much in the original data. The following commands first fit
+a one-against-all linear regression model and by subtracting one coefficient at a time with the biggest p-value over 
+0.15^[we don't need to strictly adjust strong regressors to avoid overfit] and stop at a step in which no other
+variable can be eliminated from the model. 
+
+Command: ols_step_backward_p^[ordinary least squares step backward propagation using the p-value metric]
 
 ```{r model lm}
 model <- lm(audience_score ~ .,data = data)
-ols_step_backward_p(model) -> best_model
+ols_step_backward_p(model,prem = 0.15) -> best_model
 ```
 
-The information printed after the operation provides the list of the variables excluded by the algorithm.
+The information printed after the operation provides the list of the variables excluded by the algorithm. The model 
+concluded by the algorithm is the following
 
 ```{r model lm2,comment = ''}
 summary(best_model$model)
 ```
 
-From the F-statistic we deduce that the model is _statistically significant_ and that not all p-values of the 
-predictors fall under the 0.05 threshold, nonetheless as noted from the beginning our main goal is _prediction_
-, so this is the best model that the backwards propagation algorithm yielded using the $R^2$.adjusted metric. 
-Hopefully we observe that the model justifies our exploratory findings.
+from the F-statistic we deduce that the model is _statistically significant_ and observe that the model justifies our 
+exploratory analysis findings, also the R squared is very high nearly equal to 90% which is a good sign that most of the 
+information is explained by the variables the algorithm came up with. The parameters of the model are 
+genre (imdb), runtime ,imdb_rating, critics_score (overall in rotten tomatoes),audience_rating (rotten tomatoes),
+best_pic_nom and best_actress_win. We observe the following:
+
+* Significant Predictors Less Than 0.05
+
+Genre (p.value = 0.012 "Mystery & Suspense"), imdb_rating (p.value = 0), critics_score (p.value = 0),
+audience_rating (all else held constant "Upright" value adds 20.05 - "Spilled" adds nothing: p.value = 0),
+best_pic_nom (all else held constant "yes" adds 3.52: p.value = 0.0271)
+
+* Less Significant Predictors (added for extrapolation)
+
+runtime, critics_score and best_actress_win (all else held constant a "yes" subtracts -1.3)
 
 ### Exploratory Model Analysis Part II
 
@@ -226,7 +258,7 @@ mtext(text = "Model Residuals vs Numeric Parameters",outer = TRUE)
 ```
 
 In the first plot a confounding factor is the audience rating (binary) which differentiates the two clusters, 
-nontheless the scatter around the horizontal line h = 0 seems random despite some outliers.
+nonetheless the scatter around the horizontal line h = 0 seems random despite some outliers.
 
 The next step is to check for __residual normality__ and __constant variability__ of the residuals,
 
@@ -254,15 +286,48 @@ by index to explore if they are __independent__,
 plot(best_model$model$residuals,col = 'red',pch = 19,ylab = 'residuals')
 ```
 
-since we don't notice any pattern we move to the next part to use our model for _extrapolation_.
+since we don't notice any pattern, this means that the residuals are not time dependent or 
+anything beyond our comprehension and scope of the data goes on. In the next plot we see 
+an influence diagnostics plot for the response 
+variable, which shows a small percentage of observations outside the upper and lower red boundaries, which can 
+be attributed to noise.
+
+```{r dffit,fig.align = 'center'}
+ols_plot_dffits(best_model$model)
+```
+
+We move to the next part to use our model for _extrapolation_ after examining the
+dfbeta^[www.cran.r-project.org/web/packages/olsrr/vignettes/influence_measures.html] of the model to see 
+if an __extreme__ value might be of interest.
+
+```{r dfbeta,comment = ''}
+apply(round(dfbeta(best_model$model)),2,summary)
+```
 
 ## Part 5: Prediction
+<b><u>Apply For Interpolation:</u></b>
+
+Movie: Alice Through The Looking Glass, [link1](https://www.imdb.com/title/tt2567026/?ref_=ttls_li_tt) and 
+[link2](https://www.rottentomatoes.com/m/alice_in_wonderland_through_the_looking_glass).
+
+```{r prediction intrapolation,comment = ''}
+data.frame(genre = "Action & Adventure",
+           runtime = 113,imdb_rating = 6.2,critics_score = 4.6,audience_rating = "Spilled"
+           ,best_pic_nom = "yes",best_actress_win = "no") -> pred
+predict(best_model$model,pred, interval = "prediction", level = 0.95)
+```
+
+We observe a slightly higher value  of our prediction than the real audience score 48% as of 
+1/26/2021! The rounded over evaluation error is `r round(predict(best_model$model,pred) - 48)` and we are 
+95% confident that the interval (37.8,64.6) contains the true parameter of interest and that makes our model's
+prediction robust per se.
 
 <b><u>Apply For Extrapolation:</u></b>
 
 The movie released after 2016 for which we will make a prediction with our liner model is 
 [Alien Covenant (2017)](https://www.rottentomatoes.com/m/alien_covenant). The information
-in the next chunk is taken by the movie link provided in the previous sentence.
+in the next chunk is taken by the movie link provided in the previous sentence and 
+[here](https://www.imdb.com/title/tt2316204/).
 
 ```{r prediction/extrapolation,comment = ''}
 data.frame(genre = "Science Fiction & Fantasy",
@@ -271,15 +336,15 @@ data.frame(genre = "Science Fiction & Fantasy",
 predict(best_model$model,pred, interval = "prediction", level = 0.95)
 ```
 
-We observe a slightly lower value of our prediction than the real audience score 55% as of 
-1/20/2021! The rounded under evaluation error is `r round(predict(best_model$model,pred) - 55,2)` and we are 
-95% confident that the interval (37.72772,66.86361) contains the true parameter of interest, which is already 
+We observe a slightly lower value of our prediction than the real audience score as of 
+1/26/2021! The rounded under evaluation error is `r round(predict(best_model$model,pred) - 55,2)` and we are 
+95% confident that the interval (37.73,66.86) contains the true parameter of interest, which is already 
 known in our case with the value 55% and that makes our model's prediction robust per se.
 
 ## Part 6: Conclusion
 
-Our model was created using back propagation by choosing the parameters that maximize $R^2$.adjust, we used this 
-metric because we aimed at extrapolation beyond the data time scope and tried to capture the parameters
+Our model was created using back propagation by choosing the parameters that eliminate regressors based on 
+p-values, we used thismetric because we aimed at extrapolation beyond the data time scope and tried to capture the parameters
 that __mostly__ affect film preferences by the audiences in the rotten tomatoes web site. We didn't conduct a 
 causal analysis since we didn't randomize or blocked for a confounding factor we spotted in the plots presented,
 our only goal was to create a prediction model based on _observational_ study. Ending our report, we would like 

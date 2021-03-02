@@ -2,6 +2,9 @@
 title: "Introduction to data"
 output: statsr:::statswithr_lab
 ---
+```{r,echo = FALSE}
+knitr::opts_chunk$set(comment = '')
+```
 <style>body{text-align: justify}</style>
 <div class="instructions">
 Complete all **Exercises**, and submit answers to **Questions** on the Coursera 

@@ -3,11 +3,9 @@ title: "Introduction to linear regression"
 output: statsr:::statswithr_lab
 ---
 <style>body{text-align: justify}</style>
-<div id="instructions">
-Complete all **Exercises**, and submit answers to **Questions** on the Coursera 
-platform.
-</div>
-
+```{r,echo = FALSE}
+knitr::opts_chunk$set(comment = '')
+```
 ## Batter up 
 
 The movie [Moneyball](http://en.wikipedia.org/wiki/Moneyball_(film)) focuses on

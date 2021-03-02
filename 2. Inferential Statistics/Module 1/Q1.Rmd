@@ -159,3 +159,12 @@ question("A company offering online speed reading courses claims that students w
          answer("(378.7, 451.3)"),
          answer("(411.37, 418.63)"))
 ```
+
+```{r q7a,exercise = TRUE}
+## make computations here
+
+```
+
+```{r q7a-solution}
+415 + c(-1,1) * qnorm(.975) * 220 /  sqrt(100)
+```

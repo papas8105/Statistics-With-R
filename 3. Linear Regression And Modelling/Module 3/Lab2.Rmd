@@ -36,11 +36,10 @@ references:
   edition: 1
   ISBN: 9780521686891
 ---
-
-<div id="instructions">
-Complete all **Exercises**, and submit answers to **Questions** on the Coursera 
-platform.
-</div>
+<style>body{text-align: justify}</style>
+```{r,echo = FALSE}
+knitr::opts_chunk$set(comment = '')
+```
 
 ## Grading the professor
 
@@ -340,6 +339,7 @@ m_bty_rank <- lm(score ~ bty_avg + rank,data = evals)
 
 8. Which of the following is the correct order of the three levels of rank if we were to order them from lowest
 predicted course evaluation score to highest predicted course evaluation score? 
+
 <ol>
 <li> Teaching, Tenure Track, Tenured </li>
 <li> Tenure track, Tenured </li>

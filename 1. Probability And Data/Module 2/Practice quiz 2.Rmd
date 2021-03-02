@@ -54,8 +54,8 @@ question("True or False: A mosaic plot is useful for visualizing the relationshi
 ### 5.
 
 ```{r q5}
-question("Does meditation cure insomnia? Researchers randomly divided 400 people into two equal-  
-         sized groups. One group meditated daily for 30 minutes, the other group attended a 2-hour
+question("Does meditation cure insomnia? Researchers randomly divided 400 people into two equal-sized groups.
+         One group meditated daily for 30 minutes, the other group attended a 2-hour
          information session on insomnia. At the beginning of the study, the average difference
          between the number of minutes slept between the two groups was about 0. After the study,
          the average difference was about 32 minutes, and the meditation group had a higher

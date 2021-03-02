@@ -6,7 +6,9 @@ output: statsr:::statswithr_lab
 <div class="instructions">
 Complete all **Exercises**, and submit answers to **Questions** on the Coursera platform.
 </div>
-
+```{r,echo = FALSE}
+knitr::opts_chunk$set(comment = '')
+```
 ## Introduction
 
 The goal of this lab is to introduce you to R and RStudio, which you'll be using
@@ -528,5 +530,8 @@ this course, if you would like further opportunities to practice we recommend
 checking out the relevant courses at [DataCamp](https://www.datacamp.com/courses).
 
 <div id="license">
-This is a derivative of an [OpenIntro](https://www.openintro.org/stat/labs.php) lab, and is released under a [Attribution-NonCommercial-ShareAlike 3.0 United States](https://creativecommons.org/licenses/by-nc-sa/3.0/us/) license.
+This is a derivative of an [OpenIntro](https://www.openintro.org/stat/labs.php) lab, 
+and is released under a 
+[Attribution-NonCommercial-ShareAlike 3.0 United States](https://creativecommons.org/licenses/by-nc-sa/3.0/us/) 
+license.
 </div>

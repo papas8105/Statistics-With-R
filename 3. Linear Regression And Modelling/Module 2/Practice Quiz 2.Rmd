@@ -37,7 +37,7 @@ question("Does meditation cure insomnia? Researchers randomly divided 400 people
 
 <b>Tipping at a restaurant. The owner of a restaurant interested in studying the tipping patterns of his customers
 collected restaurant bills over a two week period that he believes provides a representative sample of his customers.
-The data recorded from 157157157 bills include the amount of the bill (in \$) and the size of the tip (in \$). The 
+The data recorded from 157 bills include the amount of the bill (in \$) and the size of the tip (in \$). The 
 correlation coefficient of the relationship between these two variables is 0.915.</b>
 
 ```{r fig1}

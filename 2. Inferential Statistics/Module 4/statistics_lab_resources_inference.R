@@ -99,7 +99,9 @@ function(y, x = NULL,
   if(x_type == "numerical"){
     x = as.factor(x)
     x_type = "categorical"		
-    warning("Explanatory variable was numerical, it has been converted to categorical. In order to avoid this warning, first convert your explanatory variable to a categorical variable using the as.factor() function.", call. = FALSE)
+    warning("Explanatory variable was numerical, it has been converted to categorical. 
+            In order to avoid this warning, first convert your explanatory variable to a categorical variable
+            using the as.factor() function.", call. = FALSE)
   }
 
   # error: explanatory variable only has one level
@@ -118,7 +120,8 @@ function(y, x = NULL,
   
   # print variable types
   if (x_type == "only1Var") {cat(paste("One", y_type, "variable", "\n"))}
-  if (x_type == "categorical") {cat(paste("Response variable: ", y_type, ", Explanatory variable: ", x_type, "\n", sep = ""))}
+  if (x_type == "categorical") {cat(paste("Response variable: ", y_type, ", Explanatory variable: ",
+                                          x_type, "\n", sep = ""))}
   
   # set number of levels
   x_levels = 0  # numerical variable
@@ -204,15 +207,18 @@ function(y, x = NULL,
   # error: categorical variables have more than two levels, but type is ci
   if ((x_levels > 2 | y_levels > 2) & type == "ci") {
     if(y_type == "numerical"){
-      stop("Categorical variable has more than 2 levels, confidence interval is undefined, use ANOVA to test for a difference between means.", call. = FALSE)
+      stop("Categorical variable has more than 2 levels, confidence interval is undefined, use ANOVA 
+           to test for a difference between means.", call. = FALSE)
     }
     if(y_type == "categorical"){
-      stop("Categorical variable has more than 2 levels, confidence interval is not defined, use chi-square test of independence.", call. = FALSE)
+      stop("Categorical variable has more than 2 levels, confidence interval is not defined, use chi-square
+           test of independence.", call. = FALSE)
     }
   } 
   if ((x_levels > 2 | y_levels > 2) & est == "median") {
     if(y_type == "numerical"){
-      stop("This function cannot be used to compare medians across more than 2 xs, use est = 'mean' for ANOVA.", call. = FALSE)
+      stop("This function cannot be used to compare medians across more than 2 xs, use est = 'mean' for ANOVA.", 
+           call. = FALSE)
     }
   }
   
@@ -223,10 +229,12 @@ function(y, x = NULL,
   
   # error: wrong estimate
   if (y_type == "numerical" & est == "proportion") {
-    stop("Response variable is numerical, sample statistic cannot be a proportion, choose either mean or median.", call. = FALSE)
+    stop("Response variable is numerical, sample statistic cannot be a proportion, choose either mean or median.", 
+         call. = FALSE)
   }  
   if (y_type == "categorical" & (est == "mean" | est == "median")) {
-    stop("Response variable is categorical, sample statistic cannot be a mean or a median, use proportion.", call. = FALSE)
+    stop("Response variable is categorical, sample statistic cannot be a mean or a median, use proportion.", 
+         call. = FALSE)
   } 
   
   # error: x variable has more than two levels, but alternative is not defined properly (chi-square and ANOVA)
@@ -239,7 +247,8 @@ function(y, x = NULL,
     # error: success not provided for categorical variable for 1 or 2 proportion ci or ht
     if (is.null(success)) {
       y_level_names = levels(y)
-      stop(paste("Response variable is categorical, specify which level to call success: ", y_level_names[1], " or ", y_level_names[2]), call. = FALSE)
+      stop(paste("Response variable is categorical, specify which level to call success: ", y_level_names[1], " or ", 
+                 y_level_names[2]), call. = FALSE)
     }
     # error: success provided is not a level of the categorical variable
     if (success %in% levels(y) == FALSE) {
@@ -346,7 +355,8 @@ function(y, x = NULL,
             }
           }
           if (nsim <= 500) {
-            BHH2::dotPlot(sim_dist, xlim = xlim, pch=19, col=COL[1,2], cex = 0.8, axes = FALSE, xlab="Bootstrap distribution")
+            BHH2::dotPlot(sim_dist, xlim = xlim, pch=19, col=COL[1,2], cex = 0.8, axes = FALSE, 
+                          xlab="Bootstrap distribution")
             axis(1)
             if(inf_lines == TRUE  & inf_plot == TRUE){
               for (i in 1:2) {
@@ -398,7 +408,8 @@ function(y, x = NULL,
             hist(sim_dist, xlab = "Randomization distribution", main = "", ylab = "", xlim = xlim, col = COL[1,2])
           }
           if (nsim <= 500) {
-            BHH2::dotPlot(sim_dist, xlim = xlim, pch=19, col=COL[1,2], cex = 0.8, axes = FALSE, xlab="Randomization distribution")
+            BHH2::dotPlot(sim_dist, xlim = xlim, pch=19, col=COL[1,2], cex = 0.8, axes = FALSE, 
+                          xlab="Randomization distribution")
             axis(1)
           }
         }          
@@ -443,7 +454,8 @@ function(y, x = NULL,
           }		
         }
         if (inf_lines == TRUE & inf_plot == TRUE) {
-          if(nsim > 500) {text(x = actual, y = 1.2*max(counts), paste("observed\n", round(actual,4)), col=COL[4], cex = 0.8)}
+          if(nsim > 500) {text(x = actual, y = 1.2*max(counts), paste("observed\n", round(actual,4)), col=COL[4], 
+                               cex = 0.8)}
           if(nsim <= 500) {text(x = actual, y = 0.9, paste("observed\n", round(actual,4)), col=COL[4], cex = 0.8)}          
         }	
       }
@@ -470,7 +482,8 @@ function(y, x = NULL,
           # check conditions
           suc = round(n * actual, 2)
           fail = round(n * (1 - actual), 2)
-          cat(paste("Check conditions: number of successes =", round(suc), ";", "number of failures =", round(fail)), "\n")	
+          cat(paste("Check conditions: number of successes =", round(suc), ";", "number of failures =", 
+                    round(fail)), "\n")	
           if (suc < 10 | fail < 10) {
             stop("There aren't at least 10 successes and 10 failures, use simulation methods instead.", call. = FALSE)
           }
@@ -519,9 +532,11 @@ function(y, x = NULL,
           # check conditions
           exp_suc = round(n * null, 2)
           exp_fail = round(n * (1 - null), 2)
-          cat(paste("Check conditions: number of expected successes =", round(exp_suc), ";", "number of expected failures =", round(exp_fail)), "\n")
+          cat(paste("Check conditions: number of expected successes =", round(exp_suc), ";", 
+                    "number of expected failures =", round(exp_fail)), "\n")
           if (exp_suc < 10 | exp_fail < 10) {
-            stop("There aren't at least 10 expected successes and 10 expected failures, use simulation methods instead.", call. = FALSE)
+            stop("There aren't at least 10 expected successes and 10 expected failures, 
+                 use simulation methods instead.", call. = FALSE)
           }
           # calculate test statistic and p-value
           se = sqrt(null * (1 - null) / n)
@@ -555,11 +570,13 @@ function(y, x = NULL,
           if (inf_plot == TRUE){
             if (actual < null) {
               normTail(L = teststat, U = -1*teststat, axes = FALSE, col = COL[1,2])
-              axis(1, at = c(-3, teststat, 0, -1*teststat, 3), labels = c(NA, paste(round(actual,2)), paste(null), paste(round(null + (null - actual), 2)), NA))
+              axis(1, at = c(-3, teststat, 0, -1*teststat, 3), labels = c(NA, paste(round(actual,2)), paste(null), 
+                                                                          paste(round(null + (null - actual), 2)), NA))
             }
             if (actual > null) {
               normTail(L = -1*teststat, U = teststat, axes = FALSE, col = COL[1,2])
-              axis(1, at = c(-3, -1*teststat, 0, teststat, 3), labels = c(NA, paste(round(null - (actual - null), 2)), paste(null), paste(round(actual,2)), NA))
+              axis(1, at = c(-3, -1*teststat, 0, teststat, 3), labels = c(NA, paste(round(null - (actual - null), 2)), 
+                                                                          paste(null), paste(round(actual,2)), NA))
             }
           }
         }
@@ -586,7 +603,8 @@ function(y, x = NULL,
       # order
       if (is.null(order)) {order = levels(x)}
       if (length(order) == 1 & !is.na(order[1])) {
-        stop("Order cannot be of length 1, list the order in which two levels of the xing variable should be subtracted.", call. = FALSE)
+        stop("Order cannot be of length 1, list the order in which two levels of the xing variable should be subtracted.", 
+             call. = FALSE)
       }
       if (length(order) == 2) {
         if ( all(order %in% levels(x)) == FALSE) {
@@ -714,7 +732,8 @@ function(y, x = NULL,
               }
             }
             if (nsim <= 500) {
-              BHH2::dotPlot(sim_dist, xlim = xlim, pch=19, col=COL[1,2], cex = 0.8, axes = FALSE, xlab="Bootstrap distribution")
+              BHH2::dotPlot(sim_dist, xlim = xlim, pch=19, col=COL[1,2], cex = 0.8, axes = FALSE, 
+                            xlab="Bootstrap distribution")
               axis(1)
               if(inf_lines == TRUE & inf_plot == TRUE){
                 for (i in 1:2) {
@@ -765,15 +784,19 @@ function(y, x = NULL,
           if (inf_plot == TRUE){	
             if (nsim > 500) {
               counts = hist(sim_dist, plot = FALSE)$counts  
-              hist(sim_dist, main = "Randomization distribution", xlab = "", ylim = c(0, 1.3 * max(counts)), xlim = c(xmin,xmax), cex.main = 0.75, col = COL[1,2])  
+              hist(sim_dist, main = "Randomization distribution", xlab = "", 
+                   ylim = c(0, 1.3 * max(counts)), xlim = c(xmin,xmax), cex.main = 0.75, col = COL[1,2])  
             }
             if (nsim <= 500) {
               if (y_type == "numerical") {
-                counts = BHH2::dotPlot(sim_dist, main = "Randomization distribution", xlab = "", pch = 20, cex = 0.8, xlim = c(xmin,xmax), cex.main = 0.75)$y							
+                counts = BHH2::dotPlot(sim_dist, main = "Randomization distribution", 
+                                       xlab = "", pch = 20, cex = 0.8, xlim = c(xmin,xmax), cex.main = 0.75)$y							
               }					
               if (y_type == "categorical") {
                 counts = table(sim_dist)
-                plot(sim_dist, type = "n", ylim = c(0,max(counts)*1.3), axes = FALSE, xlim = c(0.9*min(sim_dist),1.1*max(sim_dist)),  main = "Randomization distribution", xlab = "", ylab = "", cex.main = 0.75)
+                plot(sim_dist, type = "n", ylim = c(0,max(counts)*1.3), axes = FALSE, 
+                     xlim = c(0.9*min(sim_dist),1.1*max(sim_dist)),  main = "Randomization distribution", xlab = "",
+                     ylab = "", cex.main = 0.75)
                 axis(1)
                 axis(2)
                 for(i in 1:length(sim_dist)) {
@@ -790,27 +813,33 @@ function(y, x = NULL,
           if (alternative == "less") {
             if (actual < null) {cat(paste("p-value = ", smaller_tail,"\n"))}				
             if (actual > null) {cat(paste("p-value = ", 1 - smaller_tail,"\n"))}
-            if (inf_lines == TRUE & inf_plot == TRUE) {lines(x = c(actual,actual), y = c(0,1.1*max(counts)), col="#569BBD", lwd=2)}
+            if (inf_lines == TRUE & inf_plot == TRUE) {lines(x = c(actual,actual), y = c(0,1.1*max(counts)),
+                                                             col="#569BBD", lwd=2)}
           }
           if (alternative == "greater") {
             if (actual < null) {cat(paste("p-value = ", 1 - smaller_tail,"\n"))}				
             if (actual > null) {cat(paste("p-value = ", smaller_tail,"\n"))}
-            if (inf_lines == TRUE & inf_plot == TRUE) {lines(x = c(actual,actual), y = c(0,1.1*max(counts)), col="#569BBD", lwd=2)}
+            if (inf_lines == TRUE & inf_plot == TRUE) {lines(x = c(actual,actual), y = c(0,1.1*max(counts)), 
+                                                             col="#569BBD", lwd=2)}
           }
           if (alternative == "twosided") {
             cat(paste("p-value = ", smaller_tail * 2,"\n"))
-            if (inf_lines == TRUE & inf_plot == TRUE) {lines(x = c(actual,actual), y = c(0,1.1*max(counts)), col="#569BBD", lwd=2)}
+            if (inf_lines == TRUE & inf_plot == TRUE) {lines(x = c(actual,actual), y = c(0,1.1*max(counts)),
+                                                             col="#569BBD", lwd=2)}
             if (actual >= null) {
               temp = actual - null
-              if (inf_lines == TRUE & inf_plot == TRUE) {lines(x = c(null - temp,null - temp), y = c(0,1.1*max(counts)), col = COL[1,2], lwd=2)}						
+              if (inf_lines == TRUE & inf_plot == TRUE) {lines(x = c(null - temp,null - temp), y = c(0,1.1*max(counts)),
+                                                               col = COL[1,2], lwd=2)}						
             }
             if (actual < null) {
               temp = null - actual
-              if (inf_lines == TRUE & inf_plot == TRUE) {lines(x = c(null + temp,null + temp), y = c(0,1.1*max(counts)), col = COL[1,2], lwd=2)}						
+              if (inf_lines == TRUE & inf_plot == TRUE) {lines(x = c(null + temp,null + temp), y = c(0,1.1*max(counts)),
+                                                               col = COL[1,2], lwd=2)}						
             }		
           }
           
-          if (inf_lines == TRUE & inf_plot == TRUE) {text(x = actual, y = 1.25*max(counts), paste("observed\n", round(actual,4)), col = COL[1,2], cex = 0.8)}								
+          if (inf_lines == TRUE & inf_plot == TRUE) {text(x = actual, y = 1.25*max(counts), paste("observed\n", 
+                                                               round(actual,4)), col = COL[1,2], cex = 0.8)}								
         }
         
       }
@@ -840,11 +869,13 @@ function(y, x = NULL,
             cat("Check conditions:\n")
             suc1 = sum(y[x == levels(x)[1]] == success)
             fail1 = sum(y[x == levels(x)[1]] != success)
-            cat(paste("  ", levels(x)[1], ": number of successes =", round(suc1), ";", "number of failures =", round(fail1)), "\n")	
+            cat(paste("  ", levels(x)[1], ": number of successes =", round(suc1), ";", "number of failures =", 
+                      round(fail1)), "\n")	
             
             suc2 = sum(y[x == levels(x)[2]] == success)
             fail2 = sum(y[x == levels(x)[2]] != success)
-            cat(paste("  ", levels(x)[2], ": number of successes =", round(suc2), ";", "number of failures =", round(fail2)), "\n")
+            cat(paste("  ", levels(x)[2], ": number of successes =", round(suc2), ";", "number of failures =", 
+                      round(fail2)), "\n")
             
             if (suc1 < 10 | fail1 < 10 | suc2 < 10 | fail2 < 10) {
               stop("There aren't at least 10 successes and 10 failures, use simulation methods instead.", call. = FALSE)
@@ -888,7 +919,8 @@ function(y, x = NULL,
               if (n1 < 30 | n2 < 30) {
                 cat(paste("Test statistic: T = ", round(teststat, 3),"\n"))
                 cat(paste("Degrees of freedom: ", min(n1 - 1, n2 - 1), "\n"))
-                smaller_tail = round(min(pt(teststat, df = min(n1 - 1, n2 - 1)), pt(teststat, df = min(n1 - 1, n2 - 1), lower.tail = FALSE)), 4)
+                smaller_tail = round(min(pt(teststat, df = min(n1 - 1, n2 - 1)), pt(teststat, df = min(n1 - 1, n2 - 1),
+                                                                                    lower.tail = FALSE)), 4)
               }						
             }	
           }
@@ -914,12 +946,15 @@ function(y, x = NULL,
             cat("Check conditions:\n")
             exp_suc1 = n1 * p_pool
             exp_fail1 = n1 * (1 - p_pool)
-            cat(paste("  ", levels(x)[1], ": number of expected successes =", round(exp_suc1), ";", "number of expected failures =", round(exp_fail1)), "\n")
+            cat(paste("  ", levels(x)[1], ": number of expected successes =", round(exp_suc1), ";",
+                      "number of expected failures =", round(exp_fail1)), "\n")
             exp_suc2 = n2 * p_pool
             exp_fail2 = n2 * (1 - p_pool)
-            cat(paste("  ", levels(x)[2], ": number of expected successes =", round(exp_suc2), ";", "number of expected failures =", round(exp_fail2)), "\n")
+            cat(paste("  ", levels(x)[2], ": number of expected successes =", round(exp_suc2), ";",
+                      "number of expected failures =", round(exp_fail2)), "\n")
             if (exp_suc1 < 10 | exp_fail1 < 10 | exp_suc2 < 10 | exp_fail2 < 10) {
-              stop("There aren't at least 10 expected successes and 10 expected failures, use simulation methods instead.", call. = FALSE)
+              stop("There aren't at least 10 expected successes and 10 expected failures, use simulation methods instead.",
+                   call. = FALSE)
             }
             # calculate test statistic and p-value
             se = sqrt( p_pool * (1 - p_pool) / n1 + p_pool * (1 - p_pool) / n2 )
@@ -952,11 +987,13 @@ function(y, x = NULL,
             if (inf_plot == TRUE){
               if (actual < null) {
                 normTail(L = teststat, U = -1*teststat, axes = FALSE, col = COL[1,2])
-                axis(1, at = c(-3, teststat, 0, -1*teststat, 3), labels = c(NA, paste(round(actual,2)), paste(null), paste(round(null + (null - actual), 2)), NA))
+                axis(1, at = c(-3, teststat, 0, -1*teststat, 3), labels = c(NA, paste(round(actual,2)), paste(null),
+                                                                            paste(round(null + (null - actual), 2)), NA))
               }
               if (actual > null) {
                 normTail(L = -1*teststat, U = teststat, axes = FALSE, col = COL[1,2])
-                axis(1, at = c(-3, -1*teststat, 0, teststat, 3), labels = c(NA, paste(round(null - (actual - null), 2)), paste(null), paste(round(actual,2)), NA))
+                axis(1, at = c(-3, -1*teststat, 0, teststat, 3), labels = c(NA, paste(round(null - (actual - null), 2)), 
+                                                                            paste(null), paste(round(actual,2)), NA))
               }
             }
           }
@@ -1009,7 +1046,8 @@ function(y, x = NULL,
         # anova output
         #anova_output = anova(lmp(y~x))
         #print(anova_output, signif.stars=F)
-        stop("Simulation based ANOVA is not implemented in this function. If conditions are met, try ANOVA based on theoretical methods.", call. = FALSE)
+        stop("Simulation based ANOVA is not implemented in this function. 
+             If conditions are met, try ANOVA based on theoretical methods.", call. = FALSE)
 
       }
     }

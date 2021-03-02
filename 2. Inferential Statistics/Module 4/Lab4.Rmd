@@ -2,11 +2,16 @@
 title: "Inference for categorical data"
 output: statsr:::statswithr_lab
 ---
+
 <style>body{text-align: justify}</style>
 <div id="instructions">
 Complete all **Exercises**, and submit answers to **Questions** on the Coursera 
 platform.
 </div>
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(comment = '')
+```
 
 In August of 2012, news outlets ranging from the 
 [Washington Post](http://www.washingtonpost.com/national/on-faith/poll-shows-atheism-on-the-rise-in-the-us/2012/08/13/90020fd6-e57d-11e1-9739-eef99c5fb285_story.html) 
@@ -60,6 +65,7 @@ Take a moment to review the report then address the following questions.
 
 3. True / False: In the first paragraph, several key findings are reported. These percentages appear to be
 **sample statistics**. 
+
 <ol>
 <li> <text style = "color:red">True</text></li> 
 <li> False </li>
@@ -92,6 +98,7 @@ data(atheism)
 </ol>
 
 6. What does each row of `atheism` correspond to?
+
 <ol>
 <li> Countries </li> 
 <li> <text style = "color:red">Individual Persons</text> </li> 
@@ -113,10 +120,12 @@ us12 <- atheism %>%
 
 7. Next, calculate the proportion of atheist responses in the United States in 2012, i.e. in `us12`. True / False:
 This percentage agrees with the percentage in Table 6.
+
 <ol>
 <li> <text style = "color:red">True</text></li> 
 <li> False </li>
 </ol>
+
 ```{r perc-atheist-us12}
 # type your code for Question 7 here, and Knit
 us12 <- subset(atheism, atheism$nationality == "United States" & atheism$year == "2012")
@@ -164,12 +173,14 @@ you respond in a way that conveys the general concept?
 
 8. Based on the R output, what is the margin of error for the estimate of the proportion of the proportion of
 atheists in US in 2012? 
+
 <ol>
 <li> The margin of error for the estimate of the proportion of atheists in the US in 2012 is 0.05. </li> 
 <li> The margin of error for the estimate of the proportion of atheists in the US in 2012 is 0.025. </li> 
 <li> <text style = "color:red">The margin of error for the estimate of the proportion of atheists in the US in 2012
 is 0.0135.</text> </li>
 </ol>
+
 ```{r me-perc-atheist-us12}
 # type your code for Question 8 here, and Knit
 p_hat <- sum(us12$response == 'atheist') / length(us12$response)
@@ -219,13 +230,15 @@ assume here that sample sizes have remained the same. Table 4 on page 13 of the 
 Answer the following two questions using the `inference` function. As always, write out the hypotheses for any tests
 you conduct and outline the status of the conditions for inference.
 
-10. True / False: There is convincing evidence that Spain has seen a change in its atheism index between 2005 and
-2012. <br><br> *Hint:* Create a new data set for respondents from Spain. Then use their responses as the first input
+10. True / False: There is convincing evidence that Spain has seen a change in its atheism index between 2005 and 2012.
+<br>*Hint:* Create a new data set for respondents from Spain. Then use their responses as the first input
 on the `inference`, and use `year` as the grouping variable.
+
 <ol>
 <li> True </li> 
 <li> <text style = "color:red">False</text></li>
 </ol>
+
 ```{r spain-05-12}
 # type your code for Question 10 here, and Knit
 spain <- atheism %>% filter(nationality == "Spain")
@@ -239,6 +252,7 @@ inference(y = response , x = as.factor(year),data = spain,type = "ht",statistic 
 <li> <text style = "color:red">True</text></li> 
 <li> False </li>
 </ol>
+
 ```{r us-05-12}
 # type your code for Question 11 here, and Knit
 us <- atheism %>% filter(nationality == "United States")
@@ -248,14 +262,16 @@ inference(y = response,x = as.factor(year),data = us,statistic = "proportion",ty
 
 
 12. If in fact there has been no change in the atheism index in the countries listed in Table 4, in how many of those
-countries would you expect to detect a change (at a significance level of 0.05) simply by chance? <br><br> *Hint:*
-Type 1 error.
+countries would you expect to detect a change (at a significance level of 0.05) simply by chance? <br><br> 
+*Hint:* Type 1 error.
+
 <ol>
 <li> 0 </li>
 <li> 1 </li> 
 <li> <text style = "color:red">1.95</text></li> 
 <li> 5 </li>
 </ol>
+
 ```{r type1}
 # type your code for Question 12 here, and Knit
 39 * 0.05
@@ -266,12 +282,14 @@ service on a weekly basis. According to the guidelines, the estimate must have a
 with 95% confidence. You have no idea what to expect for $p$. How many people would you have to sample to ensure that
 you are within the guidelines? <br><br> *Hint:* Refer to your plot of the relationship between $p$ and margin of
 error. Do not use the data set to answer this question.
+
 <ol>
 <li> 2401 people </li>
 <li> At least 2401 people </li>
 <li> 9604 people </li> 
 <li> <text style = "color:red">At least 9604 people</text></li>
 </ol>
+
 ```{r sample-size}
 # type your code for Question 13 here, and Knit
 (0.5 * (1 - 0.5) * 1.96^2) / 0.01^2

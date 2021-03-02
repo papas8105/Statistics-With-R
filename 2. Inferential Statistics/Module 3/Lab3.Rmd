@@ -8,6 +8,10 @@ Complete all **Exercises**, and submit answers to **Questions** on the Coursera
 platform.
 </div>
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,comment = '')
+```
+
 ## Getting Started
 
 ### Load packages
