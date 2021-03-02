@@ -6,12 +6,17 @@ runtime: shiny_prerendered
 
 ```{r setup,include=FALSE}
 library(learnr)
+<<<<<<< HEAD
 knitr::opts_chunk$set(echo = FALSE,comment = '')
+=======
+knitr::opts_chunk$set(echo = FALSE)
+>>>>>>> cf3baa61bf214753eae2b15580486bb718042750
 ```
 <style>body{text-align: justify}</style>
 
 ### 1.
 
+<<<<<<< HEAD
 ```{r q1}
 question("Which of the following corresponds to the formula for the discrete form of Bayes’ Rule?",
          answer("$\\mathbb{P}\\left(A\\big|B\\right)=\\frac{\\mathbb{P}\\left(B\\big|A\\right)}{\\mathbb{P}(B)}$"),
@@ -200,3 +205,5 @@ question("Which of the following do not impact decisions based on frequentist in
          answer("The null hypothesis."),
          answer("The prior distribution.",correct = TRUE),
          answer("The choice of $\\alpha = 0.05$ or $\\alpha = 0.01$."))
+=======
+>>>>>>> cf3baa61bf214753eae2b15580486bb718042750
