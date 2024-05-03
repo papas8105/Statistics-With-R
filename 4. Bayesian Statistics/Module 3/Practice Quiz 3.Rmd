@@ -1,0 +1,78 @@
+---
+title: "Practice Quiz 3"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup,include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+
+```{r q1}
+question("Fill in the blank: Under 0/1 loss function, the summary statistic that minimizes the posterior expected loss 
+         is the _____________ of the posterior.",answer("Mean"),answer("Median"),answer("Mode",correct = TRUE))
+```
+
+### 2.
+
+```{r q2}
+question("True or False: If the posterior distribution is normally distributed, the estimate that minimizes 
+         posterior expected loss is the same, regardless of whether the loss function is 0/1, linear, or quadratic.",
+         answer("True",correct = TRUE),answer("False"))
+```
+
+### 3.
+
+```{r q3}
+question("which of the following statements is false?",
+         answer("The Bayes factor represents the ration of the marginal likelihoods of observing the data under the two 
+                hypotheses."),
+         answer("A Bayes factor if less than 0.01 suggests that the evidence in favor of one of the hypotheses is barely 
+                worth mentioning.",correct = TRUE),
+         answer("The Bayes factor is not sensitive to the choice of prior distribution on hypotheses."),
+         answer("A Bayes factor of greater than 100 suggests strong evidence in favor of one of the hypotheses."))
+```
+
+### 4.
+
+```{r q4}
+question("In the 2004 North Carolina Birth Survey data set, we only have 133 data points for matured mothers. 
+         Suppose we want to infer the weight gain of matured mothers in North Carolina in 2004 using these data, we would like
+         to conduct a Bayesian inference. We assume the prior distribution of the mean $\\mu$ and the precision $\\phi$
+         of weight gain for matured mothers follows a Normal-Gamma distribution:</br><center>
+         $NormalGamma(m_0 = 30,n_0 = 100,s_0^2 = 10^2,v_0 = 99).$</center>  With 133 observations in the data set,
+         the mean of weight gain of matured mothers is about 28, the standard deviation of the weight gain of 
+         matured mothers is about 13. We can assume the data are normally distributed. </br>
+         What is the posterior joint distribution of $\\mu$ and $\\phi$?",
+         answer("The student's t-distribution $t(232,28.86,0.60)$."),
+         answer("The Normal-Gamma distribution $NormalGamma(28.86,233,139.81,232)$",correct = TRUE),
+         answer("The Gamma distribution $Gamma(116,16217.96)$."),
+         answer("The Normal-Gamma distribution $NormalGamma(28,133,169,99)$."))
+```
+
+### 5.
+
+```{r q5}
+question("Forty-four sixth graders were randomly selected from a school district. Then, they were divided into 22 matched pairs, 
+         each pair having equal IQ's. One member of each pair was randomly selected to receive special training. 
+         Then, all of the students were given an IQ test. Results showed that, the students given special training obtained IQ
+         test scores in average 1 point higher than the paired students without training. The standard deviation s of the
+         difference of the IQ test scores is about 3.6. Let $\\mu$ be the difference of the IQ test scores between the two groups. 
+         We conduct a Bayesian inference on $\\mu$ to compare the following hypotheses:</br><center>
+         $H_1:\\mu =0, H_2:\\mu\neq 0$. </center>For hypothesis $H_2$, we impose a Normal prior on $\\mu$ conditioning 
+         on the variance $\\sigma^2$, and the reference prior on $\\sigma^2$ for both $H_1$ and $H_2$:<center>
+         $\\mu|\\sigma^2, H_2 ~ N(0,\sigma^2/n_0)$,<\br> $p(\\sigma^2) \propto 1/\\sigma^2$,</center> with 
+         $n_0=20$. What is the Bayes factor of $H_1$ over $H_2$?</br>
+         Hint: the Bayes factor formula is given as follows <center>
+         $\displaystyle BF[H_1:H_2] = \left(\frac{n+n_0}{n_0}\right)^{1/2}\left(\frac{t^2 \frac{n_0}{n+n_0}+\\nu}{t^2 + \\nu}\right)^{\\nu+1)/2}.$
+         </center>",
+         answer("1.41"),answer("0.97"),answer("0.93",correct = TRUE),answer("0.89"))
+```
+
+```{r q5a,exercise = TRUE}
+
+```

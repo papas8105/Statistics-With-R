@@ -1,0 +1,63 @@
+---
+title: "Practice Quiz 4"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup,include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+
+```{r q1}
+question("True or False: If the $R^2$ value is low (less than 0.2), then the model assumptions in Bayesian regression are violated.",
+         answer("True"),answer("False",correct = TRUE))
+```
+
+### 2.
+
+```{r q2}
+question("Suppose we want to set a level $k$ such that if we observe a data point more than $k$ standard deviations away 
+         from the mean, we deem it an outlier.  If the number of observations is 100, what is the probability that we observe
+         at least one outlier that is at least 3 standard deviations away from its predicted 
+         value?",
+         answer("0.006"),answer("0.237",correct = TRUE),answer("0.763"),answer("0.933"))
+```
+
+```{r q2a,exercise = TRUE}
+
+```
+
+
+```{r q2a-solution}
+1-(1-2*pnorm(-3))^100
+```
+
+### 3.
+
+```{r q3}
+question("True or False: The Bayesian Information Criterion (BIC) penalizes the number of parameters used by a constant penalty 
+         $k$ (usually $k = 2$).",answer("True"),answer("False",correct = TRUE))
+```
+
+### 4.
+
+```{r q4}
+question("In Bayesian regression, what will happen if the priors on the regression coefficients $\\beta$  are not normal?",
+         answer("The assumptions underlying Bayesian regression are violated, so we cannot do Bayesian regression anymore."),
+         answer("The posterior distribution will not be conjugate, and Monte Carlo methods will need to be
+                used to estimate the parameters.",correct = TRUE),
+         answer("The posterior distribution will still be conjugate, and we can calculate everything by hand as before."))
+```
+
+### 5.
+
+```{r q5}
+question("True or False: When selecting a single model after conducting an analysis with Bayesian model averaging, 
+         the model with the highest posterior model probability should be chosen.",
+         answer("True"),answer("False",correct = TRUE))
+```
+

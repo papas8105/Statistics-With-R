@@ -1,0 +1,82 @@
+---
+title: "Practice Quiz 2"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup,include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+
+```{r q1}
+question("Which of the following statements is true?",
+         answer("The prior is a mixture between the posterior and likelihood."),
+         answer("The likelihood is a mixture between the prior and posterior."),
+         answer("The posterior is a mixture between the prior and likelihood.",correct = TRUE)
+)
+```
+
+### 2.
+
+```{r q2}
+question("Which of the following distributions would be a good choice of prior to use if you 
+         wanted to determine if a coin is fair when you have a strong  belief that the coin is fair? (Assume a model
+         where we call heads a success and tails a failure).",
+         answer("Beta(50,50)",correct = TRUE),answer("Beta(9,1)"),answer("Beta(10,90)"),
+         answer("Beta(10,10)"),answer("Beta(1,1)"))
+```
+
+### 3.
+
+```{r q3}
+question("If Amy is trying to make inferences about the average number of customers that visit Macy’s between noon and 1 p.m.,
+         which of the following distribution pairs represents a conjugate family here?",
+         answer("Beta-Binomial"),
+         answer("Poisson-Gamma",correct = TRUE),
+         answer("Normal-Normal"))
+```
+
+### 4.
+
+```{r q4}
+question("Suppose that you sample 24 M&Ms from a bag and find that 3 of them are yellow. Assuming that you place a
+         Beta(1,1) prior on the proportion of yellow M&Ms p, what is the posterior probability that p < 0.2?",
+         answer("0.60"),answer("0.69"),answer("0.77",correct = TRUE),answer("0.92"))
+```
+
+```{r q4a,exercise = TRUE}
+## Code here
+
+```
+
+```{r q4a-solution}
+round(pbeta(.2,4,22),2)
+```
+
+### 5.
+
+```{r q5}
+question("Suppose you are given a coin and told that the coin is either biased towards heads (p = 0.6) or biased towards
+         tails (p = 0.4). Since you have no prior knowledge about the bias of the coin, you place a prior probability of
+         0.5 on the outcome that the coin is biased towards heads. You flip the coin twice and it comes up tails 
+         both times. What is the posterior probability that your next two flips will be heads?",
+         answer("0.2"),answer("0.212"),answer("0.222",correct = TRUE),answer("0.25"))
+```
+
+```{r q5a,exercise = TRUE}
+## Code here
+
+```
+
+```{r q5a-solution}
+p_H <- 0.6
+p_T <- 0.4
+prior_H <- 0.5
+p_H_tt <- 0.4^2 * 0.5/(0.4^2*0.5 + 0.6^2 * 0.5)
+p_hhtt_H <- 0.6^2 * p_H_tt + 0.4^2 * (1 - p_H_tt)
+round(p_hhtt_H,3)
+```

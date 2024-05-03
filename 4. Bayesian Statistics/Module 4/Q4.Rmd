@@ -1,0 +1,244 @@
+---
+title: "Quiz 4"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup,include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE,comment = '')
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+
+```{r q1}
+question("In a Bayesian simple linear regression $y ∼ N(\\alpha+x\\beta,\\sigma^2)$. Suppose our priors on the parameters 
+           $\\alpha, \\beta, \\sigma^2$ are independent and that the prior on $\\beta$ is $N(0,1)$. Then the posterior mean of 
+           $\\beta$  will be closer to zero than the least squares estimate.  True or False?",
+           answer("True",correct = TRUE),answer("False"))
+```
+
+### 2.
+
+```{r q2}
+question("A simple linear model (either Bayesian or frequentist) that tries to predict an individual's height from his/her age
+         is unlikely to perform well, since human growth rates are non-linear with regard to age.  Specifically, humans tend to grow
+         quickly early in life, stop growing at through most of adulthood, and sometimes shrink somewhat when they get old.  Which of
+         the following modifications to a simple linear regression model should you prefer?",
+         answer("Imposing strong prior distributions on the parameters in a Bayesian analysis."),
+         answer("Including other relevant covariates such as weight or income."),
+         answer("Log-transforming the dependent variable (height) to account for skewness."),
+         answer("Including terms of $age^2$ and or log(age) as covariates in the model.",correct = TRUE))
+```
+
+### 3.
+
+```{r q3}
+question("Suppose we want to set a level $k$ such that if we observe a data point more than $k$ 
+         standard deviations away from the mean,
+         we deem it an outlier. If the number of observations is 1000,
+         what is the probability that we observe an outlier at least 4
+         standard deviations away from its prediction value?",
+         answer("0.03"),answer("0.06",correct = TRUE),answer("0.12"),answer("0.24"))
+```
+
+```{r q3a,exercise = TRUE}
+
+```
+
+```{r q3a-solution}
+1 - (1 - 2 * pnorm(-4))^1000
+```
+
+### 4.
+
+```{r q4}
+question("Suppose a researcher is using Bayesian multiple regression to quantify the effect of vitamin C on cancer patient mortality. 
+         The central 95% posterior credible interval of the coefficient of vitamin C dosage is (-0.19, -0.07).  Assuming the model
+         assumptions are valid, what can we say about the effect of vitamin C on cancer patient mortality?",
+         answer("There is not enough information to quantify the effect of vitamin C on cancer patient mortality."),
+         answer("The posterior probability that the coefficient of vitamin C is greater than zero is low, so there is a high
+         posterior probability of a negative association between vitamin C and cancer patient mortality.",correct = TRUE),
+         answer("We reject the null hypothesis of no difference, since the 95% credible interval does not include zero."))
+```
+
+### 5.
+
+```{r q5}
+question("Which of the following is not a principled way to select a model?",
+         answer("Pick the model with the highest adjusted $R^2$."),
+         answer("Select the model with the lowest BIC."),
+         answer("Use Bayesian model averaging and select the model with the highest posterior probability."),---
+         answer("Pick the model with the highest $R^2$",correct = TRUE))
+```
+
+### 6.
+
+```{r q6}
+question("In a linear model with an intercept term (that is always included) and 3 potential predictors, 
+         how many possible models are there?",answer("3"),answer("4"),answer("8",correct = TRUE),answer("16"))
+```
+
+```{r q6a,exercise = TRUE}
+
+```
+
+```{r q6a-solution}
+2^3
+```
+
+### 7. 
+
+```{r q7}
+question("Suppose that a MCMC sampler is currently visiting model B.  Model A has a higher posterior probability
+         than model B and Model C has a lower posterior probability than model B.  Which of the following statements
+         is true in the MCMC algorithm?",
+         answer("If a jump to Model C is proposed, this jump is never accepted."),---
+         answer("If a jump to Model C is proposed, this jump is always accepted."),
+         answer("If a jump to Model A is proposed, this jump is always accepted.",correct = TRUE),
+         answer("If a jump to Model A is proposed, this jump is never accepted."))
+```
+
+### 8.
+
+```{r q8}
+question("Which of the following is not a useful method of checking a linear model after it is fit?",
+         answer("Comparing the distribution of fitted values to the distribution of observed data."),
+         answer("Plotting the residuals to check for non-normally distributed residuals."),---
+         answer("Examining the influence of potential outliers on the parameters of the model."),
+         answer("Ensuring that $R^2$ is as close to 1 as possible.",correct = TRUE))
+```
+
+### 9. 
+
+```{r q9}
+question("Why is the Zellner g-prior useful in Bayesian model averaging?",
+         answer("It simplifies prior elicitation down to two components, the prior mean and g.",correct = TRUE),
+         answer("It helps shrink the coefficients towards 0, which is important if the variables are highly correlated"),
+         answer("It prevents BMA from disproportionately favoring the null model as a result of the Bartlett-Lindley paradox"))
+```
+
+### 10.
+
+```{r q10}
+question("When selecting a single model from an ensemble of models in the case of Bayesian model averaging, 
+         which of the following selection procedures corresponds to choosing the 'highest probability model'?",
+         answer("Selecting the model that generates predictions most similar to those obtained from averaging over the model space."),
+         answer("Selecting the model with the highest posterior model probability.",correct = TRUE),
+         answer("Including only the coefficients with posterior model inclusion probability above 0.5"))
+```
+
+### 11.
+
+```{r q11}
+question("You fit a linear model on 1000 data points and identify a point that lies 3 standard deviations above
+         its predicted value.  Should you worry about this potential outlier?  Why or why not?",
+         answer("Yes, since the probability of a point deviating from its predicted value by at least 3 standard deviations is roughly
+                0.003, which suggests that the point is an outlier.",correct = TRUE),
+         answer("Yes, because outliers can have high leverage and result in a poorly fit model."),
+         answer("No, because the probability that all 1000 points will be within 3 standard deviations of their predicted values is 
+         0.74, so it is not implausible to observe a point 3 standard deviations away from its predicted value."),
+         answer("No, because the probability that all 1000 points will be within 3 standard deviations of their predicted values is 
+         0.07, so it is unsurprising to observe a point 3 standard deviations away from its predicted value."))
+```
+
+### 12.
+
+```{r q12}
+question("Suppose we use Bayesian methods (with a prior distribution) to fit a linear model in order to predict the final 
+         sale price of a home based on quantifiable attributes of the home. If the 95% posterior predictive interval of a new home
+         (not in the data set) is (312,096, 392,097), which of the following statements represents a correct interpretation of this
+         interval?",
+         answer("95% of houses with the same attributes as this house have historically sold for prices between 
+                312,096 and 392,097."),
+         answer("95% of houses with the same attributes as this house have will be sold for prices between 312,096 and 392,097."),
+         answer("The probability that the house will sell for between 312,096 and 392,097 is 0.95.",correct = TRUE),
+         answer("This house would be sold for between 312,096 and 392,097 95% of the time."))
+```
+
+### 13.
+
+```{r q13}
+question("Which of the following goes into the calculation of the Bayesian Information Criterion (BIC)?",
+         answer("The maximum value of the log-likelihood under the current model, the sample size,
+         and the number of parameters in the model.",correct = TRUE),
+         answer("The maximum value of the log-likelihood under the current model."),
+         answer("The maximum value of the log-likelihood under the current model, a constant penalty,
+         and the number of parameters in the model"),
+         answer("The maximum value of the log-likelihood under the current model and the number of parameters in the model."))
+```
+
+### 14.
+
+```{r q14}
+question("Can Bayesian model averaging be done with a large amount of predictors?",
+         answer("Yes, but Monte Carlo sampling techniques will need to be done to approximate the posterior distribution.",
+                correct = TRUE),
+         answer("No, since it will take forever to average over $2^k$ possible models when k is large."),
+         answer("Yes, it is possible to find the posterior model probabilities in closed form by 
+         using the conjugate Zellner g-prior."))
+```
+
+### 15.
+
+```{r q15}
+question("Which of the following is not an assumption made in Bayesian multiple regression?",
+         answer("The errors are independent."),
+         answer("The errors have zero autocorrelation."),
+         answer("The errors have constant variance."),
+         answer("The errors follow a t-distribution.",correct = TRUE))
+```
+
+### 16.
+
+```{r q16}
+question("Which of the following is an advantage of using the Zellner-Siow-Cauchy prior in Bayesian model averaging?",
+         answer("It helps shrink the coefficients towards 0, which is important if the variables are highly correlated."),
+         answer("It prevents BMA from disproportionately favoring the null model as a result of the Bartlett-Lindley paradox."),
+         answer("It allows for uncertainty in the prior variance parameter g."),
+         answer("Both b and c.",correct = TRUE))
+```
+
+
+### 17.
+
+```{r q17}
+question("When selecting a single model from an ensemble of models in the case of Bayesian model averaging, 
+         which of the following selection procedures corresponds to choosing the 'median probability model'?",
+         answer("Selecting the model that generates predictions most similar to those obtained from averaging over the model space."),
+         answer("Including only the coefficients with posterior model inclusion probability above 0.5.",correct = TRUE),
+         answer("Selecting the model with the highest posterior model probability."))
+```
+
+
+### 18.
+
+```{r q18}
+question("A linear model was estimated using Bayesian methods to predict the height of a male based on his age.  
+         All males used in the data are between the ages of 3 to 9 years old.  Is it appropriate to use this model to predict
+         the height of a 21 year old man?",
+         answer("No, since heights may be skewed right, which violates the assumption of normality."),
+         answer("Yes, as long as proper priors are given to the parameters to ensure that the posterior is proper."),
+         answer("Yes, an advantage of Bayesian statistics is its ability to generate predictions and express uncertainty in terms
+         of probabilities."),
+         answer("No, since extrapolating outside the range of age observed in the data set may result in a nonsensical prediction.",
+                correct = TRUE))
+```
+
+### 19.
+
+```{r q19}
+question("In a linear model with an intercept term (that is always included) and 4 potential predictors, 
+         how many possible models are there?",
+         answer("4"),answer("5"),answer("16",correct = TRUE),answer("32")
+)
+```
+
+### 20.
+
+```{r q20}
+question("True or False: The mean and standard deviation of the posterior distribution of a slope or intercept parameter 
+         in Bayesian linear regression is equal to the least squares estimate and corresponding standard error if the reference 
+         prior is used and normally distributed errors are assumed.",answer("True",correct = TRUE),answer("False"))
+```

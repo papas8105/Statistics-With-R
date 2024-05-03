@@ -1,0 +1,369 @@
+---
+title: "Quiz 3"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup,include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE,comment = '')
+```
+<style>body{text-align: justify}</style>
+
+### 1.
+
+```{r q1}
+question("Fill in the blank: Under a 0/1 loss function, the summary statistic that minimizes the posterior expected
+         loss is the of the posterior.",answer("Mean"),answer("Mode",correct = TRUE),answer("Median"))
+```
+
+### 2.
+
+```{r q2}
+question("You are employed in the Human Resources department of a company and are asked to predict the number of employees
+         that will quit their jobs in the coming year. Based on a Bayesian analysis of historical data, you determine the
+         posterior predictive distribution of the number of quitters to follow a Poisson($\\lambda = =3.5$) distribution. 
+         Given a 0/1 loss function, what is the prediction that minimizes posterior expected
+         loss?",answer("3"),answer("4",correct = TRUE),answer("5"),answer("3"))
+```
+
+```{r q3}
+question("True or False: If the posterior distribution is a Binomial distribution, the estimate that minimizes
+         posterior expected loss is the same, regardless of whether the loss function is 0/1, linear, or quadratic.",
+         answer("True"),answer("False",correct = TRUE))
+```
+
+### 4.
+
+```{r q4}
+question("Suppose you are testing a new drug to determine whether it is more effective than an existing drug. 
+          Let $Η_{0}$ denote the hypothesis that the new drug is no more effective than the existing drug and $Η_{1}$ denote the     
+          hypothesis that the new drug is more effective than the existing drug. If you accept $Η_{1}$  when in fact $Η_{0}$ is true, 
+          the loss is 100. If you accept $Η_{0}$  when in fact $Η_{1}$ is true, the loss is 40. 
+          Assume that no loss is incurred if you accept a true hypothesis. At what posterior probability of 
+          $Η_{0}$ will you be indifferent between the two hypotheses?",
+         answer("1/4"),answer("2/7",correct = TRUE),answer("1/3"),answer("2/5"))
+```
+ 
+
+### 5.
+
+```{r q5}
+question("You are testing a hypothesis $H_1$ against an alternative hypothesis $H_{2}$ using Bayes Factors. You calculate 
+         $BF[H_{1}:H_{0}]$ to be 0.06. According to guidelines first given by Jeffreys (presented in the lecture), what conclusion can 
+         be drawn from the data?",
+         answer("The data provides strong evidence against $H_{1}$."),
+         answer("The data provides positive evidence against $H_{1}$.",correct = TRUE),
+         answer("The data provides strong evidence against $H_{2}$."),
+         answer("The data provides positive evidence against $H_2$"))
+```
+
+### 6.
+
+```{r q6}
+question("True or False: Suppose your posterior distribution for the population mean $\\mu$ is a t distribution. 
+         A 95% credible interval $(L,U)$ with equal tail probability, i.e. $P(\\mu\\leq L|data) = P(\\mu\\geq U|data) = 0.025$
+         is also a highest posterior density interval.",answer("True",correct = TRUE),answer("False"))
+```
+
+### 7.
+
+```{r q7}
+question("When modeling data $Y_{i}~N(\\mu,\\sigma^2)$, when both $\\mu$ and $\\sigma^2$ are unknown, it is often useful to use a 
+         Normal-Gamma prior distribution when we have prior information. Our joint prior distribution $p(\\mu,\\sigma^2) can 
+         be written as: $\\mu|\\sigma^2 ~ N(\\mu_{0},\\sigma^2/n_{0}$, $\frac{1}{\\sigma^2} ~ Gamma(u_0/2,u_0s_0^2/2$.
+         Which of the following 
+         hyperparameters can be described as the number of observations in an imaginary or historical prior sample with mean $m_0$?",
+         answer("s_0^2"),answer("n_0",correct = TRUE),answer("u_0"),answer("m_0"))
+```
+
+### 8.
+
+```{r q8}
+question("True or False: If data come from a Normal distribution where both the mean and variance are unknown and we 
+         use a Jeffreys-Zellner-Siow prior, we need to use simulation techniques to create credible intervals for $\\mu$ 
+         since there is no closed form representation of the posterior distribution for $\\mu$.",
+         answer("True",correct = TRUE),answer("False"))
+```
+
+### 9.
+
+```{r q9}
+question("In the Playing Computer Game During Lunch Affects Fullness, Memory for Lunch, and Later Snack Intake study, researchers 
+         evaluated the relationship between being distracted and recall of food consumed and snacking. 
+         The sample of this study consisted of 44 volunteer patients,
+         randomized into 2 groups with equal size. One group was asked to play solitaire on the computer while 
+         eating and was asked to win as many games as possible, and the other group was asked to eat without any distractions, 
+         focusing on what they're eating and thinking about the taste of the food. Both groups were provided the same amount of
+         lunch and after lunch, they were offered cookies to snack on. The distracted group consumed an average of $\bar{Y} = 52.1$ 
+         grams of cookies, with sample standard deviation $s = 45.2$  grams and sample size $n = 22$. 
+         The researcher would like to estimate the average snacking level $\\mu$  for distracted eaters.
+         Using an informative NormalGamma prior distribution with a prior mean of $42$  she determined that the posterior median for 
+         $\\mu$ was $47.6$ grams with a 95% posterior credible for  the average snacking consumption of [35.9,59.3] grams. 
+         Based on the information above, which statement is true:",
+         answer("There is a 50% chance that the distracted eaters will consume 47.6 grams of cookies."), 
+         answer("The 95% credible interval means 95% of random samples of 22 distracted eaters will yield
+                intervals that contain the true mean of average snack intake level."),
+         answer("There is a 95% chance a distracted eater will consume between 35.9 and 59.3 grams of cookies."),
+         answer("There is a 95% chance that on average, distracted eaters consume between 35.9 and 59.3 grams of cookies",correct = TRUE),
+         answer("The 95% Bayesian credible interval is equivalent to the 95% frequentist confidence interval for 
+                $\\mu$ in this case"),
+         answer("We do not need any assumptions for Bayesian hypothesis testing, so none of the above"))
+```
+
+### 10.
+
+```{r q10}
+question("In the Playing Computer Game During Lunch Affects Fullness, Memory for Lunch, and Later Snack Intake study,
+         researchers evaluated the relationship between being distracted and recall of food consumed and snacking. 
+         The sample of this study consisted of 44 volunteer patients, randomized into 2 groups with equal size.
+         One group was asked to play solitaire on the computer while eating and was asked to win as many games as possible, 
+         and the other group was asked to eat without any distractions, focusing on what they’re eating and thinking 
+         about the taste of the food. Both groups were provided the same amount of lunch and after lunch,
+         they were offered cookies to snack on. Consumption of cookies (in grams) after lunch was measured 
+         for each of the volunteers. In the treatment group, mean consumption was 
+         52.1 grams with standard deviation 45.1 grams. In the control group, mean consumption was 27.1 grams with standard deviation 
+         26.4 grams. The research was interested in testing the hypothesis that the average consumption was different in the two groups.
+         Based on the information provided, which of the following assumptions is most questionable for testing the hypothesis that the
+         average consumption is the same in the two groups versus that the average consumption is not the same?",
+         answer("Cookie consumption is independent within groups"),
+         answer("Cookie consumption is independent between groups"),
+         answer("Cookie consumption is normally distributed"),
+         answer("The variance differs between groups"),
+         answer("c and d",correct = TRUE))
+```
+
+### 11.
+
+```{r q11}
+question("Suppose a analytical chemist wants to measure the mass of a sample of ammonium nitrate with sample size n = 1000.
+         She thinks this mass is about $m_0 = 10$ milligrams based on her experience. The known standard deviation of the manufacturer
+         balance is $\\sigma=0.2$ milligrams. The average mass of her sample is $\bar{Y} = 10.013$ milligrams. 
+         She set up a hypothesis test to test whether the true mean of the mass of the ammonium nitrate is
+         $H_1:\mu = 10,\\H_2:\mu\neq 10$. Based on the above data, the z-score is 
+         $Z = \frac{\bar{Y}-m_{0}}{\\sigma/\sqrt{n}} = \frac{10.013 - 10}{0.2/\sqrt{1000}}\approx 2.055$. The chemist tries the 
+         Bayesian approach to test the two hypotheses. She uses a normal prior distribution with mean 10 and variance 
+         $\\sigma^2/n_{0}$ with $n_0 = 1$ so that the prior is based on a prior sample size of 1. Recall that the Bayes factor 
+         has the following formula 
+         $BF[H_1:H_2]=\left(\frac{n+n_0}{n_0}\right)^{1/2}\times \exp\left(-\frac{1}{2}\frac{n}{n+n_0}Z^{2}\right), 
+         where $Z$ is the $Z$-score above. Using Jeffrey's scale of evidence, what can we conclude about the two 
+         hypotheses?",
+         answer("From the Bayes factor, the evidence against $H_2$ is not worth a bare mention from the Bayes factor."),
+         answer("The Bayes factor provides positive evidence against $H_2$.",correct = TRUE),
+         answer("From the Bayes factor the evidence against $H_1$ is not worth a bare mention."),
+         answer("The Bayes factor provides positive evidence against $H_1$.")
+         )
+```
+
+### 12. 
+
+```{r q12}
+question("For hypothesis tests about a Normal mean $\\mu$ for the difference in two meanss where $\\mu=\\mu_{1}-\\mu_{2}$, where 
+         $H_1:\\mu = 0$ versus $H_2:\\mu\neq 0$ which prior distribution is recommended for $\\mu$ under $H_2$ for most 
+         circumstances?",
+         answer("A non-informative Normal distribution for $\\mu$ with a really large variance $\\sigma^2/n_0$ by taking $n_0$ 
+                to be small."),
+         answer("The refence for $\\mu$ (a uniform or flat distribution)."),
+         answer("A Cauchy distribution for $\\mu$."),
+         answer("All the above.",correct = TRUE))
+```
+
+### 13.
+
+```{r q13}
+question("Fill in the blank: Under a linear loss function, the summary that minimizes the posterior expected loss is 
+          the __________________ of the posterior.",
+         asnwer("Mean"),answer("Median",correct = TRUE),answer("Mode"))
+```
+
+### 14.
+
+```{r q14}
+question("True or False: If the posterior distribution is a Normal distribution, the estimate that minimizes
+         posterior expected loss is the same, regardless of whether the loss function is 0/1, linear, or quadratic.",
+         answer("True",correct = TRUΕ),answer("False"))
+```
+
+### 15.
+
+```{r q15}
+question("Suppose that you are trying to decide whether a coin is biased towards heads (p=0.75) or tails (p=0.25). 
+         If you decide the coin is biased towards heads but it is not, you incur a loss of 10. On the other hand, if you decide the coin is
+         biased towards tails but it is not, you incur a loss of 100. If you make the correct choice, you will not incur any losses. At 
+         what posterior probability of the coin being biased towards heads will you be indifferent between the two decisions?",
+         answer("0.5"),answer("0.325"),answer("0.0775"),answer("0.091",correct = TRUE))
+```
+
+### 16.
+
+```{r q16}
+question("You are testing a hypothesis $H_1$ against an alternative hypothesis $H_{2}$ using Bayes Factors. You calculate 
+         $BF[H_{1}:H_{0}]$ to be 60. According to guidelines first given by Jeffreys (presented in the lecture), what conclusion can 
+         be drawn from the data?",
+         answer("The data provides strong evidence against $H_{1}$."),
+         answer("The data provides positive evidence against $H_{1}$.",
+         answer("The data provides strong evidence against $H_{2}$.",correct = TRUE)),
+         answer("The data provides positive evidence against $H_2$"))
+```
+
+
+### 17.
+
+```{r q17}
+question("When the standard deviation $\\sigma$is unknown, we may use a Normal-Gamma distribution as the joint prior
+         distribution of the mean $\\mu$ and unknown $\\sigma$. After seeing the data, the marginal posterior distribution
+         of the mean $\\mu$ is a student t- distribution. We would like to construct the highest probability density (HPD) 
+         interval as the 95% credible interval for $\\mu$. Why can we use the 2.5 and 97.5 quantiles of the Student
+         t-distribution as the lower bound and the upper bound of the Highest Posterior Density interval? 
+         Select the most accurate statement.",
+         answer("Because the Student t-distribution is symmetric."),
+         answer("Because the Student t-distribution is unimodal."),
+         answer("Both a and b.",correct = TRUE),answer("Neither a nor b"))
+```
+
+### 18.
+
+```{r q18}
+question("When modeling data $Y_{i}~N(\\mu,\\sigma^2)$, when both $\\mu$ and $\\sigma^2$ are unknown, it is often useful to use a 
+         Normal-Gamma prior distribution when we have prior information. Our joint prior distribution $p(\\mu,\\sigma^2) can 
+         be written as: $\\mu|\\sigma^2 ~ N(\\mu_{0},\\sigma^2/n_{0}$, $\frac{1}{\\sigma^2} ~ Gamma(u_0/2,u_0s_0^2/2$.
+         Which of the following 
+         hyperparameters can be described as our initial guess about the variance parameter $\\sigma^2$?",
+         answer("s_0^2",correct = TRUE),answer("n_0"),answer("u_0"),answer("m_0"))
+```
+
+### 19.
+
+```{r q19}
+question("In the Playing Computer Game During Lunch Affects Fullness, Memory for Lunch, and Later Snack Intake study, 
+          researchers evaluated the relationship between being distracted and recall of food consumed and snacking. The sample of this
+          study consisted of 44 volunteer patients, randomized into 2 groups with equal size. One group was asked to play solitaire on the
+          computer while eating and was asked to win as many games as possible, and the other group was asked to eat without any
+          distractions, focusing on what they’re eating and thinking about the taste of the food. Both groups were provided the same
+          amount of lunch and after lunch, they were offered cookies to snack on. Consumption of cookies (in grams) after lunch was
+          measured for each of the volunteers. In the treatment group, mean consumption was 52.1 grams with standard deviation 
+          45.1 grams. In the control group, mean consumption was 27.1 grams with standard deviation 26.4 grams. 
+          The research was interested in testing the hypothesis that the average consumption was different in the two groups.
+         Based on the information provided, which of the following assumptions is needed for testing the hypothesis that the average
+         consumption is the same in the two groups versus that the average consumption is not the same?",
+         answer("There is a 50% chance that the distracted eaters will consume 52.1 grams of cookies."),
+         answer("There is a 95% chance a distracted eater will consume between 32.1 and 72.1 grams of cookie"),
+         answer("The 95% credible interval means 95% of random samples of 22 distracted eaters will yield intervals
+         that contain the true mean of average snack intake level."),
+         answer("There is a 95% chance that on average, distracted eaters consume between 32.1 and 72.1 grams of cookies.",correct = TRUE),
+         answer("The 95% Bayesian credible interval is different from the 95% frequentist confidence interval for $\\mu$ in this case.")
+         )
+```
+
+### 20.
+
+```{r q20}
+question("In the Playing Computer Game During Lunch Affects Fullness, Memory for Lunch, and Later Snack Intake study, 
+          researchers evaluated the relationship between being distracted and recall of food consumed and snacking. The sample of this
+          study consisted of 44 volunteer patients, randomized into 2 groups with equal size. One group was asked to play solitaire on the
+          computer while eating and was asked to win as many games as possible, and the other group was asked to eat without any
+          distractions, focusing on what they’re eating and thinking about the taste of the food. Both groups were provided the same
+          amount of lunch and after lunch, they were offered cookies to snack on. Consumption of cookies (in grams) after lunch was
+          measured for each of the volunteers. In the treatment group, mean consumption was 52.1 grams with standard deviation 
+          45.1 grams. In the control group, mean consumption was 27.1 grams with standard deviation 26.4 grams. 
+          The research was interested in testing the hypothesis that the average consumption was different in the two groups.
+          Based on the information provided, which of the following assumptions is needed for testing the hypothesis that the average
+          consumption is the same in the two groups versus that the average consumption is not the same?",
+         answer("Individuals within each group d cannot influence the cookie consumption of others in the same group, 
+                i.e. consumption is independent within groups"),
+         answer("Cookie consumption is independent between groups"),
+         answer("Cookie consumption in grams is normally distributed"),
+         answer("The variability of consumption is the same in both groups"),
+         answer("All of the above",correct = TRUE),
+         answer("We do not need any assumptions for Bayesian hypothesis testing, so none of the above"))
+```
+
+### 21.
+
+```{r 21}
+question("Fill in the blank: Under a quadratic loss function, the summary statistic that minimizes the posterior 
+          expected loss is the of the posterior.",answer("Mean",correct = TRUE),answer("Median"),answer("Mode"))
+```
+
+### 22.
+
+```{r 22}
+question("You are employed in the Human Resources department of a company and are asked to predict the number of employees 
+         that will quit their jobs in the coming year. Based on a Bayesian analysis of historical data, you determine the posterior
+         predictive distribution of the number of quitters to follow a Poisson ($\\lambda = 10$) distribution. 
+         Given a quadratic loss function,
+         what is the prediction that minimizes posterior expected loss?",answer("9"),answer("10",correct = TRUE),answer("11"))
+```
+
+### 23.
+
+```{r q23}
+question("Which of the following statements is false?",
+         answer("A Bayes factor of less than .01 suggests that the evidence in favor of one of the hypotheses is barely worth mentioning",
+                correct = TRUE),
+         answer("A Bayes factor of greater than 100 suggests strong evidence in favor of one of the hypotheses"),
+         answer("We can update prior odds to posterior odds using Bayes factors"),
+         answer("The Bayes factor represents the ratio of the marginal likelihoods of observing the data under the two hypotheses"))
+```
+
+### 24.
+
+```{r q24}
+question("1000 students were randomly sampled from the High School and Beyond survey. Each student took a reading and a writing test
+         leading to paired observations. We want to test the hypothesis whether the average score of the reading test, $\\mu_{R}$ , is the
+         same as the average score of the writing test, $\\mu_W$. Since a student's reading score is not likely to be independent of his/her
+         own writing score, we test hypotheses about the two scores, 
+         $\\mu = \\mu_{W} - \\mu_{R}$</br>$H_1: \\mu = 0$</br>$H_{2}: \\mu\neq 0$
+         The resulting Bayes factor for comparing $H_1$ to $H_2$ was 3.505. We can conclude using the Jeffrey's scale of evidence that:",
+         answer("The Bayes factor provides positive evidence against the hypothesis that the mean reading and mean
+                writing test scores are the same"),
+         answer("The Bayes factor provides strong evidence against $H_1$"),
+         answer("The Bayes factor provides positive evidence against the mean of the writing scores being different from the mean 
+                reading score.The Bayes factor is 3.505, which is larger than 3. So it provides positive evidence against $H_2$ 
+                according to Jeffrey's scale of evidence.",correct = TRUE),
+         answer("The Bayes factor provides strong evidence against $H_2$"))
+```
+
+### 25.
+
+```{r q25}
+question("True or False:  If data come from a Normal distribution where  both the mean and variance are unknown and we use 
+         a Normal-Gamma conjugate prior, we must resort to simulation techniques to create credible intevals for $\\mu$ since
+         there is no closed form representation of the posterior distribution for $\\mu$.",
+         answer("True"),answer("False",correct = TRUE))
+```
+
+### 26.
+
+```{r q26}
+question("True or False: If data come from a Normal distribution where both the mean and variance are unknown and we use the
+         reference prior, we have to use simulation techniques to create credible intervals for $\\mu$ or predictions since
+         the prior is improper and there is no closed form representation of the posterior distribution for
+         $\\mu$.",answer("True"),answer("False",correct = TRUE))
+```
+
+### 27.
+
+```{r q27}
+question("Select the correct statement.",
+            answer("For hypothesis tests about a Normal mean,  we can use the improper uniform prior distribution (reference prior)
+            for $\\mu$ when we have no prior information."),
+            answer("Bartlett's or Jeffreys-Lindley's paradox may occur when testing hypotheses using a conjugate
+            Normal-Gamma prior when the prior sample size $n_0$  is too small relative to the observed sample size $n$. This will lead to
+            results that favor the null hypothesis regardless of the data.",correct = TRUE),
+            answer("For hypothesis tests about a Normal mean $\\mu$ when we have very little prior information,
+            we should use a conjugate Normal-Gamma prior and use a value of $n_0$​less than 1."),
+            answer("If the results between Bayesian approach and frequentist approach are inconsistent, 
+                   we should always make decision based on the Bayesian approach result."))
+```
+
+### 28.
+
+```{r q28}
+question("Suppose your posterior distribution for the population mean $\\mu$ is a Student t distribution centered at 
+         10  and you find a 95% Highest Posterior Density interval with $(L,U)$.  Which of the following is true:",
+         answer("The $P(\\mu \leq L|data) = 0.05"),
+         answer("The midpoint between $L$ and $U$ is 10.",correct = TRUE),
+         answer("$L$ is two standard deviations below $10$ while $U$ is two standard deviations above $10$."),
+         answer("The $P(\\mu \geq U | data) = 0.05$"))
+```

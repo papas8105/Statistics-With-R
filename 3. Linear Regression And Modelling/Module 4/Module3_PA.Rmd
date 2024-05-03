@@ -90,7 +90,8 @@ The table provides useful summaries of the data along with the dimension and inf
 variables represent. For the next of the report we will assume randomness in how people 
 of different backgrounds and ethnicity provide willingly (not forced to ) input in both rotten tomatoes 
 and imdb and also raise concerns about how unbiased the scores of the critics are. 
-Our study is _observational_ and will be _generalizable_ to the public since the sample is random and we consider there 
+Our study is _observational_ and will be _generalizable_ to the public since the
+sample is random and we consider there 
 is no bias in how people score a specific movie, which will be 
 tested by applying prediction to a 2017 film. In some plots we will see that there are confounding 
 factors for which we will not use blocking, also since the purpose of our study is different we
@@ -203,12 +204,12 @@ are __binary__ and of no interest in this section.
 ## Part 4: Modeling 
 
 Our interest lies on creating a robust simple model which can extrapolate beyond the data provided to our team. We 
-will fit a model with all the variables and with _backwards_ propagation by using the coefficients' p-values we will 
+will fit a model with all the variables and with _backwards_ propagation by using the coefficients' p-values we will
 choose the best model which fits our purpose of predicting. Using the R squared metric with backaward propagation 
 instead of the one previously mentioned might overfit the model is computationally costly and 
 not good in our case, since we adjust the model too much in the original data. The following commands first fit
-a one-against-all linear regression model and by subtracting one coefficient at a time with the biggest p-value over 
-0.15^[we don't need to strictly adjust strong regressors to avoid overfit] and stop at a step in which no other
+a one-against-all linear regression model and by subtracting one coefficient at a time with the biggest p-value 
+over 0.15^[we don't need to strictly adjust strong regressors to avoid overfit] and stop at a step in which no other
 variable can be eliminated from the model. 
 
 Command: ols_step_backward_p^[ordinary least squares step backward propagation using the p-value metric]
@@ -225,8 +226,10 @@ concluded by the algorithm is the following
 summary(best_model$model)
 ```
 
-from the F-statistic we deduce that the model is _statistically significant_ and observe that the model justifies our 
-exploratory analysis findings, also the R squared is very high nearly equal to 90% which is a good sign that most of the 
+from the F-statistic we deduce that the model is _statistically significant_ and 
+observe that the model justifies our 
+exploratory analysis findings, also the R squared is very high nearly equal to 90%
+which is a good sign that most of the 
 information is explained by the variables the algorithm came up with. The parameters of the model are 
 genre (imdb), runtime ,imdb_rating, critics_score (overall in rotten tomatoes),audience_rating (rotten tomatoes),
 best_pic_nom and best_actress_win. We observe the following:
@@ -344,12 +347,12 @@ known in our case with the value 55% and that makes our model's prediction robus
 ## Part 6: Conclusion
 
 Our model was created using back propagation by choosing the parameters that eliminate regressors based on 
-p-values, we used thismetric because we aimed at extrapolation beyond the data time scope and tried to capture the parameters
-that __mostly__ affect film preferences by the audiences in the rotten tomatoes web site. We didn't conduct a 
-causal analysis since we didn't randomize or blocked for a confounding factor we spotted in the plots presented,
-our only goal was to create a prediction model based on _observational_ study. Ending our report, we would like 
-to point out that further study on data collection variables should be conducted, for example we might need 
-information on how the audience scoring is affected by a successful prequel of the movie rated or even add a 
+p-values, we used this metric because we aimed at extrapolation beyond the data time scope and tried to capture the
+parameters that __mostly__ affect film preferences by the audiences in the rotten tomatoes web site. We didn't
+conduct a causal analysis since we didn't randomize or blocked for a confounding factor we spotted in the plots
+presented, our only goal was to create a prediction model based on _observational_ study. Ending our report, we
+would like to point out that further study on data collection variables should be conducted, for example we might
+need information on how the audience scoring is affected by a successful prequel of the movie rated or even add a 
 variable which _scales_ how famous the cast is in order to free our model from actor names, finally we might want
 to ensure that there is no bias in the scoring process by making the ip filtering more strict.
 

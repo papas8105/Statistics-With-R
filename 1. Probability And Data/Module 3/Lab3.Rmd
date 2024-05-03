@@ -325,5 +325,6 @@ elsewhere, e.g. textbook, previous labs, or practice problems?
 
 <div id="license">
 This is a derivative of an [OpenIntro](https://www.openintro.org/stat/labs.php) lab, and is
-released under a [Attribution-NonCommercial-ShareAlike 3.0 United States](https://creativecommons.org/licenses/by-nc-sa/3.0/us/) license.
+released under a
+[Attribution-NonCommercial-ShareAlike 3.0 United States](https://creativecommons.org/licenses/by-nc-sa/3.0/us/) license.
 </div>
